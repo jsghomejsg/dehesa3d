@@ -3,10 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <!-- SEO Optimizado para Valle de los Pedroches y Pozoblanco -->
-    <title>Placas SOS NFC para Niños y Mochilas - Dehesa 3D (Pozoblanco)</title>
-    <meta name="description" content="Identificadores inteligentes con chip NFC para mochilas infantiles, excursiones y eventos en Pozoblanco y el Valle de los Pedroches. ¡Contacto rápido de emergencia!">
-    <meta name="keywords" content="placas sos niños pozoblanco, identificador mochila nfc valle de los pedroches, seguridad infantil 3d, dehesa 3d">
+    <title>Placas SOS NFC para Niños y Mochilas - Dehesa 3D</title>
+    <meta name="description" content="Identificadores inteligentes con chip NFC para mochilas infantiles, excursiones y eventos. ¡Contacto rápido de emergencia!">
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
     <style>
         :root {
@@ -45,6 +43,12 @@
             width: 100%;
         }
 
+        .logo-link {
+            display: inline-block;
+            text-decoration: none;
+            outline: none;
+        }
+
         .logo-wrapper {
             display: inline-block;
             width: 140px;
@@ -52,6 +56,12 @@
             margin-bottom: 10px;
             overflow: hidden;
             border-radius: 50%;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .logo-link:hover .logo-wrapper {
+            transform: scale(1.03);
+            opacity: 0.95;
         }
 
         .logo {
@@ -155,7 +165,6 @@
             font-weight: bold;
         }
 
-        /* Pricing Box Style */
         .pricing-box {
             background-color: rgba(249, 115, 22, 0.05);
             border: 1px solid rgba(249, 115, 22, 0.2);
@@ -203,7 +212,6 @@
             transform: translateY(-2px);
         }
 
-        /* Floating WhatsApp Widget */
         .whatsapp-float {
             position: fixed;
             bottom: 25px;
@@ -247,9 +255,11 @@
 <body>
 
     <header>
-        <div class="logo-wrapper">
-            <img src="logo.png" alt="Dehesa 3D Logo" class="logo">
-        </div>
+        <a href="index.html" class="logo-link" title="Ir a la página principal de Dehesa 3D">
+            <div class="logo-wrapper">
+                <img src="logo.png" alt="Dehesa 3D Logo" class="logo">
+            </div>
+        </a>
     </header>
 
     <main class="content-container">
@@ -258,9 +268,9 @@
         <span class="badge">Infantil & Mochilas</span>
         <h1>Placas SOS Niños y Excursiones</h1>
         
-        <img src="placa-nino.jpg" alt="Placas SOS para Niños y Mochilas en Pozoblanco - Dehesa 3D" class="product-img" onerror="this.style.display='none'">
+        <img src="placa-nino.jpg" alt="Placas SOS para Niños y Mochilas - Dehesa 3D" class="product-img" onerror="this.style.display='none'">
 
-        <p>Una capa extra de seguridad muy útil para los más pequeños. Diseñadas para engancharse fácilmente en las zapatillas mediante los cordones, en las asas de las mochilas del colegio o en la ropa durante excursiones, romerías y eventos multitudinarios por el Valle de los Pedroches.</p>
+        <p>Una capa extra de seguridad muy útil para los más pequeños. Diseñadas para engancharse fácilmente en las zapatillas mediante los cordones, en las asas de las mochilas del colegio o en la ropa durante excursiones, romerías y eventos multitudinarios.</p>
 
         <h2>¿Qué información facilita?</h2>
         <ul>
@@ -275,7 +285,6 @@
             <li><strong>Parques, ferias y grandes aglomeraciones:</strong> Espacios concurridos donde un despiste se resuelve en segundos gracias al NFC.</li>
         </ul>
 
-        <!-- Bloque orientativo de precios / volumen -->
         <div class="pricing-box">
             <h3>Tarifas y Packs Familiares</h3>
             <p style="margin-bottom: 12px; font-size: 0.95rem;">Soluciones económicas para la seguridad de los menores:</p>
@@ -293,7 +302,6 @@
         </div>
     </main>
 
-    <!-- Floating WhatsApp Widget -->
     <a href="https://wa.me/34611801528" class="whatsapp-float" target="_blank" title="Contactar por WhatsApp">
         <svg viewBox="0 0 32 32">
             <path d="M16 2a13 13 0 0 0-11 20l-2 6 6-2a13 13 0 1 0 7-24zm0 24a11 11 0 0 1-5.6-1.5l-.4-.2-4.1 1.1 1.1-4-.3-.5a11 11 0 1 1 9.3 5.1zm6-8.2c-.3-.2-1.9-.9-2.2-1s-.5-.2-.7.2-.8 1-1 1.2-.4.2-.7 0a9 9 0 0 1-2.6-1.6 10 10 0 0 1-1.8-2.3c-.2-.3 0-.5.1-.7l.5-.6c.2-.2.2-.4.3-.6s0-.4 0-.5l-1-2.3c-.2-.7-.5-.6-.7-.6h-.6c-.2 0-.6.1-.9.4s-1.2 1.2-1.2 2.9 1.2 3.4 1.4 3.6 2.4 3.7 5.8 5.2c.8.3 1.4.5 1.9.7.8.2 1.5.2 2.1.1.7-.1 2.1-.8 2.4-1.6s.3-1.5.2-1.6-.3-.3-.6-.5z"/>
@@ -301,7 +309,7 @@
     </a>
 
     <footer>
-        <p>&copy; 2026 Dehesa 3D • Pozoblanco, Córdoba • Valle de los Pedroches • Fabricado en España</p>
+        <p>&copy; 2026 Dehesa 3D • Fabricado en España</p>
     </footer>
 </body>
 </html>
