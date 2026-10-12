@@ -42,13 +42,22 @@
             width: 100%;
         }
 
-        /* Recorte en círculo para eliminar cualquier borde o recuadro gris */
-        .logo {
+        /* Recorte ajustado + escalado para eliminar 100% del fondo gris de la imagen */
+        .logo-wrapper {
+            display: inline-block;
             width: 220px;
             height: 220px;
-            object-fit: cover;
-            clip-path: circle(48% at 50% 50%);
             margin-bottom: 15px;
+            overflow: hidden;
+            border-radius: 50%;
+        }
+
+        .logo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            clip-path: circle(36.5% at 50% 50%);
+            transform: scale(1.36);
             background-color: transparent;
         }
 
@@ -231,7 +240,9 @@
 <body>
 
     <header>
-        <img src="logo.png" alt="Dehesa 3D Logo" class="logo">
+        <div class="logo-wrapper">
+            <img src="logo.png" alt="Dehesa 3D Logo" class="logo">
+        </div>
         <h1>DEHESA <span>3D</span></h1>
         <p class="tagline">Fabricación 3D e Identificación NFC Interactiva</p>
     </header>
