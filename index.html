@@ -21,11 +21,6 @@
     <meta property="og:site_name" content="Dehesa 3D">
     <meta property="og:locale" content="es_ES">
     
-    <!-- Twitter Card -->
-    <meta name="twitter:card" content="summary_large_image">
-    <meta name="twitter:title" content="Dehesa 3D - Impresión 3D y Llaveros NFC">
-    <meta name="twitter:description" content="Especialistas en impresión 3D y tecnología NFC">
-    
     <!-- Canonical URL -->
     <link rel="canonical" href="https://dehesa3d.es">
     
@@ -237,6 +232,143 @@
             background-color: #1ebd56;
         }
 
+        /* Secciones extra: FAQ y Opiniones */
+        .section-wrapper {
+            width: 100%;
+            max-width: 1100px;
+            margin-bottom: 50px;
+            background-color: var(--card-bg);
+            border: 1px solid var(--card-border);
+            border-radius: 16px;
+            padding: 30px;
+        }
+
+        .section-title {
+            font-size: 1.6rem;
+            font-weight: 800;
+            color: var(--text-primary);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .section-title span {
+            color: var(--logo-orange);
+        }
+
+        /* Acordeón FAQ */
+        .faq-container {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .faq-item {
+            background-color: rgba(255, 255, 255, 0.02);
+            border: 1px solid var(--card-border);
+            border-radius: 10px;
+            overflow: hidden;
+            transition: border-color 0.2s;
+        }
+
+        .faq-item:hover {
+            border-color: rgba(249, 115, 22, 0.4);
+        }
+
+        .faq-question {
+            width: 100%;
+            background: none;
+            border: none;
+            color: var(--text-primary);
+            font-size: 1.02rem;
+            font-weight: 600;
+            text-align: left;
+            padding: 18px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .faq-question::after {
+            content: "+";
+            font-size: 1.4rem;
+            color: var(--logo-orange);
+            font-weight: 700;
+            transition: transform 0.3s ease;
+        }
+
+        .faq-item.active .faq-question::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease-out;
+            padding: 0 20px;
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-bottom: 18px;
+        }
+
+        /* Testimonios */
+        .testimonials-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .testimonial-card {
+            background-color: rgba(0, 0, 0, 0.3);
+            border: 1px solid var(--card-border);
+            border-radius: 12px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .testimonial-text {
+            color: var(--text-secondary);
+            font-size: 0.92rem;
+            font-style: italic;
+            margin-bottom: 15px;
+        }
+
+        .testimonial-author {
+            font-weight: 700;
+            color: var(--text-primary);
+            font-size: 0.9rem;
+        }
+
+        .stars {
+            color: #fbbf24;
+            margin-bottom: 8px;
+            letter-spacing: 2px;
+        }
+
+        .review-cta {
+            text-align: center;
+            margin-top: 20px;
+            font-size: 0.95rem;
+            color: var(--text-secondary);
+        }
+
+        .review-cta a {
+            color: var(--logo-orange);
+            text-decoration: none;
+            font-weight: 600;
+        }
+
+        .review-cta a:hover {
+            text-decoration: underline;
+        }
+
         /* Floating WhatsApp Widget */
         .whatsapp-float {
             position: fixed;
@@ -328,61 +460,126 @@
         <p class="tagline">Impresión 3D de Precisión y Tecnología NFC</p>
     </header>
 
-    <main class="catalog-container">
+    <main style="width: 100%; max-width: 1100px; display: flex; flex-direction: column; align-items: center;">
 
-        <!-- OPCIÓN 1: LLAVEROS NFC -->
-        <div class="card">
-            <img src="./llavero-nfc.jpg" alt="Llaveros NFC Inteligentes" class="card-img" onerror="this.style.display='none'">
-            <div class="card-content">
-                <span class="badge green">NFC Interactivo</span>
-                <h2 class="card-title">Llaveros NFC Inteligentes</h2>
-                <p class="card-desc">Llaveros resistentes con chip NFC fabricados a medida. Comparte reseñas de Google, Instagram o web al instante acercando el móvil.</p>
-                <div class="card-actions">
-                    <a href="llaveros-nfc.html" class="btn btn-outline">Ver apartado completo ➔</a>
-                    <a href="https://wa.me/34611801528?text=Hola,%20busco%20informaci%C3%B3n%20sobre%20los%20Llaveros%20NFC%20Inteligentes" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+        <!-- CATÁLOGO DE PRODUCTOS -->
+        <div class="catalog-container">
+
+            <!-- OPCIÓN 1: LLAVEROS NFC -->
+            <div class="card">
+                <img src="./llavero-nfc.jpg" alt="Llaveros NFC Inteligentes" class="card-img" onerror="this.style.display='none'">
+                <div class="card-content">
+                    <span class="badge green">NFC Interactivo</span>
+                    <h2 class="card-title">Llaveros NFC Inteligentes</h2>
+                    <p class="card-desc">Llaveros resistentes con chip NFC fabricados a medida. Comparte reseñas de Google, Instagram o web al instante acercando el móvil.</p>
+                    <div class="card-actions">
+                        <a href="llaveros-nfc.html" class="btn btn-outline">Ver apartado completo ➔</a>
+                        <a href="https://wa.me/34611801528?text=Hola,%20busco%20informaci%C3%B3n%20sobre%20los%20Llaveros%20NFC%20Inteligentes" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                    </div>
                 </div>
+            </div>
+
+            <!-- OPCIÓN 2: LLAVEROS PERSONALIZADOS -->
+            <div class="card">
+                <img src="./llavero-personalizado.jpg" alt="Llaveros Personalizados 3D Multicolor" class="card-img" onerror="this.style.display='none'">
+                <div class="card-content">
+                    <span class="badge">Multicolor B2B</span>
+                    <h2 class="card-title">Llaveros Personalizados</h2>
+                    <p class="card-desc">Diseño e impresión 3D multicolor para empresas, clubes, peñas y eventos. Presupuestos sin compromiso y envíos disponibles.</p>
+                    <div class="card-actions">
+                        <a href="llaveros-personalizados.html" class="btn btn-outline">Ver apartado completo ➔</a>
+                        <a href="https://wa.me/34611801528?text=Hola,%20me%20interesan%20los%20Llaveros%20Personalizados%203D" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPCIÓN 3: PLACAS SOS MASCOTAS -->
+            <div class="card">
+                <img src="./placa-mascota.jpg" alt="Placas SOS para Mascotas con NFC" class="card-img" onerror="this.style.display='none'">
+                <div class="card-content">
+                    <span class="badge green">Seguridad NFC</span>
+                    <h2 class="card-title">Placas SOS para Mascotas</h2>
+                    <p class="card-desc">Placas ligeras e impermeables con NFC para collares. Si tu mascota se despista, cualquiera acerca su móvil y te llama al momento.</p>
+                    <div class="card-actions">
+                        <a href="placas-mascotas.html" class="btn btn-outline">Ver apartado completo ➔</a>
+                        <a href="https://wa.me/34611801528?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20las%20Placas%20SOS%20Mascotas" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+
+            <!-- OPCIÓN 4: PLACAS SOS NIÑOS -->
+            <div class="card">
+                <img src="./placa-nino.jpg" alt="Placas SOS para Niños con NFC" class="card-img" onerror="this.style.display='none'">
+                <div class="card-content">
+                    <span class="badge">Infantil & Mochilas</span>
+                    <h2 class="card-title">Placas SOS Niños y Excursiones</h2>
+                    <p class="card-desc">Identificadores con chip NFC y contacto rápido para mochilas infantiles, colegios, campamentos y excursiones.</p>
+                    <div class="card-actions">
+                        <a href="placas-ninos.html" class="btn btn-outline">Ver apartado completo ➔</a>
+                        <a href="https://wa.me/34611801528?text=Hola,%20busco%20Placas%20SOS%20para%20ni%C3%B1os%20o%20mochilas" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- SECCIÓN 3: OPINIONES / TESTIMONIOS -->
+        <div class="section-wrapper">
+            <h2 class="section-title">Opiniones de <span>Clientes</span></h2>
+            <div class="testimonials-grid">
+                <div class="testimonial-card">
+                    <div>
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Encargué un lote de llaveros NFC para mi negocio y el resultado ha sido impecable. Funcionan a la primera y la atención por WhatsApp fue rapidísima."</p>
+                    </div>
+                    <p class="testimonial-author">— Carlos M. (Comercio Local)</p>
+                </div>
+                <div class="testimonial-card">
+                    <div>
+                        <div class="stars">★★★★★</div>
+                        <p class="testimonial-text">"Le puse la placa SOS NFC al collar del perro y da una tranquilidad enorme. Es súper ligera y resistente al agua."</p>
+                    </div>
+                    <p class="testimonial-author">— Laura G. (Particular)</p>
+                </div>
+            </div>
+            <div class="review-cta">
+                ¿Has confiado en nosotros? <a href="https://wa.me/34611801528?text=Hola,%20quiero%20dejaros%20mi%20opinión%20sobre%20vuestro%20trabajo" target="_blank">Escríbenos tu opinión por WhatsApp</a> y la publicaremos.
             </div>
         </div>
 
-        <!-- OPCIÓN 2: LLAVEROS PERSONALIZADOS -->
-        <div class="card">
-            <img src="./llavero-personalizado.jpg" alt="Llaveros Personalizados 3D Multicolor" class="card-img" onerror="this.style.display='none'">
-            <div class="card-content">
-                <span class="badge">Multicolor B2B</span>
-                <h2 class="card-title">Llaveros Personalizados</h2>
-                <p class="card-desc">Diseño e impresión 3D multicolor para empresas, clubes, peñas y eventos. Presupuestos sin compromiso y envíos disponibles.</p>
-                <div class="card-actions">
-                    <a href="llaveros-personalizados.html" class="btn btn-outline">Ver apartado completo ➔</a>
-                    <a href="https://wa.me/34611801528?text=Hola,%20me%20interesan%20los%20Llaveros%20Personalizados%203D" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+        <!-- SECCIÓN 1: PREGUNTAS FRECUENTES (FAQ) -->
+        <div class="section-wrapper">
+            <h2 class="section-title">Preguntas <span>Frecuentes</span></h2>
+            <div class="faq-container">
+                
+                <div class="faq-item">
+                    <button class="faq-question">¿Hace falta instalar alguna aplicación para usar los llaveros o placas NFC?</button>
+                    <div class="faq-answer">
+                        <p>No, en absoluto. Los chips NFC funcionan por inducción electromagnética con cualquier smartphone moderno (Android e iOS). Quien escanea el llavero solo necesita acercar su teléfono y el enlace (web, llamada o perfil) se abre de forma automática.</p>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- OPCIÓN 3: PLACAS SOS MASCOTAS -->
-        <div class="card">
-            <img src="./placa-mascota.jpg" alt="Placas SOS para Mascotas con NFC" class="card-img" onerror="this.style.display='none'">
-            <div class="card-content">
-                <span class="badge green">Seguridad NFC</span>
-                <h2 class="card-title">Placas SOS para Mascotas</h2>
-                <p class="card-desc">Placas ligeras e impermeables con NFC para collares. Si tu mascota se despista, cualquiera acerca su móvil y te llama al momento.</p>
-                <div class="card-actions">
-                    <a href="placas-mascotas.html" class="btn btn-outline">Ver apartado completo ➔</a>
-                    <a href="https://wa.me/34611801528?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20las%20Placas%20SOS%20Mascotas" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                <div class="faq-item">
+                    <button class="faq-question">¿Cómo os hago llegar mi logotipo o diseño personalizado?</button>
+                    <div class="faq-answer">
+                        <p>Es muy sencillo. Solo tienes que pulsar en cualquiera de nuestros botones de WhatsApp y enviarnos tu imagen, logotipo o idea. Te mostraremos una vista previa digital antes de fabricar las piezas.</p>
+                    </div>
                 </div>
-            </div>
-        </div>
 
-        <!-- OPCIÓN 4: PLACAS SOS NIÑOS -->
-        <div class="card">
-            <img src="./placa-nino.jpg" alt="Placas SOS para Niños con NFC" class="card-img" onerror="this.style.display='none'">
-            <div class="card-content">
-                <span class="badge">Infantil & Mochilas</span>
-                <h2 class="card-title">Placas SOS Niños y Excursiones</h2>
-                <p class="card-desc">Identificadores con chip NFC y contacto rápido para mochilas infantiles, colegios, campamentos y excursiones.</p>
-                <div class="card-actions">
-                    <a href="placas-ninos.html" class="btn btn-outline">Ver apartado completo ➔</a>
-                    <a href="https://wa.me/34611801528?text=Hola,%20busco%20Placas%20SOS%20para%20ni%C3%B1os%20o%20mochilas" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                <div class="faq-item">
+                    <button class="faq-question">¿Son resistentes los productos al agua, golpes y al uso en la calle?</button>
+                    <div class="faq-answer">
+                        <p>Sí. Fabricamos mediante impresión 3D utilizando polímeros técnicos de gran durabilidad. Las placas y llaveros están diseñados para resistir el uso diario, la intemperie, el agua y los golpes habituales.</p>
+                    </div>
                 </div>
+
+                <div class="faq-item">
+                    <button class="faq-question">¿Cuál es el plazo de entrega o cómo se realizan los pedidos?</button>
+                    <div class="faq-answer">
+                        <p>Gestionamos cada encargo de forma personalizada según el volumen. Consúltanos directamente por WhatsApp indicando qué necesitas y te daremos presupuesto y plazos de entrega exactos al instante.</p>
+                    </div>
+                </div>
+
             </div>
         </div>
 
@@ -416,6 +613,22 @@
         </div>
         <p style="border-top: 1px solid var(--card-border); padding-top: 15px;">&copy; 2026 <strong>Dehesa 3D</strong> • Fabricado en España</p>
     </footer>
+
+    <!-- Script JavaScript para el acordeón de FAQ -->
+    <script>
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            const question = item.querySelector('.faq-question');
+            question.addEventListener('click', () => {
+                faqItems.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        otherItem.classList.remove('active');
+                    }
+                });
+                item.classList.toggle('active');
+            });
+        });
+    </script>
 
 </body>
 </html>
