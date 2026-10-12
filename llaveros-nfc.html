@@ -152,6 +152,25 @@
             font-weight: bold;
         }
 
+        /* Pricing Box Style */
+        .pricing-box {
+            background-color: rgba(249, 115, 22, 0.05);
+            border: 1px solid rgba(249, 115, 22, 0.2);
+            border-radius: 12px;
+            padding: 20px;
+            margin: 25px 0;
+        }
+
+        .pricing-box h3 {
+            color: var(--logo-orange);
+            font-size: 1.1rem;
+            margin-bottom: 10px;
+        }
+
+        .pricing-box ul li::before {
+            color: var(--logo-orange);
+        }
+
         .cta-box {
             text-align: center;
             margin-top: 30px;
@@ -254,10 +273,20 @@
             <li><strong>Personalizables:</strong> Diseñados a medida con la identidad visual o logotipo de tu marca.</li>
         </ul>
 
+        <!-- Bloque orientativo de precios / volumen -->
+        <div class="pricing-box">
+            <h3>Tarifas y Descuentos por Volumen</h3>
+            <p style="margin-bottom: 12px; font-size: 0.95rem;">Nos adaptamos tanto a pedidos individuales como a grandes tiradas corporativas:</p>
+            <ul>
+                <li><strong>Unidades sueltas / Uso personal:</strong> Disponibles para encargos particulares rápidos.</li>
+                <li><strong>Lotes para Empresas y Negocios:</strong> Precios especiales por volumen a partir de 10-20 unidades, con programación NFC y diseño personalizado incluidos.</li>
+            </ul>
+        </div>
+
         <div class="cta-box">
-            <p style="margin-bottom: 15px;">¿Quieres encargar tus llaveros interactivos o tienes dudas sobre su configuración?</p>
-            <a href="https://wa.me/34611801528?text=Hola,%20me%20interesan%20los%20Llaveros%20NFC%20Inteligentes.%20Quiero%20consultar%20detalles." class="btn-whatsapp" target="_blank">
-                Pedir información por WhatsApp
+            <p style="margin-bottom: 15px;">¿Cuántos llaveros necesitas? Consúltanos sin compromiso y te damos presupuesto personalizado al instante.</p>
+            <a href="https://wa.me/34611801528?text=Hola,%20me%20interesan%20los%20Llaveros%20NFC%20Inteligentes.%20Quiero%20consultar%20presupuesto." class="btn-whatsapp" target="_blank">
+                Pedir presupuesto por WhatsApp
             </a>
         </div>
     </main>
