@@ -71,6 +71,12 @@
             width: 100%;
         }
 
+        .logo-link {
+            display: inline-block;
+            text-decoration: none;
+            outline: none;
+        }
+
         .logo-wrapper {
             display: inline-block;
             width: 220px;
@@ -78,6 +84,12 @@
             margin-bottom: 15px;
             overflow: hidden;
             border-radius: 50%;
+            transition: transform 0.2s ease, opacity 0.2s ease;
+        }
+
+        .logo-link:hover .logo-wrapper {
+            transform: scale(1.03);
+            opacity: 0.95;
         }
 
         .logo {
@@ -307,9 +319,11 @@
 <body>
 
     <header>
-        <div class="logo-wrapper">
-            <img src="./logo.png" alt="Dehesa 3D Logo - Impresión 3D" class="logo">
-        </div>
+        <a href="index.html" class="logo-link" title="Ir a la página principal de Dehesa 3D">
+            <div class="logo-wrapper">
+                <img src="./logo.png" alt="Dehesa 3D Logo - Impresión 3D" class="logo">
+            </div>
+        </a>
         <h1>DEHESA <span>3D</span></h1>
         <p class="tagline">Impresión 3D de Precisión y Tecnología NFC</p>
     </header>
