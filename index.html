@@ -1,243 +1,205 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Dehesa 3D - Impresión y Llaveros Personalizados</title>
-  <style>
-    * { box-sizing: border-box; margin: 0; padding: 0; font-family: system-ui, -apple-system, sans-serif; }
-    
-    body { 
-      background-color: #09090b; 
-      color: #f4f4f5; 
-      min-height: 100vh; 
-      padding: 15px; 
-      padding-bottom: 100px; 
-    }
-    
-    .container { max-width: 1100px; margin: 0 auto; }
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dehesa 3D - Impresión 3D e Identificación NFC</title>
+    <style>
+        :root {
+            --bg-color: #121212;
+            --card-bg: #1e1e1e;
+            --text-primary: #ffffff;
+            --text-secondary: #b0b0b0;
+            --accent-color: #e67e22; /* Naranja Dehesa 3D */
+            --green-btn: #25D366; /* Verde WhatsApp */
+            --green-hover: #1ebd56;
+        }
 
-    /* CABECERA */
-    header { 
-      display: flex; 
-      justify-content: center; 
-      align-items: center; 
-      padding: 20px 0; 
-      border-bottom: 1px solid #27272a; 
-      margin-bottom: 30px; 
-    }
-    .logo { 
-      font-size: 1.8rem; 
-      font-weight: 800; 
-      letter-spacing: 1px; 
-      color: #ffffff; 
-      text-decoration: none; 
-    }
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+            font-family: 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
 
-    /* SECCIÓN PRINCIPAL */
-    .hero { text-align: center; margin-bottom: 45px; }
-    .hero h1 { font-size: 2.2rem; margin-bottom: 8px; font-weight: 800; color: #ffffff; }
-    .hero p { color: #a1a1aa; font-size: 1.1rem; max-width: 600px; margin: 0 auto 25px auto; }
-    .hero-img-container { display: flex; justify-content: center; align-items: center; margin-top: 15px; }
-    
-    /* ESTILO PARA EL LOGO DEL HOCICO */
-    .hero-logo { 
-      width: 100%; 
-      max-width: 220px; 
-      height: auto;
-      object-fit: contain;
-      filter: drop-shadow(0 10px 25px rgba(0, 0, 0, 0.7)); 
-      transition: transform 0.3s ease;
-    }
-    .hero-logo:hover { transform: scale(1.03); }
+        body {
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            padding: 20px 15px;
+            min-height: 100vh;
+        }
 
-    /* GALERÍA DE PRODUCTOS */
-    .gallery-title { 
-      font-size: 1.4rem; 
-      margin-bottom: 20px; 
-      font-weight: 700; 
-      border-left: 4px solid #2563eb; 
-      padding-left: 12px; 
-    }
-    .grid { 
-      display: grid; 
-      grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); 
-      gap: 24px; 
-    }
-    
-    .card { 
-      background: #18181b; 
-      border-radius: 16px; 
-      overflow: hidden; 
-      border: 1px solid #27272a; 
-      display: flex;
-      flex-direction: column;
-      transition: transform 0.2s, border-color 0.2s;
-    }
-    .card:hover { transform: translateY(-4px); border-color: #3f3f46; }
-    
-    .card-img-wrap {
-      width: 100%;
-      height: 240px;
-      overflow: hidden;
-      background: #000000;
-    }
-    .card img { 
-      width: 100%; 
-      height: 100%; 
-      object-fit: cover; 
-      display: block; 
-    }
-    
-    .card-content { padding: 18px; display: flex; flex-direction: column; flex-grow: 1; }
-    .card-content h3 { font-size: 1.15rem; margin-bottom: 6px; color: #ffffff; text-transform: capitalize; }
-    .card-content p { color: #a1a1aa; font-size: 0.9rem; line-height: 1.4; margin-bottom: 16px; flex-grow: 1; }
-    
-    .btn-card-wa {
-      background: #16a34a; 
-      color: #ffffff; 
-      text-decoration: none; 
-      padding: 10px; 
-      border-radius: 10px; 
-      text-align: center; 
-      font-weight: 600; 
-      font-size: 0.9rem; 
-      display: flex; 
-      align-items: center; 
-      justify-content: center; 
-      gap: 8px;
-      transition: background 0.2s;
-    }
-    .btn-card-wa:hover { background: #15803d; }
+        header {
+            text-align: center;
+            margin-bottom: 30px;
+            max-width: 600px;
+        }
 
-    /* BOTÓN FLOTANTE WHATSAPP */
-    .whatsapp-float {
-      position: fixed;
-      bottom: 25px;
-      right: 25px;
-      background-color: #25d366;
-      color: #fff;
-      width: 60px;
-      height: 60px;
-      border-radius: 50px;
-      text-align: center;
-      box-shadow: 0 10px 25px rgba(37, 211, 102, 0.4);
-      z-index: 1000;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-      transition: transform 0.2s;
-    }
-    .whatsapp-float:hover { transform: scale(1.1); }
-    .whatsapp-float svg { width: 32px; height: 32px; fill: white; }
-  </style>
+        .logo {
+            width: 140px;
+            height: 140px;
+            object-fit: contain;
+            margin-bottom: 15px;
+            border-radius: 50%;
+        }
+
+        h1 {
+            font-size: 2.2rem;
+            letter-spacing: 2px;
+            margin-bottom: 8px;
+            color: var(--text-primary);
+        }
+
+        .subtitle {
+            font-size: 1.1rem;
+            color: var(--text-secondary);
+            font-weight: 400;
+        }
+
+        .catalog-container {
+            width: 100%;
+            max-width: 900px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .card {
+            background-color: var(--card-bg);
+            border-radius: 12px;
+            padding: 25px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            border: 1px solid #2a2a2a;
+            transition: transform 0.2s, border-color 0.2s;
+        }
+
+        .card:hover {
+            transform: translateY(-4px);
+            border-color: var(--accent-color);
+        }
+
+        .card-title {
+            font-size: 1.4rem;
+            color: var(--accent-color);
+            margin-bottom: 12px;
+        }
+
+        .card-description {
+            color: var(--text-secondary);
+            font-size: 0.95rem;
+            line-height: 1.5;
+            margin-bottom: 20px;
+        }
+
+        .card-features {
+            list-style: none;
+            margin-bottom: 25px;
+        }
+
+        .card-features li {
+            color: var(--text-primary);
+            font-size: 0.9rem;
+            margin-bottom: 8px;
+            display: flex;
+            align-items: center;
+        }
+
+        .card-features li::before {
+            content: "•";
+            color: var(--accent-color);
+            font-weight: bold;
+            font-size: 1.2rem;
+            margin-right: 8px;
+        }
+
+        .btn-whatsapp {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--green-btn);
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            padding: 12px 20px;
+            border-radius: 8px;
+            transition: background-color 0.2s;
+            text-align: center;
+            gap: 8px;
+        }
+
+        .btn-whatsapp:hover {
+            background-color: var(--green-hover);
+        }
+
+        footer {
+            margin-top: auto;
+            text-align: center;
+            color: var(--text-secondary);
+            font-size: 0.85rem;
+            padding-top: 20px;
+            border-top: 1px solid #222;
+            width: 100%;
+            max-width: 900px;
+        }
+    </style>
 </head>
 <body>
 
-  <div class="container">
     <header>
-      <a href="#" class="logo">DEHESA 3D</a>
+        <img src="logo.png" alt="Dehesa 3D Logo" class="logo">
+        <h1>DEHESA 3D</h1>
+        <p class="subtitle">Diseño y fabricación 3D + Tecnología NFC interactiva</p>
     </header>
 
-    <section class="hero">
-      <h1>Impresión 3D y Llaveros</h1>
-      <p>Diseño y fabricación personalizada de alta calidad</p>
-      <div class="hero-img-container">
-        <!-- MUESTRA EL LOGO DEL HOCICO -->
-        <img src="img/logo.png" alt="Dehesa 3D Logo" class="hero-logo" onerror="this.src='img/logo-dehesa3d.png'">
-      </div>
-    </section>
+    <main class="catalog-container">
 
-    <h2 class="gallery-title">Catálogo de Productos</h2>
+        <!-- BLOQUE 1: LLAVEROS -->
+        <div class="card">
+            <div>
+                <h2 class="card-title">Llaveros e Imanes Personalizados</h2>
+                <p class="card-description">
+                    Fabricación a medida para empresas, clubes, colectivos o uso personal.
+                </p>
+                <ul class="card-features">
+                    <li><strong>Sin NFC:</strong> Con logos, nombres, matrículas o diseños personalizados.</li>
+                    <li><strong>Con NFC Inteligente:</strong> Abre tus redes sociales, web o enlace directo a reseñas al acercar el móvil.</li>
+                    <li>Impresión multicolor de alta definición.</li>
+                </ul>
+            </div>
+            <a href="https://wa.me/34611801528?text=Hola,%20me%20gustaría%20consultar%20sobre%20los%20llaveros%20personalizados" class="btn-whatsapp" target="_blank">
+                Pedir por WhatsApp
+            </a>
+        </div>
 
-    <main class="grid" id="gallery">
-      <p style="color: #a1a1aa;">Cargando catálogo...</p>
+        <!-- BLOQUE 2: PLACAS SOS -->
+        <div class="card">
+            <div>
+                <h2 class="card-title">Placas de Seguridad SOS</h2>
+                <p class="card-description">
+                    Identificación inteligente con chip NFC para emergencias, mascotas y niños.
+                </p>
+                <ul class="card-features">
+                    <li><strong>Para Mascotas:</strong> Placa ligera e impermeable para el collar. Acceso rápido a tus datos sin lector de microchip.</li>
+                    <li><strong>Para Niños / Mochilas:</strong> Datos de contacto directo para excursiones o eventos.</li>
+                    <li>Lectura al instante con cualquier smartphone.</li>
+                </ul>
+            </div>
+            <a href="https://wa.me/34611801528?text=Hola,%20me%20gustaría%20información%20sobre%20las%20placas%20de%20seguridad%20SOS" class="btn-whatsapp" target="_blank">
+                Pedir por WhatsApp
+            </a>
+        </div>
+
     </main>
-  </div>
 
-  <!-- BOTÓN FLOTANTE DE WHATSAPP -->
-  <a href="https://wa.me/34611801528?text=Hola%20Dehesa%203D,%20me%20gustaría%20consultar%20sobre%20un%20pedido" class="whatsapp-float" target="_blank" title="Contactar por WhatsApp">
-    <svg viewBox="0 0 32 32">
-      <path d="M16 2a14 14 0 0 0-11.8 21.5L2 30l6.7-2.1A14 14 0 1 0 16 2zm0 25.5a11.4 11.4 0 0 1-5.8-1.6l-.4-.2-4.3 1.3 1.4-4.2-.3-.5a11.5 11.5 0 1 1 9.4 5.2zm6.3-8.6c-.3-.2-2-.9-2.3-1s-.6-.2-.8.2-.9 1.1-1.1 1.3-.4.2-.7 0a9.2 9.2 0 0 1-2.7-1.7 10.2 10.2 0 0 1-1.9-2.3c-.2-.3 0-.5.1-.7l.5-.6c.1-.2.2-.4.3-.5.1-.2 0-.4 0-.5s-.8-2-1.1-2.7c-.3-.7-.6-.6-.8-.6h-.7c-.2 0-.8.1-1.2.5s-1.6 1.5-1.6 3.7 1.6 4.3 1.8 4.6c.2.3 3.2 4.9 7.8 6.9 1.1.5 2 .8 2.7 1 .1 0 2.1.8 3 .6a3.5 3.5 0 0 0 2.3-1.6c.3-.5.3-1 .2-1.1s-.5-.3-.8-.5z"/>
-    </svg>
-  </a>
-
-  <script>
-    const user = 'jsghomejsg';
-    const repo = 'dehesa3d';
-    const folder = 'img';
-    const phone = '34611801528';
-
-    function getProductTitle(filename) {
-      const name = filename.toLowerCase();
-      if (name.includes('silueta') || name.includes('opel') || name.includes('coche')) {
-        return 'Regalos Personalizados 3D';
-      }
-      return filename
-        .replace(/\.[^/.]+$/, "")
-        .replace(/[-_]/g, " ")
-        .replace(/\b\w/g, l => l.toUpperCase());
-    }
-
-    function getProductDescription(filename) {
-      const name = filename.toLowerCase();
-      if (name.includes('pulsera')) {
-        return 'Pulsera de seguridad infantil con chip NFC integrado para datos de contacto de emergencia.';
-      } else if (name.includes('llavero') || name.includes('nfc')) {
-        return 'Llavero inteligente con tecnología NFC programable para compartir datos, redes o contacto al instante.';
-      } else if (name.includes('silueta') || name.includes('opel') || name.includes('coche')) {
-        return 'Diseños exclusivos y siluetas decorativas hechas a medida en 3D para cualquier idea, vehículo, logo o regalo especial.';
-      } else {
-        return 'Producto personalizado fabricado en impresión 3D con acabados de alta precisión.';
-      }
-    }
-
-    async function autoLoadGallery() {
-      const gallery = document.getElementById('gallery');
-      try {
-        const response = await fetch(`https://api.github.com/repos/${user}/${repo}/contents/${folder}`);
-        const files = await response.json();
-        
-        // Excluye la imagen del logo del catálogo dinámico de productos
-        const images = files.filter(f => /\.(jpg|jpeg|png|webp)$/i.test(f.name) && !f.name.toLowerCase().includes('logo'));
-        
-        if (images.length === 0) {
-          gallery.innerHTML = '<p style="color: #a1a1aa;">Sube tus fotos a la carpeta img para verlas aquí.</p>';
-          return;
-        }
-
-        gallery.innerHTML = '';
-
-        images.forEach(file => {
-          const displayTitle = getProductTitle(file.name);
-          const description = getProductDescription(file.name);
-          const waMessage = encodeURIComponent(`Hola Dehesa 3D, me interesa pedir información sobre: ${displayTitle}`);
-          const imageUrl = file.download_url || file.path;
-
-          const card = document.createElement('div');
-          card.className = 'card';
-          card.innerHTML = `
-            <div class="card-img-wrap">
-              <img src="${imageUrl}" alt="${displayTitle}" loading="lazy">
-            </div>
-            <div class="card-content">
-              <h3>${displayTitle}</h3>
-              <p>${description}</p>
-              <a href="https://wa.me/${phone}?text=${waMessage}" target="_blank" class="btn-card-wa">
-                💬 Pedir por WhatsApp
-              </a>
-            </div>
-          `;
-          gallery.appendChild(card);
-        });
-      } catch (err) {
-        gallery.innerHTML = '<p style="color: #ef4444;">Error al cargar las imágenes.</p>';
-      }
-    }
-
-    autoLoadGallery();
-  </script>
+    <footer>
+        <p>&copy; 2026 Dehesa 3D • Fabricado en España</p>
+    </footer>
 
 </body>
 </html>
