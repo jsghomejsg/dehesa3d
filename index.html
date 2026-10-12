@@ -8,8 +8,8 @@
     <style>
         :root {
             --bg-black: #000000;
-            --card-bg: #121212;
-            --card-border: #262626;
+            --card-bg: #111111;
+            --card-border: #222222;
             --text-primary: #ffffff;
             --text-secondary: #a3a3a3;
             --logo-orange: #f97316;
@@ -42,12 +42,14 @@
             width: 100%;
         }
 
+        /* Recorte en círculo para eliminar cualquier borde o recuadro gris */
         .logo {
-            width: 200px;
-            height: 200px;
-            object-fit: contain;
-            margin-bottom: 20px;
-            border-radius: 50%;
+            width: 220px;
+            height: 220px;
+            object-fit: cover;
+            clip-path: circle(48% at 50% 50%);
+            margin-bottom: 15px;
+            background-color: transparent;
         }
 
         h1 {
@@ -70,9 +72,9 @@
 
         .catalog-container {
             width: 100%;
-            max-width: 1050px;
+            max-width: 1100px;
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
             gap: 25px;
             margin-bottom: 50px;
         }
@@ -81,7 +83,7 @@
             background-color: var(--card-bg);
             border: 1px solid var(--card-border);
             border-radius: 16px;
-            padding: 26px;
+            overflow: hidden;
             display: flex;
             flex-direction: column;
             justify-content: space-between;
@@ -89,21 +91,36 @@
         }
 
         .card:hover {
-            transform: translateY(-4px);
+            transform: translateY(-5px);
             border-color: var(--logo-orange);
+        }
+
+        .card-img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            background-color: #1a1a1a;
+            border-bottom: 1px solid var(--card-border);
+        }
+
+        .card-content {
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            flex-grow: 1;
         }
 
         .badge {
             align-self: flex-start;
-            background: rgba(249, 115, 22, 0.12);
+            background: rgba(249, 115, 22, 0.15);
             color: var(--logo-orange);
             border: 1px solid rgba(249, 115, 22, 0.3);
-            font-size: 0.75rem;
+            font-size: 0.72rem;
             font-weight: 700;
             text-transform: uppercase;
-            padding: 4px 12px;
+            padding: 4px 10px;
             border-radius: 20px;
-            margin-bottom: 14px;
+            margin-bottom: 12px;
             letter-spacing: 0.5px;
         }
 
@@ -114,15 +131,15 @@
         }
 
         .card-title {
-            font-size: 1.35rem;
+            font-size: 1.25rem;
             font-weight: 700;
             color: var(--text-primary);
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
 
         .card-desc {
             color: var(--text-secondary);
-            font-size: 0.95rem;
+            font-size: 0.9rem;
             margin-bottom: 20px;
             flex-grow: 1;
         }
@@ -131,7 +148,7 @@
             display: flex;
             flex-direction: column;
             gap: 10px;
-            margin-top: 15px;
+            margin-top: auto;
         }
 
         .btn {
@@ -139,10 +156,10 @@
             align-items: center;
             justify-content: center;
             width: 100%;
-            padding: 12px 18px;
+            padding: 12px 16px;
             border-radius: 10px;
             font-weight: 600;
-            font-size: 0.95rem;
+            font-size: 0.92rem;
             cursor: pointer;
             text-decoration: none;
             transition: all 0.2s ease;
@@ -156,8 +173,9 @@
         }
 
         .btn-outline:hover {
-            background-color: #1f1f1f;
-            border-color: var(--text-secondary);
+            background-color: #1a1a1a;
+            border-color: var(--logo-orange);
+            color: var(--logo-orange);
         }
 
         .btn-whatsapp {
@@ -169,110 +187,7 @@
             background-color: #1ebd56;
         }
 
-        /* Modal Popups */
-        .modal-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.85);
-            backdrop-filter: blur(5px);
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            padding: 20px;
-            z-index: 1000;
-            opacity: 0;
-            pointer-events: none;
-            transition: opacity 0.25s ease;
-        }
-
-        .modal-overlay.active {
-            opacity: 1;
-            pointer-events: auto;
-        }
-
-        .modal-content {
-            background-color: var(--card-bg);
-            border: 1px solid var(--card-border);
-            border-radius: 18px;
-            max-width: 550px;
-            width: 100%;
-            max-height: 90vh;
-            overflow-y: auto;
-            padding: 30px;
-            position: relative;
-            transform: scale(0.95);
-            transition: transform 0.25s ease;
-        }
-
-        .modal-overlay.active .modal-content {
-            transform: scale(1);
-        }
-
-        .close-modal {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            background: rgba(255, 255, 255, 0.1);
-            border: none;
-            color: var(--text-primary);
-            font-size: 1.5rem;
-            width: 36px;
-            height: 36px;
-            border-radius: 50%;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .close-modal:hover {
-            background: rgba(255, 255, 255, 0.2);
-        }
-
-        .modal-title {
-            font-size: 1.6rem;
-            font-weight: 700;
-            color: var(--text-primary);
-            margin-bottom: 12px;
-            padding-right: 30px;
-        }
-
-        .modal-body {
-            color: var(--text-secondary);
-            font-size: 0.95rem;
-            margin-bottom: 25px;
-        }
-
-        .modal-body h4 {
-            color: var(--logo-orange);
-            font-size: 1.05rem;
-            margin: 18px 0 8px 0;
-        }
-
-        .modal-body ul {
-            list-style: none;
-            padding-left: 0;
-        }
-
-        .modal-body ul li {
-            position: relative;
-            padding-left: 20px;
-            margin-bottom: 8px;
-            color: var(--text-primary);
-        }
-
-        .modal-body ul li::before {
-            content: "✓";
-            position: absolute;
-            left: 0;
-            color: #4caf50;
-            font-weight: bold;
-        }
-
-        /* Floating WhatsApp Button */
+        /* Floating WhatsApp Widget */
         .whatsapp-float {
             position: fixed;
             bottom: 25px;
@@ -285,7 +200,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.6);
+            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.8);
             text-decoration: none;
             z-index: 999;
             transition: transform 0.2s;
@@ -309,7 +224,7 @@
             border-top: 1px solid var(--card-border);
             padding-top: 25px;
             width: 100%;
-            max-width: 1050px;
+            max-width: 1100px;
         }
     </style>
 </head>
@@ -325,144 +240,61 @@
 
         <!-- OPCIÓN 1 -->
         <div class="card">
-            <div>
+            <img src="llavero-nfc.jpg" alt="Llavero NFC Inteligente" class="card-img" onerror="this.style.display='none'">
+            <div class="card-content">
                 <span class="badge green">NFC Interactivo</span>
                 <h2 class="card-title">Llaveros NFC Inteligentes</h2>
-                <p class="card-desc">Llaveros resistentes con chip NFC integrado. Comparte tus reseñas de Google Maps, redes sociales, Wi-Fi o sitio web al instante acercando el móvil.</p>
-            </div>
-            <div class="card-actions">
-                <button class="btn btn-outline" onclick="openModal('modal-1')">Ver detalles y opciones ➔</button>
-                <a href="https://wa.me/34611801528?text=Hola,%20busco%20informaci%C3%B3n%20sobre%20los%20Llaveros%20NFC%20Inteligentes" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                <p class="card-desc">Llaveros resistentes con chip NFC. Comparte tus reseñas de Google, Instagram o web al instante acercando el móvil.</p>
+                <div class="card-actions">
+                    <a href="llaveros-nfc.html" class="btn btn-outline">Ver apartado completo ➔</a>
+                    <a href="https://wa.me/34611801528?text=Hola,%20busco%20informaci%C3%B3n%20sobre%20los%20Llaveros%20NFC%20Inteligentes" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                </div>
             </div>
         </div>
 
         <!-- OPCIÓN 2 -->
         <div class="card">
-            <div>
+            <img src="llavero-personalizado.jpg" alt="Llaveros Personalizados 3D" class="card-img" onerror="this.style.display='none'">
+            <div class="card-content">
                 <span class="badge">Multicolor B2B</span>
                 <h2 class="card-title">Llaveros Personalizados</h2>
-                <p class="card-desc">Diseño e impresión 3D en varios colores para empresas, clubes moteros, eventos, matrículas o merchandising corporativo sin NFC.</p>
-            </div>
-            <div class="card-actions">
-                <button class="btn btn-outline" onclick="openModal('modal-2')">Ver detalles y opciones ➔</button>
-                <a href="https://wa.me/34611801528?text=Hola,%20me%20interesan%20los%20Llaveros%20Personalizados%203D" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                <p class="card-desc">Diseño e impresión 3D multicolor para empresas, clubes moteros, eventos, matrículas o merchandising corporativo sin NFC.</p>
+                <div class="card-actions">
+                    <a href="llaveros-personalizados.html" class="btn btn-outline">Ver apartado completo ➔</a>
+                    <a href="https://wa.me/34611801528?text=Hola,%20me%20interesan%20los%20Llaveros%20Personalizados%203D" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                </div>
             </div>
         </div>
 
         <!-- OPCIÓN 3 -->
         <div class="card">
-            <div>
+            <img src="placa-mascota.jpg" alt="Placa SOS Mascotas" class="card-img" onerror="this.style.display='none'">
+            <div class="card-content">
                 <span class="badge green">Seguridad NFC</span>
                 <h2 class="card-title">Placas SOS para Mascotas</h2>
-                <p class="card-desc">Placas ligeras e impermeables para collares. Cualquier persona que encuentre a tu mascota puede escanearla y llamarte al momento.</p>
-            </div>
-            <div class="card-actions">
-                <button class="btn btn-outline" onclick="openModal('modal-3')">Ver detalles y opciones ➔</button>
-                <a href="https://wa.me/34611801528?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20las%20Placas%20SOS%20Mascotas" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                <p class="card-desc">Placas ligeras e impermeables para collares. En caso de pérdida, cualquiera acerca su móvil y puede llamarte al momento.</p>
+                <div class="card-actions">
+                    <a href="placas-mascotas.html" class="btn btn-outline">Ver apartado completo ➔</a>
+                    <a href="https://wa.me/34611801528?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20las%20Placas%20SOS%20Mascotas" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                </div>
             </div>
         </div>
 
         <!-- OPCIÓN 4 -->
         <div class="card">
-            <div>
+            <img src="placa-nino.jpg" alt="Placas SOS Niños y Mochilas" class="card-img" onerror="this.style.display='none'">
+            <div class="card-content">
                 <span class="badge">Infantil & Mochilas</span>
                 <h2 class="card-title">Placas SOS Niños y Excursiones</h2>
-                <p class="card-desc">Identificadores con chip NFC y QR de contacto rápido para mochilas infantiles, pulseras de parques, excursiones o eventos multitudinarios.</p>
-            </div>
-            <div class="card-actions">
-                <button class="btn btn-outline" onclick="openModal('modal-4')">Ver detalles y opciones ➔</button>
-                <a href="https://wa.me/34611801528?text=Hola,%20busco%20Placas%20SOS%20para%20ni%C3%B1os%20o%20mochilas" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                <p class="card-desc">Identificadores con chip NFC y contacto rápido para mochilas infantiles, pulseras de parques, excursiones o eventos.</p>
+                <div class="card-actions">
+                    <a href="placas-ninos.html" class="btn btn-outline">Ver apartado completo ➔</a>
+                    <a href="https://wa.me/34611801528?text=Hola,%20busco%20Placas%20SOS%20para%20ni%C3%B1os%20o%20mochilas" class="btn btn-whatsapp" target="_blank">Pedir por WhatsApp</a>
+                </div>
             </div>
         </div>
 
     </main>
-
-    <!-- MODAL 1 -->
-    <div id="modal-1" class="modal-overlay" onclick="closeOnOverlay(event, 'modal-1')">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('modal-1')">&times;</button>
-            <h3 class="modal-title">Llaveros NFC Inteligentes</h3>
-            <div class="modal-body">
-                <p>Nuestros llaveros NFC combinan impresión 3D multicolor de alta definición con chips reprogramables NTAG215 de lectura ultrarrápida.</p>
-                <h4>Usos principales:</h4>
-                <ul>
-                    <li><strong>Comercios y Bares:</strong> Abrir la ficha de Google Maps para reseñas de 5 estrellas al instante.</li>
-                    <li><strong>Redes Sociales:</strong> Enlazar directamente a tu Instagram, TikTok o canal oficial.</li>
-                    <li><strong>Tarjetas de Visita:</strong> Compartir tu contacto o WhatsApp de empresa con un toque.</li>
-                </ul>
-                <h4>Características Técnicas:</h4>
-                <ul>
-                    <li>Resistentes al agua, golpes y rozaduras diarios.</li>
-                    <li>Personalizables con tu logo corporativo o texto en relieve.</li>
-                    <li>Sin baterías: funcionan por inducción electromagnética con cualquier smartphone.</li>
-                </ul>
-            </div>
-            <a href="https://wa.me/34611801528?text=Hola,%20quiero%20presupuesto%20para%20Llaveros%20NFC%20Inteligentes" class="btn btn-whatsapp" target="_blank">Pedir Presupuesto por WhatsApp</a>
-        </div>
-    </div>
-
-    <!-- MODAL 2 -->
-    <div id="modal-2" class="modal-overlay" onclick="closeOnOverlay(event, 'modal-2')">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('modal-2')">&times;</button>
-            <h3 class="modal-title">Llaveros Personalizados 3D</h3>
-            <div class="modal-body">
-                <p>Fabricación directa en tecnología FDM multicolor de alta precisión. Creamos piezas sólidas, ligeras y con acabados limpios.</p>
-                <h4>Ideal para:</h4>
-                <ul>
-                    <li>Clubes moteros, peñas, asociaciones y grupos deportivos.</li>
-                    <li>Regalos de empresa, eventos y merchandising.</li>
-                    <li>Réplicas de matrículas, nombres o logotipos personalizados.</li>
-                </ul>
-                <h4>Ventajas por lote:</h4>
-                <ul>
-                    <li>Precios reducidos para tiradas de 20, 50 y 100+ unidades.</li>
-                    <li>Muestra gráfica previa antes de imprimir.</li>
-                </ul>
-            </div>
-            <a href="https://wa.me/34611801528?text=Hola,%20quiero%20presupuesto%20para%20Llaveros%20Personalizados" class="btn btn-whatsapp" target="_blank">Pedir Presupuesto por WhatsApp</a>
-        </div>
-    </div>
-
-    <!-- MODAL 3 -->
-    <div id="modal-3" class="modal-overlay" onclick="closeOnOverlay(event, 'modal-3')">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('modal-3')">&times;</button>
-            <h3 class="modal-title">Placas SOS para Mascotas</h3>
-            <div class="modal-body">
-                <p>Una solución directa y moderna. En caso de pérdida, quien encuentre a tu mascota no necesita llevarla a un veterinario a leer el microchip homologado.</p>
-                <h4>¿Cómo funciona?</h4>
-                <ul>
-                    <li>Cualquier smartphone (Android o iPhone) acerca el teléfono a la placa.</li>
-                    <li>Aparece en pantalla el teléfono de los dueños con un botón de llamada directa.</li>
-                    <li>No requiere instalar ninguna aplicación externa.</li>
-                </ul>
-                <h4>Materiales:</h4>
-                <ul>
-                    <li>Súper ligeras para no molestar en el collar del animal.</li>
-                    <li>Estructura sellada e impermeable resistente a lluvia y barro.</li>
-                </ul>
-            </div>
-            <a href="https://wa.me/34611801528?text=Hola,%20quiero%20encargar%20una%20Placa%20SOS%20para%20Mascota" class="btn btn-whatsapp" target="_blank">Encargar Placa por WhatsApp</a>
-        </div>
-    </div>
-
-    <!-- MODAL 4 -->
-    <div id="modal-4" class="modal-overlay" onclick="closeOnOverlay(event, 'modal-4')">
-        <div class="modal-content">
-            <button class="close-modal" onclick="closeModal('modal-4')">&times;</button>
-            <h3 class="modal-title">Placas SOS Niños y Excursiones</h3>
-            <div class="modal-body">
-                <p>Diseñadas para colocar en mochilas, abrigos o pulseras de los más pequeños durante excursiones escolares, eventos multitudinarios o viajes.</p>
-                <h4>Información de emergencia:</h4>
-                <ul>
-                    <li>Teléfonos de contacto directo de los padres o tutores.</li>
-                    <li>Datos médicos relevantes (alergias, intolerancias o notas de salud).</li>
-                </ul>
-            </div>
-            <a href="https://wa.me/34611801528?text=Hola,%20quiero%20informaci%C3%B3n%20sobre%20Placas%20SOS%20Infantiles" class="btn btn-whatsapp" target="_blank">Consultar por WhatsApp</a>
-        </div>
-    </div>
 
     <!-- Floating WhatsApp Widget -->
     <a href="https://wa.me/34611801528" class="whatsapp-float" target="_blank" title="Contactar por WhatsApp">
@@ -475,29 +307,5 @@
         <p>&copy; 2026 Dehesa 3D • Pozoblanco, Córdoba • Fabricado en España</p>
     </footer>
 
-    <script>
-        function openModal(id) {
-            document.getElementById(id).classList.add('active');
-            document.body.style.overflow = 'hidden';
-        }
-
-        function closeModal(id) {
-            document.getElementById(id).classList.remove('active');
-            document.body.style.overflow = 'auto';
-        }
-
-        function closeOnOverlay(event, id) {
-            if (event.target.id === id) {
-                closeModal(id);
-            }
-        }
-
-        document.addEventListener('keydown', function(e) {
-            if (e.key === 'Escape') {
-                const activeModals = document.querySelectorAll('.modal-overlay.active');
-                activeModals.forEach(modal => closeModal(modal.id));
-            }
-        });
-    </script>
 </body>
 </html>
