@@ -294,8 +294,7 @@
             <div class="form-group">
                 <label for="colores">Número de Colores:</label>
                 <select id="colores" onchange="calcularCliente()">
-                    <option value="1">1 Color</option>
-                    <option value="2">2 Colores</option>
+                    <option value="2">2 Colores (Mínimo)</option>
                     <option value="3">3 Colores</option>
                     <option value="4">4 Colores</option>
                 </select>
@@ -331,7 +330,7 @@
         function calcularCliente() {
             const qty = parseInt(document.getElementById('cantCliente').value) || 50;
             const caras = parseInt(document.getElementById('caras').value) || 1;
-            const colores = parseInt(document.getElementById('colores').value) || 1;
+            const colores = parseInt(document.getElementById('colores').value) || 2;
             
             // 1. Tarifa base según volumen (Escalado estricto)
             let basePrice = 2.50; // Para < 50 uds
@@ -354,11 +353,10 @@
             // 2. Incremento por número de caras
             let multiplierCaras = (caras === 2) ? 1.30 : 1.0;
 
-            // 3. Incremento por número de colores (cambios de filamento en impresión aditiva)
+            // 3. Incremento por número de colores (mínimo 2 colores como base)
             let extraColores = 0.0;
-            if (colores === 2) extraColores = 0.15;
-            else if (colores === 3) extraColores = 0.30;
-            else if (colores === 4) extraColores = 0.45;
+            if (colores === 3) extraColores = 0.15;
+            else if (colores === 4) extraColores = 0.30;
 
             // Precio unitario final calculado
             let precioUnit = (basePrice * multiplierCaras) + extraColores;
