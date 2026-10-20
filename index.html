@@ -282,11 +282,22 @@
                 <label for="cantCliente">Cantidad de Llaveros / Imanes NFC:</label>
                 <input type="number" id="cantCliente" value="100" min="25" step="25" oninput="calcularCliente()">
             </div>
+            
             <div class="form-group">
-                <label for="tipoAcabado">Tipo de Producto:</label>
-                <select id="tipoAcabado" onchange="calcularCliente()">
-                    <option value="standard">Llavero Corporativo NFC Estándar (1 cara)</option>
-                    <option value="premium">Llavero Premium / Imanes con NFC Integrado (2 colores)</option>
+                <label for="caras">Diseño de Caras:</label>
+                <select id="caras" onchange="calcularCliente()">
+                    <option value="1">1 Cara (Impresión frontal)</option>
+                    <option value="2">2 Caras (Ambas caras con diseño)</option>
+                </select>
+            </div>
+
+            <div class="form-group">
+                <label for="colores">Número de Colores:</label>
+                <select id="colores" onchange="calcularCliente()">
+                    <option value="1">1 Color</option>
+                    <option value="2">2 Colores</option>
+                    <option value="3">3 Colores</option>
+                    <option value="4">4 Colores</option>
                 </select>
             </div>
             
@@ -318,20 +329,39 @@
 
     <script>
         function calcularCliente() {
-            const qty = parseInt(document.getElementById('cantCliente').value) || 100;
-            const tipo = document.getElementById('tipoAcabado').value;
+            const qty = parseInt(document.getElementById('cantCliente').value) || 50;
+            const caras = parseInt(document.getElementById('caras').value) || 1;
+            const colores = parseInt(document.getElementById('colores').value) || 1;
             
-            // Tarifa orientativa para el cliente escalada por volumen
-            let precioUnit = 1.80;
-            if (qty >= 100 && qty < 250) precioUnit = 1.40;
-            else if (qty >= 250 && qty < 500) precioUnit = 1.15;
-            else if (qty >= 500 && qty < 1000) precioUnit = 0.95;
-            else if (qty >= 1000) precioUnit = 0.75;
-
-            if (tipo === 'premium') {
-                precioUnit += 0.25;
+            // 1. Tarifa base según volumen (Escalado estricto)
+            let basePrice = 2.50; // Para < 50 uds
+            if (qty >= 50 && qty < 100) {
+                basePrice = 2.00;
+            } else if (qty >= 100 && qty < 250) {
+                basePrice = 1.50;
+            } else if (qty >= 250 && qty < 500) {
+                basePrice = 1.20;
+            } else if (qty >= 500 && qty < 1000) {
+                basePrice = 0.95;
+            } else if (qty >= 1000 && qty < 2500) {
+                basePrice = 0.75;
+            } else if (qty >= 2500 && qty < 5000) {
+                basePrice = 0.60;
+            } else if (qty >= 5000) {
+                basePrice = 0.45;
             }
 
+            // 2. Incremento por número de caras
+            let multiplierCaras = (caras === 2) ? 1.30 : 1.0;
+
+            // 3. Incremento por número de colores (cambios de filamento en impresión aditiva)
+            let extraColores = 0.0;
+            if (colores === 2) extraColores = 0.15;
+            else if (colores === 3) extraColores = 0.30;
+            else if (colores === 4) extraColores = 0.45;
+
+            // Precio unitario final calculado
+            let precioUnit = (basePrice * multiplierCaras) + extraColores;
             const total = qty * precioUnit;
 
             document.getElementById('resUnitarioCliente').innerText = precioUnit.toFixed(2) + ' €';
