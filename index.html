@@ -10,7 +10,6 @@
             --bg-card: #161616;
             --bg-card-hover: #1f1f1f;
             --border-color: #2a2a2a;
-            --accent-green: #2e7d32;
             --accent-orange: #f57c00;
             --accent-orange-hover: #ff9100;
             --text-main: #ffffff;
@@ -75,28 +74,26 @@
         nav a:hover {
             color: var(--accent-orange);
         }
-        /* CABECERA EN DOS COLUMNAS EXACTA */
+        
+        /* CABECERA HERO EN DOS COLUMNAS (TEXTO IZQUIERDA / IMAGEN DERECHA) */
         .hero {
-            padding: 90px 20px;
-            max-width: 1250px;
+            padding: 80px 40px;
+            max-width: 1300px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1.1fr 0.9fr;
-            gap: 50px;
+            grid-template-columns: 1fr 1fr;
+            gap: 60px;
             align-items: center;
         }
         .hero-content h1 {
-            font-size: 3.3rem;
+            font-size: 3.4rem;
             margin-bottom: 25px;
             color: #fff;
             letter-spacing: -1px;
-            line-height: 1.2;
+            line-height: 1.15;
         }
         .hero-content h1 span {
             color: var(--accent-orange);
-            background: linear-gradient(45deg, #f57c00, #ffb74d);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
         }
         .hero-content p {
             font-size: 1.15rem;
@@ -105,14 +102,12 @@
             line-height: 1.7;
         }
         .hero-image-box {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
+            position: relative;
             border-radius: 20px;
             overflow: hidden;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
-            display: flex;
-            align-items: center;
-            justify-content: center;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
+            background-color: #111;
         }
         .hero-image-box img {
             width: 100%;
@@ -121,17 +116,18 @@
             object-fit: cover;
             max-height: 420px;
         }
+        
         .cta-buttons {
             display: flex;
             gap: 15px;
             flex-wrap: wrap;
         }
         .btn {
-            padding: 15px 32px;
+            padding: 14px 28px;
             border-radius: 10px;
             font-weight: 600;
             text-decoration: none;
-            font-size: 1.05rem;
+            font-size: 1rem;
             transition: all 0.25s ease;
             cursor: pointer;
             border: none;
@@ -156,118 +152,124 @@
             background-color: rgba(245, 124, 0, 0.08);
             transform: translateY(-3px);
         }
+
         .section {
-            padding: 80px 20px;
-            max-width: 1150px;
+            padding: 80px 40px;
+            max-width: 1300px;
             margin: 0 auto;
         }
         .section-title {
-            text-align: center;
-            font-size: 2.4rem;
-            margin-bottom: 50px;
+            font-size: 2.2rem;
+            margin-bottom: 40px;
             color: #fff;
             font-weight: 700;
-            letter-spacing: -0.5px;
         }
+        
+        /* TARJETAS DE SOLUCIONES */
         .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
             gap: 30px;
         }
         .card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 35px;
-            transition: all 0.3s ease;
-            position: relative;
             overflow: hidden;
+            transition: all 0.3s ease;
         }
         .card:hover {
-            transform: translateY(-6px);
+            transform: translateY(-5px);
             border-color: var(--accent-orange);
-            background-color: var(--bg-card-hover);
             box-shadow: 0 10px 30px rgba(0,0,0,0.4);
         }
-        .card-icon {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            display: inline-block;
+        .card-img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-bottom: 1px solid var(--border-color);
+        }
+        .card-body {
+            padding: 25px;
         }
         .card h3 {
-            font-size: 1.4rem;
+            font-size: 1.3rem;
             margin-top: 0;
             color: #fff;
-            margin-bottom: 15px;
-            font-weight: 600;
+            margin-bottom: 12px;
         }
         .card p {
             color: var(--text-muted);
-            font-size: 1rem;
+            font-size: 0.95rem;
             margin: 0;
             line-height: 1.6;
         }
+
+        /* PROCESO DE TRABAJO */
         .steps-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
             gap: 30px;
         }
         .step-card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 35px;
-            position: relative;
+            padding: 30px;
         }
         .step-number {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             font-weight: 800;
             color: var(--accent-orange);
             margin-bottom: 15px;
-            opacity: 0.8;
         }
         .step-card h3 {
-            font-size: 1.3rem;
+            font-size: 1.2rem;
             color: #fff;
-            margin-bottom: 12px;
+            margin-bottom: 10px;
         }
         .step-card p {
             color: var(--text-muted);
             font-size: 0.95rem;
             margin: 0;
         }
+
+        /* FAQS */
         .faq-container {
-            max-width: 850px;
+            max-width: 900px;
             margin: 0 auto;
         }
         .faq-item {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 12px;
-            padding: 25px 30px;
-            margin-bottom: 20px;
+            padding: 22px 25px;
+            margin-bottom: 15px;
         }
         .faq-item h3 {
             color: #fff;
-            font-size: 1.2rem;
+            font-size: 1.15rem;
             margin-top: 0;
-            margin-bottom: 10px;
+            margin-bottom: 8px;
         }
         .faq-item p {
             color: var(--text-muted);
             font-size: 0.95rem;
             margin: 0;
         }
+
         footer {
             background-color: var(--bg-card);
             border-top: 1px solid var(--border-color);
             text-align: center;
-            padding: 50px 20px;
+            padding: 40px 20px;
             color: var(--text-muted);
             font-size: 0.95rem;
+            margin-top: 60px;
         }
+
         @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; text-align: center; gap: 35px; }
+            .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; padding: 50px 20px; }
             .cta-buttons { justify-content: center; }
             header { padding: 15px 20px; }
             nav { display: none; }
@@ -289,7 +291,7 @@
         </nav>
     </header>
 
-    <!-- CABECERA EN DOS COLUMNAS IDÉNTICA AL EJEMPLO -->
+    <!-- CABECERA HERO -->
     <section class="hero">
         <div class="hero-content">
             <h1>Conecta tu negocio al mundo físico con <span>NFC Inteligente</span></h1>
@@ -300,78 +302,86 @@
             </div>
         </div>
         <div class="hero-image-box">
-            <img src="hero-nfc.jpg" alt="Llavero NFC inteligente Dehesa 3D y móvil">
+            <img src="hero-nfc.jpg" alt="Llavero NFC inteligente y móvil corporativo Dehesa 3D">
         </div>
     </section>
 
+    <!-- SOLUCIONES ESPECÍFICAS -->
     <section id="soluciones" class="section">
-        <h2 class="section-title">Soluciones Específicas para tu Sector</h2>
+        <h2 class="section-title">Soluciones Específicas</h2>
         <div class="grid-3">
             <div class="card">
-                <div class="card-icon">📦</div>
-                <h3>E-commerce & Tiendas Online</h3>
-                <p>Añade un llavero NFC de alta calidad en los pedidos de tus clientes de Amazon u online. Con un simple toque con el móvil, desvías comprador recurrente directamente a tu tienda propia eliminando comisiones de plataformas.</p>
+                <img src="ecommerce.jpg" alt="E-commerce NFC" class="card-img" onerror="this.style.display='none'">
+                <div class="card-body">
+                    <h3>E-commerce & Tiendas Online</h3>
+                    <p>Añade un llavero NFC de alta calidad en los pedidos de tus clientes. Un toque con el móvil desvía al comprador directamente a tu tienda propia eliminando comisiones.</p>
+                </div>
             </div>
             <div class="card">
-                <div class="card-icon">🐾</div>
-                <h3>Clínicas Veterinarias & Salud Animal</h3>
-                <p>Placas identificativas inteligentes para mascotas y accesorios NFC para clínicas. Con un toque en el smartphone se accede al instante al historial médico digital o contacto de urgencia del propietario.</p>
+                <img src="veterinaria.jpg" alt="Clínicas Veterinarias" class="card-img" onerror="this.style.display='none'">
+                <div class="card-body">
+                    <h3>Clínicas Veterinarias & Salud</h3>
+                    <p>Placas identificativas inteligentes para mascotas. Acceso instantáneo al historial médico digital y contacto de urgencia del propietario.</p>
+                </div>
             </div>
             <div class="card">
-                <div class="card-icon">🍔</div>
-                <h3>Hostelería & Comercio Local</h3>
-                <p>Imanes de nevera inteligentes en los hogares de tus clientes. Un toque acerca el menú digital, reservas directas o llamadas instantáneas sin depender de códigos QR impresos que se desgastan.</p>
+                <img src="hosteleria.jpg" alt="Hostelería NFC" class="card-img" onerror="this.style.display='none'">
+                <div class="card-body">
+                    <h3>Hostelería & Comercio Local</h3>
+                    <p>Imanes de nevera inteligentes en los hogares de tus clientes para carta digital, reservas directas y pedidos sin depender de códigos QR impresos.</p>
+                </div>
             </div>
         </div>
     </section>
 
+    <!-- PROCESO DE TRABAJO -->
     <section id="proceso" class="section">
-        <h2 class="section-title">Proceso de Trabajo Sencillo y Transparente</h2>
+        <h2 class="section-title">Proceso de Trabajo</h2>
         <div class="steps-grid">
             <div class="step-card">
                 <div class="step-number">01</div>
                 <h3>Diseño y Validación</h3>
-                <p>Nos envías el logotipo o la identidad visual de tu empresa. Adaptamos el diseño tridimensional a medida para asegurar un contraste perfecto y una lectura impecable del chip NFC integrado.</p>
+                <p>Nos envías el logotipo corporativo. Adaptamos el diseño tridimensional para asegurar una lectura perfecta del chip NFC.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">02</div>
                 <h3>Muestra Física Gratuita</h3>
-                <p>Fabricamos una muestra real y te la enviamos sin compromiso. Queremos que compruebes en persona la robustez, el tacto y el acabado profesional antes de dar luz verde a la producción en serie.</p>
+                <p>Fabricamos una muestra real y te la enviamos sin compromiso para que compruebes en persona la robustez y los acabados.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">03</div>
                 <h3>Fabricación y Envío</h3>
-                <p>Producimos tu tirada corporativa con impresión multicapa de alta precisión y programamos los chips NFC. Recibes el pedido llave en mano en tu negocio con envíos rápidos a toda España.</p>
+                <p>Producimos tu tirada corporativa y programamos los chips NFC llave en mano. Envíos rápidos a toda España.</p>
             </div>
         </div>
     </section>
 
-    <section id="ventajas" class="section">
-        <h2 class="section-title">Preguntas Frecuentes (FAQs)</h2>
+    <!-- PREGUNTAS FRECUENTES -->
+    <section class="section">
+        <h2 class="section-title">Preguntas Frecuentes</h2>
         <div class="faq-container">
             <div class="faq-item">
                 <h3>¿Cuál es el pedido mínimo para empresas?</h3>
-                <p>Trabajamos tanto tiradas medianas como grandes volúmenes industriales. Para garantizar la máxima rentabilidad y costes optimizados, el pedido mínimo está enfocado a entornos profesionales (desde 50 unidades).</p>
+                <p>Trabajamos tiradas profesionales orientadas a empresas desde 50 unidades para garantizar la máxima optimización de costes.</p>
             </div>
             <div class="faq-item">
                 <h3>¿Cómo se entregan programados los chips NFC?</h3>
-                <p>Se entregan completamente listos para usar e incluidos en el precio. Solo tienes que facilitarnos el enlace web o el contacto al que deseas que redirijan al acercar el móvil, y nosotros nos encargamos de programarlos antes del envío.</p>
+                <p>Se entregan completamente listos para usar e incluidos en el precio. Solo nos facilitas tu enlace o contacto y los programamos de fábrica.</p>
             </div>
             <div class="faq-item">
                 <h3>¿Qué durabilidad tienen frente a llaveros tradicionales?</h3>
-                <p>A diferencia del plástico blando o el papel impreso que se borra, nuestros llaveros e imanes están fabricados mediante impresión aditiva técnica por capas, ofreciendo una resistencia excepcional a impactos, humedad y uso diario.</p>
+                <p>Fabricación aditiva por capas de alta resistencia técnica, preparados para soportar impactos, humedad y uso diario intensivo.</p>
             </div>
         </div>
     </section>
 
-    <section id="contacto" class="section" style="text-align: center; max-width: 750px;">
-        <h2 class="section-title">¿Hablamos de tu proyecto?</h2>
-        <p style="color: var(--text-muted); margin-bottom: 35px; font-size: 1.1rem;">
-            Envíamos muestras físicas gratuitas a empresas y profesionales para que compruebes la calidad técnica de nuestros acabados antes de realizar cualquier pedido. Escríbenos directamente por WhatsApp.
+    <!-- CONTACTO -->
+    <section id="contacto" class="section" style="max-width: 900px; text-align: center;">
+        <h2 class="section-title">Contacto</h2>
+        <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;">
+            ¿Hablamos de tu proyecto? Solicita tu muestra física gratuita directamente por WhatsApp.
         </p>
-        <div class="cta-buttons">
-            <a href="https://wa.me/34611801528?text=Hola,%20me%20interesa%20solicitar%20información%20y%20muestras%20de%20llaveros%20NFC%20para%20mi%20empresa" target="_blank" class="btn btn-primary" style="margin: 0 auto;">Contactar por WhatsApp Directo</a>
-        </div>
+        <a href="https://wa.me/34611801528?text=Hola,%20me%20interesa%20solicitar%20información%20y%20muestras%20de%20llaveros%20NFC%20para%20mi%20empresa" target="_blank" class="btn btn-primary">Contactar por WhatsApp Directo</a>
     </section>
 
     <footer>
