@@ -10,7 +10,6 @@
             --bg-card: #161616;
             --bg-card-hover: #1f1f1f;
             --border-color: #2a2a2a;
-            --accent-green: #2e7d32;
             --accent-orange: #f57c00;
             --accent-orange-hover: #ff9100;
             --text-main: #ffffff;
@@ -75,37 +74,63 @@
         nav a:hover {
             color: var(--accent-orange);
         }
+        /* HERO SECTION EN DOS COLUMNAS */
         .hero {
-            padding: 100px 20px 80px 20px;
-            text-align: center;
-            max-width: 950px;
+            padding: 80px 20px;
+            max-width: 1200px;
             margin: 0 auto;
+            display: grid;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
+            align-items: center;
         }
-        .hero h1 {
+        .hero-content h1 {
             font-size: 3.2rem;
             margin-bottom: 25px;
             color: #fff;
             letter-spacing: -1px;
             line-height: 1.2;
         }
-        .hero h1 span {
+        .hero-content h1 span {
             color: var(--accent-orange);
             background: linear-gradient(45deg, #f57c00, #ffb74d);
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        .hero p {
-            font-size: 1.25rem;
+        .hero-content p {
+            font-size: 1.15rem;
             color: var(--text-muted);
-            margin-bottom: 45px;
-            max-width: 800px;
-            margin-left: auto;
-            margin-right: auto;
+            margin-bottom: 35px;
+            line-height: 1.7;
+        }
+        .hero-image-box {
+            background: linear-gradient(135deg, #1f1f1f, #111);
+            border: 1px solid var(--border-color);
+            border-radius: 20px;
+            height: 340px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
+        }
+        /* Si quieres poner una foto real de fondo en la caja, descomenta la siguiente línea y sube 'hero-nfc.jpg':
+        .hero-image-box { background: url('hero-nfc.jpg') center/cover no-repeat; } */
+        .hero-image-placeholder {
+            text-align: center;
+            color: var(--text-muted);
+            font-size: 1.1rem;
+            padding: 20px;
+        }
+        .hero-image-placeholder span {
+            font-size: 3rem;
+            display: block;
+            margin-bottom: 10px;
         }
         .cta-buttons {
             display: flex;
-            justify-content: center;
-            gap: 18px;
+            gap: 15px;
             flex-wrap: wrap;
         }
         .btn {
@@ -139,14 +164,14 @@
             transform: translateY(-3px);
         }
         .section {
-            padding: 90px 20px;
+            padding: 80px 20px;
             max-width: 1150px;
             margin: 0 auto;
         }
         .section-title {
             text-align: center;
             font-size: 2.4rem;
-            margin-bottom: 60px;
+            margin-bottom: 50px;
             color: #fff;
             font-weight: 700;
             letter-spacing: -0.5px;
@@ -193,7 +218,6 @@
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 30px;
-            counter-reset: step;
         }
         .step-card {
             background-color: var(--bg-card);
@@ -249,8 +273,9 @@
             color: var(--text-muted);
             font-size: 0.95rem;
         }
-        @media (max-width: 768px) {
-            .hero h1 { font-size: 2.3rem; }
+        @media (max-width: 900px) {
+            .hero { grid-template-columns: 1fr; text-align: center; gap: 35px; }
+            .cta-buttons { justify-content: center; }
             header { padding: 15px 20px; }
             nav { display: none; }
         }
@@ -271,12 +296,22 @@
         </nav>
     </header>
 
+    <!-- CABECERA PRINCIPAL EN DOS COLUMNAS -->
     <section class="hero">
-        <h1>Conecta tu negocio al mundo físico con <span>NFC Inteligente</span></h1>
-        <p>Fabricación propia de llaveros e imanes corporativos de alta durabilidad con chip NFC integrado. Redirección instantánea a tu web, tienda online o servicios digitales sin fricción. Diseñado en el Valle de los Pedroches (Córdoba) con envíos a toda España.</p>
-        <div class="cta-buttons">
-            <a href="#contacto" class="btn btn-primary">Pedir Muestra Física Gratuita</a>
-            <a href="#soluciones" class="btn btn-secondary">Ver Soluciones para Empresas</a>
+        <div class="hero-content">
+            <h1>Conecta tu negocio al mundo físico con <span>NFC Inteligente</span></h1>
+            <p>Fabricación propia de llaveros e imanes corporativos de alta durabilidad con chip NFC integrado. Redirección instantánea a tu web, tienda online o servicios digitales sin fricción. Diseñado en el Valle de los Pedroches (Córdoba) con envíos a toda España.</p>
+            <div class="cta-buttons">
+                <a href="#contacto" class="btn btn-primary">Pedir Muestra Física Gratuita</a>
+                <a href="#soluciones" class="btn btn-secondary">Ver Soluciones</a>
+            </div>
+        </div>
+        <div class="hero-image-box">
+            <!-- Si subes una foto llamada 'hero-nfc.jpg', puedes quitar este bloque de texto o dejarlo como fallback -->
+            <div class="hero-image-placeholder">
+                <span>⚡ 📱</span>
+                <strong>Tecnología NFC Integrada</strong><br>Listo para escanear al instante
+            </div>
         </div>
     </section>
 
@@ -346,7 +381,7 @@
             Envíamos muestras físicas gratuitas a empresas y profesionales para que compruebes la calidad técnica de nuestros acabados antes de realizar cualquier pedido. Escríbenos directamente por WhatsApp.
         </p>
         <div class="cta-buttons">
-            <a href="https://wa.me/34611801528?text=Hola,%20me%20interesa%20solicitar%20información%20y%20muestras%20de%20llaveros%20NFC%20para%20mi%20empresa" target="_blank" class="btn btn-primary">Contactar por WhatsApp Directo</a>
+            <a href="https://wa.me/34611801528?text=Hola,%20me%20interesa%20solicitar%20información%20y%20muestras%20de%20llaveros%20NFC%20para%20mi%20empresa" target="_blank" class="btn btn-primary" style="margin: 0 auto;">Contactar por WhatsApp Directo</a>
         </div>
     </section>
 
