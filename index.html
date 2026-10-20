@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Dehesa 3D | Llaveros e Imanes NFC Inteligentes 100% Personalizados para Empresas</title>
+    <title>Imanes NFC para Comida a Domicilio & Takeaway | Dehesa 3D</title>
     <style>
         :root {
             --bg-dark: #0a0a0a;
@@ -75,187 +75,88 @@
             color: var(--accent-orange);
         }
         
-        /* CABECERA HERO EN DOS COLUMNAS */
-        .hero {
+        .subpage-hero {
             padding: 80px 40px;
-            max-width: 1300px;
+            max-width: 1200px;
             margin: 0 auto;
             display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 60px;
+            grid-template-columns: 1.1fr 0.9fr;
+            gap: 50px;
             align-items: center;
         }
-        .hero-content h1 {
-            font-size: 3.4rem;
-            margin-bottom: 25px;
+        .subpage-hero h1 {
+            font-size: 3rem;
+            margin-bottom: 20px;
             color: #fff;
-            letter-spacing: -1px;
-            line-height: 1.15;
+            line-height: 1.2;
         }
-        .hero-content h1 span {
+        .subpage-hero h1 span {
             color: var(--accent-orange);
         }
-        .hero-content p {
+        .subpage-hero p {
             font-size: 1.15rem;
             color: var(--text-muted);
-            margin-bottom: 35px;
+            margin-bottom: 30px;
             line-height: 1.7;
         }
-        .hero-image-box {
-            position: relative;
-            border-radius: 20px;
-            overflow: hidden;
-            border: 1px solid var(--border-color);
-            box-shadow: 0 25px 50px rgba(0,0,0,0.7);
-            background-color: #111;
-        }
-        .hero-image-box img {
+        .subpage-img {
             width: 100%;
-            height: auto;
-            display: block;
+            border-radius: 20px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 40px rgba(0,0,0,0.6);
             object-fit: cover;
-            max-height: 420px;
+            max-height: 380px;
         }
         
-        .cta-buttons {
-            display: flex;
-            gap: 15px;
-            flex-wrap: wrap;
+        .content-section {
+            padding: 60px 40px;
+            max-width: 1000px;
+            margin: 0 auto;
         }
+        .content-section h2 {
+            font-size: 2rem;
+            color: #fff;
+            margin-bottom: 20px;
+        }
+        .content-section p, .content-section li {
+            color: var(--text-muted);
+            font-size: 1.05rem;
+            line-height: 1.7;
+        }
+        .content-section ul {
+            margin-bottom: 30px;
+            padding-left: 20px;
+        }
+        .content-section li {
+            margin-bottom: 12px;
+        }
+
         .btn {
             padding: 14px 28px;
             border-radius: 10px;
             font-weight: 600;
             text-decoration: none;
             font-size: 1rem;
+            display: inline-block;
             transition: all 0.25s ease;
-            cursor: pointer;
-            border: none;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
-        }
-        .btn-primary {
             background-color: var(--accent-orange);
             color: #fff;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
         }
-        .btn-primary:hover {
+        .btn:hover {
             background-color: var(--accent-orange-hover);
             transform: translateY(-3px);
-            box-shadow: 0 6px 20px rgba(245, 124, 0, 0.4);
-        }
-        .btn-secondary {
-            background-color: rgba(255,255,255,0.05);
-            color: #fff;
-            border: 1px solid var(--border-color);
-        }
-        .btn-secondary:hover {
-            border-color: var(--accent-orange);
-            background-color: rgba(245, 124, 0, 0.08);
-            transform: translateY(-3px);
-        }
-
-        .section {
-            padding: 80px 40px;
-            max-width: 1300px;
-            margin: 0 auto;
-        }
-        .section-title {
-            font-size: 2.2rem;
-            margin-bottom: 40px;
-            color: #fff;
-            font-weight: 700;
         }
         
-        /* TARJETAS DE SOLUCIONES (4 SECTORES) */
-        .grid-4 {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 30px;
-        }
-        .card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-        }
-        .card:hover {
-            transform: translateY(-5px);
-            border-color: var(--accent-orange);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
-        }
-        .card-img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .card-body {
-            padding: 25px;
-        }
-        .card h3 {
-            font-size: 1.25rem;
-            margin-top: 0;
-            color: #fff;
-            margin-bottom: 12px;
-        }
-        .card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin: 0;
-            line-height: 1.6;
-        }
-
-        /* PROCESO DE TRABAJO */
-        .steps-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
-            gap: 30px;
-        }
-        .step-card {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-        }
-        .step-number {
-            font-size: 2.2rem;
-            font-weight: 800;
+        .back-link {
+            display: inline-block;
+            margin-bottom: 20px;
             color: var(--accent-orange);
-            margin-bottom: 15px;
+            text-decoration: none;
+            font-weight: 600;
         }
-        .step-card h3 {
-            font-size: 1.2rem;
-            color: #fff;
-            margin-bottom: 10px;
-        }
-        .step-card p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin: 0;
-        }
-
-        /* FAQS */
-        .faq-container {
-            max-width: 900px;
-            margin: 0 auto;
-        }
-        .faq-item {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 12px;
-            padding: 22px 25px;
-            margin-bottom: 15px;
-        }
-        .faq-item h3 {
-            color: #fff;
-            font-size: 1.15rem;
-            margin-top: 0;
-            margin-bottom: 8px;
-        }
-        .faq-item p {
-            color: var(--text-muted);
-            font-size: 0.95rem;
-            margin: 0;
+        .back-link:hover {
+            text-decoration: underline;
         }
 
         footer {
@@ -269,8 +170,7 @@
         }
 
         @media (max-width: 900px) {
-            .hero { grid-template-columns: 1fr; text-align: center; gap: 40px; padding: 50px 20px; }
-            .cta-buttons { justify-content: center; }
+            .subpage-hero { grid-template-columns: 1fr; text-align: center; gap: 30px; padding: 40px 20px; }
             header { padding: 15px 20px; }
             nav { display: none; }
         }
@@ -279,116 +179,52 @@
 <body>
 
     <header>
-        <a href="#" class="logo-area">
+        <a href="index.html" class="logo-area">
             <img src="logo.png" alt="Dehesa 3D Logo" class="logo-img">
             <div class="logo-text">DEHESA <span>3D</span></div>
         </a>
         <nav>
-            <a href="#soluciones">Soluciones</a>
-            <a href="#proceso">Cómo Trabajamos</a>
-            <a href="#ventajas">Calidad Técnica</a>
-            <a href="#contacto">Contacto & Muestras</a>
+            <a href="index.html#soluciones">Soluciones</a>
+            <a href="index.html#proceso">Cómo Trabajamos</a>
+            <a href="index.html#contacto">Contacto & Muestras</a>
         </nav>
     </header>
 
-    <!-- CABECERA HERO -->
-    <section class="hero">
-        <div class="hero-content">
-            <h1>Fabricamos tus llaveros e imanes NFC <span>100% Personalizados</span></h1>
-            <p>Diseñamos y fabricamos a medida accesorios corporativos con chip NFC integrado con <strong>tu propio logotipo, colores y marca</strong>. No son productos genéricos: cada tirada se personaliza exclusivamente para tu negocio en el Valle de los Pedroches (Córdoba) con envíos a toda España.</p>
-            <div class="cta-buttons">
-                <a href="#contacto" class="btn btn-primary">Pedir Muestra Física Gratuita</a>
-                <a href="#soluciones" class="btn btn-secondary">Ver Soluciones</a>
-            </div>
+    <section class="subpage-hero">
+        <div>
+            <a href="index.html#soluciones" class="back-link">&larr; Volver a Soluciones</a>
+            <h1>Imanes NFC 100% Personalizados para <span>Comida a Domicilio & Takeaway</span></h1>
+            <p>Haz que tus clientes repitan pedido sin pasar por plataformas de terceros. Incluye un imán inteligente con la marca de tu restaurante en cada bolsa o caja de reparto.</p>
+            <a href="index.html#contacto" class="btn">Solicitar Muestra Gratuita para tu Restaurante</a>
         </div>
-        <div class="hero-image-box">
-            <img src="hero-nfc.jpg" alt="Llavero NFC personalizado con tu marca y móvil corporativo">
+        <div>
+            <img src="delivery.jpg" alt="Imán NFC para comida a domicilio" class="subpage-img" onerror="this.style.display='none'">
         </div>
     </section>
 
-    <!-- SOLUCIONES ESPECÍFICAS (4 APARTADOS) -->
-    <section id="soluciones" class="section">
-        <h2 class="section-title">Soluciones 100% Personalizadas por Sector</h2>
-        <div class="grid-4">
-            <div class="card">
-                <img src="ecommerce.jpg" alt="E-commerce NFC Personalizado" class="card-img" onerror="this.style.display='none'">
-                <div class="card-body">
-                    <h3>E-commerce & Tiendas Online</h3>
-                    <p>Añade un llavero NFC con <strong>el diseño exclusivo de tu marca</strong> en los pedidos de tus clientes para desviar comprador recurrente directamente a tu tienda propia sin comisiones.</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="delivery.jpg" alt="Comida a Domicilio NFC" class="card-img" onerror="this.style.display='none'">
-                <div class="card-body">
-                    <h3>Comida a Domicilio & Takeaway</h3>
-                    <p>Incluye un <strong>imán de nevera NFC personalizado</strong> en cada pedido a domicilio. Tus clientes lo pegan en su frigorífico y pedir de nuevo es tan fácil como acercar el móvil.</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="veterinaria.jpg" alt="Clínicas Veterinarias Personalizado" class="card-img" onerror="this.style.display='none'">
-                <div class="card-body">
-                    <h3>Clínicas Veterinarias & Salud</h3>
-                    <p>Placas identificativas y accesorios NFC <strong>con la imagen corporativa de tu clínica</strong> para mascotas. Acceso instantáneo al historial médico digital y contacto de urgencia.</p>
-                </div>
-            </div>
-            <div class="card">
-                <img src="hosteleria.jpg" alt="Hostelería NFC Personalizado" class="card-img" onerror="this.style.display='none'">
-                <div class="card-body">
-                    <h3>Hostelería & Mesas de Bar</h3>
-                    <p>Placas inteligentes en los servilleteros de tu terraza o local fabricadas <strong>con tu logotipo</strong> para que los clientes accedan a la carta digital al instante con un solo toque.</p>
-                </div>
-            </div>
-        </div>
-    </section>
+    <section class="content-section">
+        <h2>¿Cómo funciona el sistema NFC para tu restaurante de reparto?</h2>
+        <p>Cuando un cliente pide comida a domicilio a tu pizzería, hamburguesería o restaurante de tapas, recibe su pedido caliente junto con un imán de nevera personalizado fabricado en impresión 3D con el logotipo y los colores corporativos de tu local.</p>
+        
+        <p>El cliente retira el imán y lo coloca en la puerta de su frigorífico. A partir de ese momento:</p>
+        <ul>
+            <li><strong>Acceso directo a tu carta o web propia:</strong> Con solo acercar su smartphone al imán (sin abrir ninguna app ni buscar en Google), el móvil abre instantáneamente tu menú digital o plataforma de pedidos.</li>
+            <li><strong>Sin comisiones de intermediarios:</strong> Fidelizas al consumidor para que te compre directamente a ti, evitando pagar comisiones abusivas a grandes plataformas de reparto.</li>
+            <li><strong>Durabilidad extrema:</strong> A diferencia de los imanes publicitarios de papel imantado que se doblan o decoloran, nuestros imanes 3D técnicos resisten la humedad, las rozaduras y el paso de los años en la cocina de tus clientes.</li>
+        </ul>
 
-    <!-- PROCESO DE TRABAJO -->
-    <section id="proceso" class="section">
-        <h2 class="section-title">Cómo Personalizamos tu Pedido</h2>
-        <div class="steps-grid">
-            <div class="step-card">
-                <div class="step-number">01</div>
-                <h3>Envíanos tu Logotipo</h3>
-                <p>Nos mandas la identidad visual o logotipo de tu empresa. Adaptamos tu marca en 3D para que el resultado sea exclusivo y refleje exactamente tu identidad corporativa.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-number">02</div>
-                <h3>Te Enviamos una Muestra Real</h3>
-                <p>Fabricamos una muestra física personalizada con tus datos y te la enviamos gratis sin compromiso para que valores en persona los acabados antes de la producción masiva.</p>
-            </div>
-            <div class="step-card">
-                <div class="step-number">03</div>
-                <h3>Fabricación y Envío Configurado</h3>
-                <p>Producimos tu tirada corporativa personalizada, programamos los chips NFC con tu enlace web y te lo enviamos listo para empezar a utilizar en tu negocio.</p>
-            </div>
-        </div>
-    </section>
+        <h2>¿Qué incluye nuestro servicio para restaurantes?</h2>
+        <ul>
+            <li><strong>Diseño adaptado a tu marca:</strong> Grabamos tu logotipo en relieve tridimensional y aplicamos la paleta de colores corporativos de tu establecimiento.</li>
+            <li><strong>Chip NFC programado de fábrica:</strong> Programamos cada imán con el enlace directo que tú elijas (tu web de pedidos, tu número de WhatsApp para reservas o un PDF con la carta actualizada).</li>
+            <li><strong>Muestra física real gratuita:</strong> Te enviamos una muestra a tu local sin compromiso para que compruebes el tacto, la fuerza del imán y la lectura NFC antes de pedir la tirada para tus repartos.</li>
+        </ul>
 
-    <!-- PREGUNTAS FRECUENTES -->
-    <section class="section">
-        <h2 class="section-title">Preguntas Frecuentes</h2>
-        <div class="faq-container">
-            <div class="faq-item">
-                <h3>¿Puedo elegir los colores y poner el logotipo de mi empresa?</h3>
-                <p>¡Por supuesto! <strong>No son artículos genéricos ni con la marca de otros</strong>. Cada llavero o imán se fabrica desde cero adaptando los colores corporativos y el relieve 3D del logotipo exacto de tu negocio.</p>
-            </div>
-            <div class="faq-item">
-                <h3>¿Cuál es el pedido mínimo para empresas?</h3>
-                <p><strong>No hay un pedido mínimo estricto</strong>. Si un bar nos pide 8 placas para sus servilleteros o una clínica necesita pocas unidades, las fabricamos sin problema. Lógicamente, el precio unitario varía según la cantidad (es más económico en tiradas grandes de 50 o 2000 unidades), pero nos adaptamos a tus necesidades reales.</p>
-            </div>
-            <div class="faq-item">
-                <h3>¿Cómo se entregan programados los chips NFC?</h3>
-                <p>Se entregan totalmente configurados y listos para usar. Solo nos facilitas la web o el contacto de destino y nosotros los grabamos en fábrica sin coste adicional.</p>
-            </div>
+        <div style="margin-top: 50px; text-align: center; background: var(--bg-card); padding: 40px; border-radius: 16px; border: 1px solid var(--border-color);">
+            <h3 style="color: #fff; margin-top: 0; font-size: 1.5rem;">¿Hablamos de las necesidades de tu local?</h3>
+            <p style="color: var(--text-muted); margin-bottom: 25px;">Cuéntanos cuántos pedidos mensuales realizas y te asesoramos sobre el formato ideal de imán para tus bolsas.</p>
+            <a href="https://wa.me/34611801528?text=Hola,%20tengo%20un%20restaurante%20de%20comida%20a%20domicilio%20y%20quiero%20información%20sobre%20los%20imanes%20NFC" target="_blank" class="btn">Contactar por WhatsApp Directo</a>
         </div>
-    </section>
-
-    <!-- CONTACTO -->
-    <section id="contacto" class="section" style="max-width: 900px; text-align: center;">
-        <h2 class="section-title">Solicita tu Muestra Gratuita Personalizada</h2>
-        <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.1rem;">
-            ¿Quieres ver cómo quedaría tu propio logotipo fabricado en 3D con NFC? Escríbenos directamente por WhatsApp y te enviamos una muestra física sin compromiso.
-        </p>
-        <a href="https://wa.me/34611801528?text=Hola,%20me%20interesa%20solicitar%20información%20y%20muestras%20personalizadas%20de%20llaveros%20NFC%20para%20mi%20empresa" target="_blank" class="btn btn-primary">Contactar por WhatsApp Directo</a>
     </section>
 
     <footer>
