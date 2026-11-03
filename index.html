@@ -257,13 +257,29 @@
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            padding: 24px;
+            padding: 20px;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .work-img-box {
+            width: 100%;
+            height: 180px;
+            border-radius: 10px;
+            overflow: hidden;
+            border: 1px solid var(--border-color);
+            background-color: #111;
+        }
+        .work-img-box img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
         }
         .work-card h3 {
             color: #fff;
             font-size: 1.1rem;
-            margin-top: 0;
-            margin-bottom: 10px;
+            margin: 0;
         }
 
         .steps-grid {
@@ -416,26 +432,40 @@
     <section class="section">
         <h2 class="section-title">Casos de Éxito y Opiniones</h2>
         <div class="work-grid">
+            
+            <!-- CASO 1: E-COMMERCE -->
             <div class="work-card">
-                <span style="color: var(--accent-orange); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">E-commerce de Moda</span>
+                <div class="work-img-box">
+                    <img src="trabajo-ecommerce.jpg" alt="Tirada de llaveros NFC corporativos en caja para envíos de e-commerce">
+                </div>
+                <span style="color: var(--accent-orange); font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">E-commerce de Moda</span>
                 <h3>Llaveros NFC Corporativos</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Tirada de 250 unidades en varios colores para incluir en los paquetes de envíos nacionales, logrando desviar un porcentaje elevado de clientes hacia la web propia.</p>
-                <p style="color: #fff; font-size: 0.88rem; font-style: italic;">"La calidad del relieve en 3D es espectacular y el chip responde al instante. Un acierto total para fidelizar."</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Tirada de 250 unidades en varios colores para incluir en los paquetes de envíos nacionales, logrando desviar un porcentaje elevado de clientes hacia la web propia.</p>
+                <p style="color: #fff; font-size: 0.85rem; font-style: italic; margin-top: 5px;">"La calidad del relieve en 3D es espectacular y el chip responde al instante. Un acierto total para fidelizar."</p>
             </div>
 
+            <!-- CASO 2: HOSTELERÍA -->
             <div class="work-card">
-                <span style="color: var(--accent-orange); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Hostelería & Delivery</span>
+                <div class="work-img-box">
+                    <img src="trabajo-hosteleria.jpg" alt="Imán NFC en nevera para hostelería y delivery de cartas digitales">
+                </div>
+                <span style="color: var(--accent-orange); font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Hostelería & Delivery</span>
                 <h3>Imanes de Nevera con Carta Digital</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Imanes personalizados entregados en cada pedido a domicilio, permitiendo a los clientes reordenar comida directamente con un toque de móvil.</p>
-                <p style="color: #fff; font-size: 0.88rem; font-style: italic;">"Nuestros clientes habituales usan el imán de la nevera muchísimo más que los antiguos folletos de papel."</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Imanes personalizados entregados en cada pedido a domicilio, permitiendo a los clientes reordenar comida directamente con un toque de móvil.</p>
+                <p style="color: #fff; font-size: 0.85rem; font-style: italic; margin-top: 5px;">"Nuestros clientes habituales usan el imán de la nevera muchísimo más que los antiguos folletos de papel."</p>
             </div>
 
+            <!-- CASO 3: COSMÉTICA -->
             <div class="work-card">
-                <span style="color: var(--accent-orange); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Tienda Online de Cosmética</span>
+                <div class="work-img-box">
+                    <img src="trabajo-cosmetica.jpg" alt="Accesorios y llaveros NFC personalizados para centros de estética y cosmética">
+                </div>
+                <span style="color: var(--accent-orange); font-size: 0.8rem; font-weight: 600; text-transform: uppercase;">Tienda Online de Cosmética</span>
                 <h3>Accesorios NFC Exclusivos</h3>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Accesorios personalizados con enlace directo a programas de puntos y recompensas privadas para compradores recurrentes.</p>
-                <p style="color: #fff; font-size: 0.88rem; font-style: italic;">"El trato directo, la muestra física gratuita y la rapidez de fabricación marcaron la diferencia desde el primer día."</p>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin: 0;">Accesorios personalizados con enlace directo a programas de puntos y recompensas privadas para compradores recurrentes.</p>
+                <p style="color: #fff; font-size: 0.85rem; font-style: italic; margin-top: 5px;">"El trato directo, la muestra física gratuita y la rapidez de fabricación marcaron la diferencia desde el primer día."</p>
             </div>
+
         </div>
     </section>
 
