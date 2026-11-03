@@ -181,6 +181,8 @@
             border: 1px solid var(--border-color);
             border-radius: 16px;
             padding: 24px;
+            text-decoration: none;
+            display: block;
             transition: all 0.3s ease;
         }
         .card:hover {
@@ -199,6 +201,13 @@
             font-size: 0.95rem;
             margin: 0;
             line-height: 1.5;
+        }
+        .card-link-text {
+            display: inline-block;
+            margin-top: 15px;
+            color: var(--accent-orange);
+            font-weight: 600;
+            font-size: 0.9rem;
         }
 
         /* Tabla de Precios */
@@ -320,7 +329,7 @@
     <section class="hero">
         <div class="hero-content">
             <h1>Llaveros e Imanes NFC <span>para Empresas y E-commerce</span></h1>
-            <p>Fabricamos accesorios corporativos personalizados en impresión 3D con chip NFC integrado. Diseñados para incluir en los envíos de tus paquetes (Amazon, Shopify, WooCommerce), desviar clientes a tu tienda propia y conseguir compras recurrentes sin comisiones.</p>
+            <p>Fabricamos accesorios corporativos personalizados en impresión 3D con chip NFC integrado. Diseñados para incluir en los envíos de tus paquetes, desviar clientes a tu tienda propia y conseguir compras recurrentes sin intermediarios.</p>
             <div class="cta-buttons">
                 <a href="#contacto" class="btn btn-primary">Pedir Muestra Física Gratuita</a>
                 <a href="#precios" class="btn btn-secondary">Ver Tarifas y Tramos</a>
@@ -331,22 +340,27 @@
         </div>
     </section>
 
-    <!-- OBJETIVOS / SOLUCIONES PARA EMPRESAS -->
+    <!-- OBJETIVOS / SOLUCIONES PARA EMPRESAS (CLICABLES) -->
     <section id="soluciones" class="section">
         <h2 class="section-title">¿Por qué incluir nuestros llaveros NFC en tus paquetes?</h2>
         <div class="grid-3">
-            <div class="card">
-                <h3>Evita Comisiones de Marketplace</h3>
-                <p>Si vendes en Amazon o grandes plataformas, incluye un llavero con diseño exclusivo en tus envíos para que el cliente recurrente te compre directamente en tu propia web.</p>
-            </div>
-            <div class="card">
+            <a href="comercio-electronico.html" class="card">
+                <h3>Fideliza y Vende en Directo</h3>
+                <p>Convierte a los compradores de tus canales de venta habituales en clientes recurrentes de tu propia tienda online con un simple toque.</p>
+                <span class="card-link-text">Ver estrategia comercial &rarr;</span>
+            </a>
+            
+            <a href="fidelizacion.html" class="card">
                 <h3>Fidelización Instantánea</h3>
                 <p>Con solo acercar el móvil (sin aplicaciones), tus compradores acceden directamente a tu catálogo privado, ofertas especiales o programas de fidelización.</p>
-            </div>
-            <div class="card">
+                <span class="card-link-text">Ver funcionamiento NFC &rarr;</span>
+            </a>
+            
+            <a href="materiales.html" class="card">
                 <h3>Diseño 100% Personalizado</h3>
-                <p>Nada de merchandising genérico de plástico chino. Fabricamos piezas a medida con los colores corporativos y el logotipo de tu marca en relieve 3D.</p>
-            </div>
+                <p>Fabricación propia de alta precisión. Diseñamos piezas a medida con los colores corporativos y el logotipo de tu marca en relieve 3D profesional.</p>
+                <span class="card-link-text">Ver calidades y acabados &rarr;</span>
+            </a>
         </div>
     </section>
 
@@ -406,11 +420,11 @@
             
             <details class="faq-item">
                 <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                    ¿Cómo ayuda esto a los vendedores de Amazon o tiendas online?
+                    ¿Cómo ayuda esto a los vendedores de e-commerce y tiendas online?
                     <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
                 </summary>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
-                    Al incluir un llavero o imán NFC en el paquete de envío, ofreces al cliente un incentivo útil con tu marca. Cuando escanean el llavero con su móvil, van directos a tu tienda web propia (fuera de Amazon), evitando comisiones en su próxima compra.
+                    Al incluir un llavero o imán NFC en el paquete de envío, ofreces al cliente un incentivo útil con tu marca. Cuando escanean el llavero con su móvil, van directos a tu tienda web propia, fidelizando al comprador para futuras adquisiciones.
                 </p>
             </details>
 
@@ -450,7 +464,7 @@
     <section id="contacto" class="section" style="max-width: 900px; text-align: center;">
         <h2 class="section-title">Solicita tu Muestra Gratuita Personalizada</h2>
         <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.05rem;">
-            ¿Vendes en Amazon o tienes una tienda online? Escríbenos directamente y te preparamos una muestra física real para tus envíos.
+            ¿Tienes una tienda online o marca corporativa? Escríbenos directamente y te preparamos una muestra física real para tus envíos.
         </p>
         <a href="https://wa.me/34611801528?text=Hola,%20me%20interesa%20solicitar%20información%20y%20muestras%20personalizadas%20de%20llaveros%20NFC%20para%20mi%20empresa" target="_blank" class="btn btn-primary" style="display: inline-block; width: auto; min-width: 280px; padding: 16px 32px;">Contactar por WhatsApp Directo</a>
     </section>
