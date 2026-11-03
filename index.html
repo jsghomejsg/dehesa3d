@@ -90,7 +90,7 @@
             align-items: center;
         }
         .hero-content h1 {
-            font-size: 2.5rem;
+            font-size: 2.3rem;
             margin-bottom: 20px;
             color: #fff;
             letter-spacing: -1px;
@@ -168,54 +168,74 @@
             margin-bottom: 30px;
             color: #fff;
             font-weight: 700;
+            text-align: center;
         }
         
-        .grid-4 {
+        .grid-3 {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
         .card {
             background-color: var(--bg-card);
             border: 1px solid var(--border-color);
             border-radius: 16px;
-            overflow: hidden;
+            padding: 24px;
             transition: all 0.3s ease;
-            text-decoration: none;
-            display: block;
         }
         .card:hover {
             transform: translateY(-4px);
             border-color: var(--accent-orange);
             box-shadow: 0 10px 25px rgba(0,0,0,0.4);
         }
-        .card-img {
-            width: 100%;
-            height: 160px;
-            object-fit: cover;
-            border-bottom: 1px solid var(--border-color);
-        }
-        .card-body {
-            padding: 20px;
-        }
         .card h3 {
-            font-size: 1.15rem;
+            font-size: 1.2rem;
             margin-top: 0;
             color: #fff;
-            margin-bottom: 10px;
+            margin-bottom: 12px;
         }
         .card p {
             color: var(--text-muted);
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             margin: 0;
             line-height: 1.5;
         }
-        .card-link-text {
-            display: inline-block;
-            margin-top: 12px;
+
+        /* Tabla de Precios */
+        .pricing-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+            gap: 30px;
+            margin-top: 20px;
+        }
+        .pricing-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 30px;
+        }
+        .pricing-card h3 {
             color: var(--accent-orange);
-            font-weight: 600;
-            font-size: 0.85rem;
+            font-size: 1.3rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+            text-align: center;
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 15px;
+        }
+        .price-row {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid rgba(255,255,255,0.05);
+            font-size: 0.95rem;
+        }
+        .price-row span:first-child {
+            color: var(--text-muted);
+        }
+        .price-row span:last-child {
+            color: #fff;
+            font-weight: 700;
         }
 
         .steps-grid {
@@ -246,22 +266,6 @@
             margin: 0;
         }
 
-        /* Tarjeta de Materiales Clickeable */
-        .material-card-link {
-            background-color: var(--bg-card);
-            border: 1px solid var(--border-color);
-            border-radius: 16px;
-            padding: 30px;
-            text-decoration: none;
-            display: block;
-            transition: all 0.3s ease;
-        }
-        .material-card-link:hover {
-            transform: translateY(-4px);
-            border-color: var(--accent-orange);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.4);
-        }
-
         .faq-container {
             max-width: 900px;
             margin: 0 auto;
@@ -289,11 +293,11 @@
             header { padding: 10px 15px; }
             nav { display: none; }
             .hero { padding: 30px 15px; grid-template-columns: 1fr; gap: 30px; text-align: center; }
-            .hero-content h1 { font-size: 2.1rem; }
+            .hero-content h1 { font-size: 2rem; }
             .cta-buttons { justify-content: center; flex-direction: column; }
             .btn { width: 100%; text-align: center; }
             .section { padding: 40px 15px; }
-            .section-title { font-size: 1.5rem; text-align: center; }
+            .section-title { font-size: 1.5rem; }
         }
     </style>
 </head>
@@ -305,7 +309,8 @@
             <div class="logo-text">DEHESA <span>3D</span></div>
         </a>
         <nav>
-            <a href="index.html#soluciones">Soluciones</a>
+            <a href="index.html#soluciones">Soluciones B2B</a>
+            <a href="index.html#precios">Tarifas</a>
             <a href="index.html#proceso">Cómo Trabajamos</a>
             <a href="materiales.html">Materiales</a>
             <a href="index.html#contacto">Contacto & Muestras</a>
@@ -314,178 +319,128 @@
 
     <section class="hero">
         <div class="hero-content">
-            <h1>Fabricamos tus llaveros e imanes NFC <span>100% Personalizados</span></h1>
-            <p>Diseñamos y fabricamos a medida accesorios corporativos con chip NFC integrado con <strong>tu propio logotipo, colores y marca</strong>. No son productos genéricos: cada tirada se personaliza exclusivamente para tu negocio en el Valle de los Pedroches (Córdoba) con envíos a toda España.</p>
+            <h1>Llaveros e Imanes NFC <span>para Empresas y E-commerce</span></h1>
+            <p>Fabricamos accesorios corporativos personalizados en impresión 3D con chip NFC integrado. Diseñados para incluir en los envíos de tus paquetes (Amazon, Shopify, WooCommerce), desviar clientes a tu tienda propia y conseguir compras recurrentes sin comisiones.</p>
             <div class="cta-buttons">
                 <a href="#contacto" class="btn btn-primary">Pedir Muestra Física Gratuita</a>
-                <a href="#soluciones" class="btn btn-secondary">Ver Soluciones</a>
+                <a href="#precios" class="btn btn-secondary">Ver Tarifas y Tramos</a>
             </div>
         </div>
         <div class="hero-image-box">
-            <img src="hero-nfc.jpg" alt="Llavero NFC personalizado con tu marca y móvil corporativo">
+            <img src="hero-nfc.jpg" alt="Llavero NFC personalizado para marcas de e-commerce y tiendas online">
         </div>
     </section>
 
-    <!-- SOLUCIONES CON ENLACES A SUBPÁGINAS -->
+    <!-- OBJETIVOS / SOLUCIONES PARA EMPRESAS -->
     <section id="soluciones" class="section">
-        <h2 class="section-title">Soluciones 100% Personalizadas por Sector</h2>
-        <div class="grid-4">
-            <a href="ecommerce.html" class="card">
-                <img src="ecommerce.jpg" alt="E-commerce NFC" class="card-img" onerror="this.style.display='none'">
-                <div class="card-body">
-                    <h3>E-commerce & Tiendas Online</h3>
-                    <p>Añade un llavero NFC con <strong>el diseño exclusivo de tu marca</strong> en los pedidos para desviar comprador recurrente a tu tienda propia sin comisiones.</p>
-                    <span class="card-link-text">Ver detalles &rarr;</span>
-                </div>
-            </a>
-            <a href="delivery.html" class="card">
-                <img src="delivery.jpg" alt="Comida a Domicilio NFC" class="card-img" onerror="this.style.display='none'">
-                <div class="card-body">
-                    <h3>Comida a Domicilio & Takeaway</h3>
-                    <p>Incluye un <strong>imán de nevera NFC personalizado</strong> en cada pedido a domicilio para que pedir de nuevo sea tan fácil como acercar el móvil.</p>
-                    <span class="card-link-text">Ver detalles &rarr;</span>
-                </div>
-            </a>
-            <a href="veterinaria.html" class="card">
-                <img src="veterinaria.jpg" alt="Clínicas Veterinarias" class="card-img" onerror="this.style.display='none'">
-                <div class="card-body">
-                    <h3>Clínicas Veterinarias & Salud</h3>
-                    <p>Placas identificativas y accesorios NFC <strong>con la imagen corporativa de tu clínica</strong> para acceso instantáneo a historiales y urgencias.</p>
-                    <span class="card-link-text">Ver detalles &rarr;</span>
-                </div>
-            </a>
-            <a href="hosteleria.html" class="card">
-                <img src="hosteleria.jpg" alt="Hostelería NFC" class="card-img" onerror="this.style.display='none'">
-                <div class="card-body">
-                    <h3>Hostelería & Establecimientos</h3>
-                    <p>Placas inteligentes y soportes corporativos para tu terraza o local fabricadas <strong>con tu logotipo</strong> para acceder a la carta digital al instante.</p>
-                    <span class="card-link-text">Ver detalles &rarr;</span>
-                </div>
-            </a>
+        <h2 class="section-title">¿Por qué incluir nuestros llaveros NFC en tus paquetes?</h2>
+        <div class="grid-3">
+            <div class="card">
+                <h3>Evita Comisiones de Marketplace</h3>
+                <p>Si vendes en Amazon o grandes plataformas, incluye un llavero con diseño exclusivo en tus envíos para que el cliente recurrente te compre directamente en tu propia web.</p>
+            </div>
+            <div class="card">
+                <h3>Fidelización Instantánea</h3>
+                <p>Con solo acercar el móvil (sin aplicaciones), tus compradores acceden directamente a tu catálogo privado, ofertas especiales o programas de fidelización.</p>
+            </div>
+            <div class="card">
+                <h3>Diseño 100% Personalizado</h3>
+                <p>Nada de merchandising genérico de plástico chino. Fabricamos piezas a medida con los colores corporativos y el logotipo de tu marca en relieve 3D.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- SECCIÓN DE PRECIOS / TARIFAS -->
+    <section id="precios" class="section">
+        <h2 class="section-title">Tarifas por Volumen (Acabado 3 Colores)</h2>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 30px;">Precios adaptados para tiradas empresariales y e-commerce. Sin costes ocultos.</p>
+        
+        <div class="pricing-grid">
+            <div class="pricing-card">
+                <h3>Con NFC Integrado y Programado</h3>
+                <div class="price-row"><span>10 unidades</span><span>6,50 € / ud</span></div>
+                <div class="price-row"><span>25 unidades</span><span>5,00 € / ud</span></div>
+                <div class="price-row"><span>100 unidades</span><span>3,80 € / ud</span></div>
+                <div class="price-row"><span>300 unidades</span><span>2,90 € / ud</span></div>
+                <div class="price-row"><span>500 unidades</span><span>2,30 € / ud</span></div>
+                <div class="price-row"><span>1.000 unidades</span><span>1,80 € / ud</span></div>
+            </div>
+
+            <div class="pricing-card">
+                <h3>Sin NFC (Solo Llavero / Imán 3D)</h3>
+                <div class="price-row"><span>10 unidades</span><span>5,00 € / ud</span></div>
+                <div class="price-row"><span>25 unidades</span><span>3,80 € / ud</span></div>
+                <div class="price-row"><span>100 unidades</span><span>2,70 € / ud</span></div>
+                <div class="price-row"><span>300 unidades</span><span>2,00 € / ud</span></div>
+                <div class="price-row"><span>500 unidades</span><span>1,60 € / ud</span></div>
+                <div class="price-row"><span>1.000 unidades</span><span>1,20 € / ud</span></div>
+            </div>
         </div>
     </section>
 
     <section id="proceso" class="section">
-        <h2 class="section-title">Cómo Personalizamos tu Pedido</h2>
+        <h2 class="section-title">Cómo Trabajamos con tu Marca</h2>
         <div class="steps-grid">
             <div class="step-card">
                 <div class="step-number">01</div>
                 <h3>Envíanos tu Logotipo</h3>
-                <p>Nos mandas la identidad visual o logotipo de tu empresa. Adaptamos tu marca en 3D para que el resultado sea exclusivo y refleje exactamente tu identidad corporativa.</p>
+                <p>Nos mandas la identidad visual de tu tienda online o marca. Adaptamos tu diseño en 3D respetando tus colores corporativos.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">02</div>
-                <h3>Te Enviamos una Muestra Real</h3>
-                <p>Fabricamos una muestra física personalizada con tus datos y te la enviamos gratis sin compromiso para que valores en persona los acabados antes de la producción masiva.</p>
+                <h3>Muestra Real Gratuita</h3>
+                <p>Te fabricamos y enviamos una muestra física de prueba para que valores la calidad de los acabados antes de comprometerte a una tirada grande.</p>
             </div>
             <div class="step-card">
                 <div class="step-number">03</div>
-                <h3>Fabricación y Envío Configurado</h3>
-                <p>Producimos tu tirada corporativa personalizada, programamos los chips NFC con tu enlace web y te lo enviamos listo para empezar a utilizar en tu negocio.</p>
+                <h3>Producción y Envío</h3>
+                <p>Fabricamos tu pedido en nuestro taller, programamos los chips NFC con tu enlace web y te lo enviamos listo para empaquetar.</p>
             </div>
         </div>
     </section>
 
-    <!-- SECCIÓN DE MATERIALES CLICKEABLE -->
-    <section id="materiales" class="section">
-        <h2 class="section-title">Calidad y Materiales Técnicos</h2>
-        <a href="materiales.html" class="material-card-link">
-            <h3 style="color: #fff; font-size: 1.25rem; margin-top: 0; margin-bottom: 15px; display: flex; justify-content: space-between; align-items: center;">
-                <span>¿De qué están hechos nuestros accesorios y placas NFC?</span>
-                <span style="color: var(--accent-orange); font-size: 1rem;">Ver detalles completos &rarr;</span>
-            </h3>
-            <p style="color: var(--text-muted); font-size: 0.95rem; line-height: 1.6; margin-bottom: 25px;">
-                En <strong>Dehesa 3D</strong> no trabajamos con plásticos de usar y tirar ni con importaciones masivas de baja calidad. Fabricamos cada pieza mediante impresión 3D técnica utilizando <strong>polímeros avanzados de origen vegetal y alta resistencia</strong> (como PLA técnico y PETG industrial).
-            </p>
-            <div class="grid-4" style="margin-top: 20px;">
-                <div style="background-color: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
-                    <h4 style="color: var(--accent-orange); margin-top: 0; margin-bottom: 8px; font-size: 1rem;">Resistencia Extrema</h4>
-                    <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0;">Diseñados para soportar el uso diario intensivo (roces en bolsillos, llaves y manipulación constante) sin deformarse.</p>
-                </div>
-                <div style="background-color: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
-                    <h4 style="color: var(--accent-orange); margin-top: 0; margin-bottom: 8px; font-size: 1rem;">Producción Propia</h4>
-                    <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0;">Producimos cada encargo en nuestro taller, controlando cada capa. Envíos rápidos y seguros a toda España.</p>
-                </div>
-                <div style="background-color: rgba(255,255,255,0.02); border: 1px solid var(--border-color); border-radius: 12px; padding: 20px;">
-                    <h4 style="color: var(--accent-orange); margin-top: 0; margin-bottom: 8px; font-size: 1rem;">Chip NFC Protegido</h4>
-                    <p style="color: var(--text-muted); font-size: 0.88rem; margin: 0;">El chip NFC va encapsulado y protegido de forma interna en el diseño, asegurando lectura fluida y aislada.</p>
-                </div>
-            </div>
-        </a>
-    </section>
-
-    <!-- PREGUNTAS FRECUENTES DESPLEGABLES -->
+    <!-- PREGUNTAS FRECUENTES -->
     <section class="section">
         <h2 class="section-title">Preguntas Frecuentes</h2>
         <div class="faq-container">
             
             <details class="faq-item">
                 <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                    ¿Cómo ayuda esto a los vendedores de Amazon o tiendas online?
+                    <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
+                </summary>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
+                    Al incluir un llavero o imán NFC en el paquete de envío, ofreces al cliente un incentivo útil con tu marca. Cuando escanean el llavero con su móvil, van directos a tu tienda web propia (fuera de Amazon), evitando comisiones en su próxima compra.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
                     ¿Puedo elegir los colores y poner el logotipo de mi empresa?
                     <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
                 </summary>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
-                    ¡Por supuesto! No son artículos genéricos. Cada llavero o imán se fabrica desde cero adaptando los colores corporativos. Además, revisamos tu logotipo previamente y, si es necesario realizar alguna adaptación técnica para que quede perfecto en relieve 3D, lo consultamos contigo y lo hacemos siempre con tu consentimiento.
+                    Sí, totalmente. Cada tirada se fabrica a medida combinando hasta 3 colores para reflejar exactamente la identidad visual de tu negocio.
                 </p>
             </details>
 
             <details class="faq-item">
                 <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                    ¿A qué tipo de destinos o contenidos puede apuntar el chip NFC?
+                    ¿A qué enlace apunta el chip NFC?
                     <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
                 </summary>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
-                    ¡A lo que necesites! No está limitado solo a una página web. El chip puede configurarse para abrir un chat directo de WhatsApp (ideal para agendar citas o hacer reservas), mostrar una carta digital, enlazar con tus redes sociales o incluso compartir la ubicación exacta de tu establecimiento o evento al instante.
+                    Programamos los chips antes de enviártelos para que abran el enlace que tú elijas: tu tienda web, una página de descuento exclusivo, tu WhatsApp de atención o tus redes sociales.
                 </p>
             </details>
 
             <details class="faq-item">
                 <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                    ¿Qué ocurre si cambio la web, el menú o la información de mi negocio en el futuro?
+                    ¿Cómo puedo solicitar mi muestra gratuita?
                     <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
                 </summary>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
-                    ¡No tienes que cambiar los llaveros! El chip NFC apunta a un enlace maestro. Si actualizas el contenido de你的 página (por ejemplo, subes una nueva carta o actualizas los datos), al acercar el móvil se mostrará automáticamente el contenido nuevo al instante, sin tocar el accesorio físico.
-                </p>
-            </details>
-
-            <details class="faq-item">
-                <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                    ¿Podré ver cómo queda antes de fabricar todo el pedido?
-                    <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
-                </summary>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
-                    ¡Por supuesto! Antes de dar luz verde a la producción masiva, te preparamos y enviamos una muestra física real para que puedas ver y tocar los acabados en persona. Solo cuando nos des el visto bueno, procedemos con la tirada completa.
-                </p>
-            </details>
-
-            <details class="faq-item">
-                <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                    ¿Cuál es el plazo de entrega una vez confirmado el pedido?
-                    <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
-                </summary>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
-                    Una vez confirmado el pedido y validada la muestra, tus accesorios estarán listos en un plazo estimado de 10 a 20 días. Cada pieza conlleva un proceso artesanal y técnico muy cuidadoso de diseño a medida, preparación de matrices y fabricación capa a capa en nuestro taller para garantizar un acabado impecable.
-                </p>
-            </details>
-
-            <details class="faq-item">
-                <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                    ¿Cuál es el pedido mínimo para empresas?
-                    <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
-                </summary>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
-                    No hay un pedido mínimo estricto. Si un establecimiento nos pide pocas unidades o una tirada específica, las fabricamos sin problema. El precio unitario varía según la cantidad, pero nos adaptamos a tus necesidades reales.
-                </p>
-            </details>
-
-            <details class="faq-item">
-                <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                    ¿Cómo se entregan programados los chips NFC?
-                    <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
-                </summary>
-                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
-                    Se entregan totalmente configurados y listos para usar. Solo nos facilitas el enlace o destino deseado y nosotros los grabamos en fábrica sin coste adicional.
+                    Solo tienes que pulsar en el botón de contacto directo por WhatsApp y comentarnos los detalles de tu marca para prepararte una muestra física sin compromiso.
                 </p>
             </details>
 
@@ -495,7 +450,7 @@
     <section id="contacto" class="section" style="max-width: 900px; text-align: center;">
         <h2 class="section-title">Solicita tu Muestra Gratuita Personalizada</h2>
         <p style="color: var(--text-muted); margin-bottom: 30px; font-size: 1.05rem;">
-            ¿Quieres ver cómo quedaría tu propio logotipo fabricado en 3D con NFC? Escríbenos directamente por WhatsApp y te enviamos una muestra física sin compromiso.
+            ¿Vendes en Amazon o tienes una tienda online? Escríbenos directamente y te preparamos una muestra física real para tus envíos.
         </p>
         <a href="https://wa.me/34611801528?text=Hola,%20me%20interesa%20solicitar%20información%20y%20muestras%20personalizadas%20de%20llaveros%20NFC%20para%20mi%20empresa" target="_blank" class="btn btn-primary" style="display: inline-block; width: auto; min-width: 280px; padding: 16px 32px;">Contactar por WhatsApp Directo</a>
     </section>
