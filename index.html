@@ -227,7 +227,7 @@
             color: var(--accent-orange);
             font-size: 1.3rem;
             margin-top: 0;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
             text-align: center;
             border-bottom: 1px solid var(--border-color);
             padding-bottom: 15px;
@@ -245,6 +245,25 @@
         .price-row span:last-child {
             color: #fff;
             font-weight: 700;
+        }
+
+        /* Trabajos y Opiniones */
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+        .work-card {
+            background-color: var(--bg-card);
+            border: 1px solid var(--border-color);
+            border-radius: 16px;
+            padding: 24px;
+        }
+        .work-card h3 {
+            color: #fff;
+            font-size: 1.1rem;
+            margin-top: 0;
+            margin-bottom: 10px;
         }
 
         .steps-grid {
@@ -345,7 +364,7 @@
         <h2 class="section-title">¿Por qué incluir nuestros llaveros NFC en tus paquetes?</h2>
         <div class="grid-3">
             <a href="comercio-electronico.html" class="card">
-                <h3>Fideliza y Vende Directo</h3>
+                <h3>Fideliza y Vende en Directo</h3>
                 <p>Convierte a los compradores de tus canales de venta habituales en clientes recurrentes de tu propia tienda online con un simple toque.</p>
                 <span class="card-link-text">Ver estrategia comercial &rarr;</span>
             </a>
@@ -367,7 +386,8 @@
     <!-- SECCIÓN DE PRECIOS / TARIFAS -->
     <section id="precios" class="section">
         <h2 class="section-title">Tarifas por Volumen (Acabado 3 Colores)</h2>
-        <p style="text-align: center; color: var(--text-muted); margin-bottom: 30px;">Precios adaptados para tiradas empresariales y e-commerce. Sin costes ocultos.</p>
+        <p style="text-align: center; color: var(--text-muted); margin-bottom: 10px;">Precios adaptados para tiradas empresariales y e-commerce.</p>
+        <p style="text-align: center; color: var(--accent-orange); font-size: 0.9rem; margin-bottom: 30px; font-weight: 500;">* Los precios mostrados a continuación son orientativos y pueden variar según la complejidad del diseño o personalización solicitada.</p>
         
         <div class="pricing-grid">
             <div class="pricing-card">
@@ -388,6 +408,33 @@
                 <div class="price-row"><span>300 unidades</span><span>2,00 € / ud</span></div>
                 <div class="price-row"><span>500 unidades</span><span>1,60 € / ud</span></div>
                 <div class="price-row"><span>1.000 unidades</span><span>1,20 € / ud</span></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- TRABAJOS REALIZADOS Y OPINIONES SIMULADAS -->
+    <section class="section">
+        <h2 class="section-title">Casos de Éxito y Opiniones</h2>
+        <div class="work-grid">
+            <div class="work-card">
+                <span style="color: var(--accent-orange); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">E-commerce de Moda</span>
+                <h3>Llaveros NFC Corporativos</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Tirada de 250 unidades en 3 colores para incluir en los paquetes de envíos nacionales, logrando desviar un porcentaje elevado de clientes hacia la web propia.</p>
+                <p style="color: #fff; font-size: 0.88rem; font-style: italic;">"La calidad del relieve en 3D es espectacular y el chip responde al instante. Un acierto total para fidelizar."</p>
+            </div>
+
+            <div class="work-card">
+                <span style="color: var(--accent-orange); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Hostelería & Delivery</span>
+                <h3>Imanes de Nevera con Carta Digital</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Imanes personalizados entregados en cada pedido a domicilio, permitiendo a los clientes reordenar comida directamente con un toque de móvil.</p>
+                <p style="color: #fff; font-size: 0.88rem; font-style: italic;">"Nuestros clientes habituales usan el imán de la nevera muchísimo más que los antiguos folletos de papel."</p>
+            </div>
+
+            <div class="work-card">
+                <span style="color: var(--accent-orange); font-size: 0.85rem; font-weight: 600; text-transform: uppercase;">Tienda Online de Cosmética</span>
+                <h3>Accesorios NFC Exclusivos</h3>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-bottom: 15px;">Accesorios personalizados con enlace directo a programas de puntos y recompensas privadas para compradores recurrentes.</p>
+                <p style="color: #fff; font-size: 0.88rem; font-style: italic;">"El trato directo, la muestra física gratuita y la rapidez de fabricación marcaron la diferencia desde el primer día."</p>
             </div>
         </div>
     </section>
@@ -413,7 +460,7 @@
         </div>
     </section>
 
-    <!-- PREGUNTAS FRECUENTES -->
+    <!-- PREGUNTAS FRECUENTES AMPLIADAS -->
     <section class="section">
         <h2 class="section-title">Preguntas Frecuentes</h2>
         <div class="faq-container">
@@ -440,21 +487,41 @@
 
             <details class="faq-item">
                 <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                    ¿A qué enlace apunta el chip NFC?
+                    ¿A qué enlace apunta el chip NFC y se puede cambiar después?
                     <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
                 </summary>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
-                    Programamos los chips antes de enviártelos para que abran el enlace que tú elijas: tu tienda web, una página de descuento exclusivo, tu WhatsApp de atención o tus redes sociales.
+                    Programamos los chips antes de enviártelos para que abran el enlace que tú elijas (web, WhatsApp, menú o redes sociales). Si en el futuro utilizas una URL maestra o un servicio de redirección, el llavero seguirá funcionando aunque cambies el destino final de la web.
                 </p>
             </details>
 
             <details class="faq-item">
                 <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
-                    ¿Cómo puedo solicitar mi muestra gratuita?
+                    ¿Qué tipo de teléfonos son compatibles con la lectura NFC?
                     <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
                 </summary>
                 <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
-                    Solo tienes que pulsar en el botón de contacto directo por WhatsApp y comentarnos los detalles de tu marca para prepararte una muestra física sin compromiso.
+                    Prácticamente todos los smartphones modernos del mercado (tanto Android como iPhone) llevan tecnología NFC integrada de serie y la activan de forma automática al acercar el llavero, sin necesidad de instalar ninguna aplicación adicional.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                    ¿Cómo funciona exactamente el proceso para pedir la muestra gratuita?
+                    <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
+                </summary>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
+                    Nos escribes a través del botón de WhatsApp directo, nos facilitas tu logotipo o idea y te preparamos una muestra física real para que evalúes la calidad de impresión y el funcionamiento del NFC en persona antes de confirmar ninguna tirada grande.
+                </p>
+            </details>
+
+            <details class="faq-item">
+                <summary style="color: #fff; font-size: 1.05rem; font-weight: 600; outline: none; list-style: none; display: flex; justify-content: space-between; align-items: center;">
+                    ¿Cuál es el plazo de entrega habitual para los pedidos?
+                    <span style="color: var(--accent-orange); font-size: 1.2rem;">&#9662;</span>
+                </summary>
+                <p style="color: var(--text-muted); font-size: 0.9rem; margin-top: 12px; margin-bottom: 0; line-height: 1.6;">
+                    Una vez aprobada la muestra física y confirmado el diseño definitivo, el tiempo de producción y envío a cualquier punto de España suele rondar entre los 7 y 14 días laborables, dependiendo del volumen del pedido.
                 </p>
             </details>
 
