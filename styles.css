@@ -74,11 +74,11 @@ body {
 }
 
 .logo img {
-  height: 95px;
-  width: auto;
-  display: block;
-  transform: scale(1.7); /* Hace zoom para eliminar el marco transparente sobrante */
-  transform-origin: left center; /* Obliga a que el zoom crezca hacia la derecha y no se salga de la barra */
+  height: 95px !important;
+  width: auto !important;
+  display: block !important;
+  transform: scale(2.2) !important; 
+  transform-origin: left center !important;
 }
 
 .nav-links {
