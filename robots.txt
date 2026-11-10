@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://dehesa3d.es/sitemap.xml
