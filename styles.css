@@ -74,9 +74,12 @@ body {
 }
 
 .logo img {
-  height: 70px; /* Ajustado para tu logo.png */
+  height: 80px;
   width: auto;
   display: block;
+  mix-blend-mode: lighten; /* Borra el fondo negro de tu foto */
+  transform: scale(1.5); /* Amplía el escudo para eliminar el margen vacío */
+  transform-origin: left center;
 }
 
 .nav-links {
