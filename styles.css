@@ -70,11 +70,13 @@ body {
   height: 80px;
 }
 
-/* El logo ajustado para ordenador */
+/* El logo ajustado para ordenador con anulación de zoom */
 .logo img {
-  height: 65px;
-  width: auto;
-  display: block;
+  height: 65px !important;
+  width: auto !important;
+  max-width: 100% !important;
+  display: block !important;
+  transform: none !important; 
 }
 
 .nav-links {
@@ -519,9 +521,13 @@ body {
     display: none; 
   }
 
-  /* El logo se reduce en móvil para no romper la pantalla */
+  /* Reducción estricta del logo en móvil para que no rompa nada */
   .logo img {
-    height: 45px;
+    height: 45px !important;
+    width: auto !important;
+    max-width: 100% !important;
+    transform: none !important; 
+    margin-top: 0 !important;
   }
   
   .hero h1 {
