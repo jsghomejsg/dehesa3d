@@ -77,8 +77,8 @@ body {
   height: 95px;
   width: auto;
   display: block;
-  border-radius: 8px;
-
+  transform: scale(1.7); /* Hace zoom para eliminar el marco transparente sobrante */
+  transform-origin: left center; /* Obliga a que el zoom crezca hacia la derecha y no se salga de la barra */
 }
 
 .nav-links {
