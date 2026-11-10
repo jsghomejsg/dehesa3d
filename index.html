@@ -6,7 +6,7 @@
   <title>Llaveros e Imanes NFC Personalizados B2B | Dehesa 3D</title>
   <meta name="description" content="Fabricantes de soportes NFC personalizados en 3D para comercios, hostelería y marcas. Mejora tus reseñas y ventas sin comisiones.">
   <link rel="canonical" href="https://dehesa3d.es/">
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
   <link rel="icon" type="image/png" href="logo.png">
 </head>
 <body>
@@ -157,7 +157,7 @@
 
       <div class="grid-3">
         <div class="card" style="background-color: var(--bg-card-dark); border-color: var(--border-dark);">
-          <p style="color: var(--text-light); margin-bottom: 20px; font-style: italic;">"Desde que colocamos los imanes con NFC en elmostrador de nuestra clínica, las reseñas en Google se han triplicado sin esfuerzo. Los pacientes alucinan con lo rápido que funciona."</p>
+          <p style="color: var(--text-light); margin-bottom: 20px; font-style: italic;">"Desde que colocamos los imanes con NFC en el mostrador de nuestra clínica, las reseñas en Google se han triplicado sin esfuerzo. Los pacientes alucinan con lo rápido que funciona."</p>
           <div style="font-weight: 700; color: #fff;">Dr. Alberto M.</div>
           <div style="font-size: 0.85rem; color: var(--text-muted);">Clínica Dental Pozoblanco</div>
         </div>
@@ -190,8 +190,8 @@
           <div class="control-group">
             <label>1. Selecciona el formato:</label>
             <div class="toggle-grid-2">
-              <div class="toggle-option active" data-type="llavero">Llavero NFC</div>
-              <div class="toggle-option" data-type="iman">Imán de Nevera NFC</div>
+              <div class="toggle-option active" data-format="Llavero NFC">Llavero NFC</div>
+              <div class="toggle-option" data-format="Imán de Nevera NFC">Imán de Nevera NFC</div>
             </div>
           </div>
 
@@ -227,13 +227,14 @@
             <h3>Resumen del Presupuesto</h3>
             <div class="price-big" id="total-price">195,00 €</div>
             <ul class="summary-details">
+              <li>Formato: <strong id="sum-format">Llavero NFC</strong></li>
               <li>Cantidad: <strong id="sum-qty">100 unidades</strong></li>
               <li>Precio por unidad: <strong id="sum-unit">1,95 €</strong></li>
               <li>Envío peninsular: <strong>GRATIS</strong></li>
             </ul>
           </div>
           <div>
-            <a href="https://wa.me/34XXXXXXXXX?text=Hola,%20quiero%20encargar%20un%20pedido%20calculado%20en%20la%20web" class="btn" style="width:100%; text-align:center; display:block;">Pedir por WhatsApp</a>
+            <a id="whatsapp-btn" href="https://wa.me/34XXXXXXXXX?text=Hola,%20quiero%20encargar%20100%20unidades%20de%20Llavero%20NFC%20por%20195,00%20€" class="btn" style="width:100%; text-align:center; display:block;">Pedir por WhatsApp</a>
           </div>
         </div>
       </div>
@@ -273,7 +274,7 @@
     </div>
   </footer>
 
-  <!-- Script sencillo para pestañas y calculadora -->
+  <!-- Script robusto para pestañas y calculadora interactiva -->
   <script>
     // Pestañas de sectores
     const tabBtns = document.querySelectorAll('.tab-btn');
@@ -290,24 +291,53 @@
       });
     });
 
-    // Calculadora
+    // Estado de la calculadora
+    let state = {
+      format: "Llavero NFC",
+      qty: 100,
+      price: 1.95
+    };
+
+    const formatOptions = document.querySelectorAll('.toggle-option');
     const tierCards = document.querySelectorAll('.tier-card');
     const totalPriceEl = document.getElementById('total-price');
+    const sumFormatEl = document.getElementById('sum-format');
     const sumQtyEl = document.getElementById('sum-qty');
     const sumUnitEl = document.getElementById('sum-unit');
+    const whatsappBtn = document.getElementById('whatsapp-btn');
 
+    function updateCalculator() {
+      const total = (state.qty * state.price).toFixed(2);
+      
+      totalPriceEl.textContent = total.replace('.', ',') + ' €';
+      sumFormatEl.textContent = state.format;
+      sumQtyEl.textContent = state.qty + ' unidades';
+      sumUnitEl.textContent = state.price.toFixed(2).replace('.', ',') + ' €';
+
+      // Actualizar enlace de WhatsApp con los datos configurados
+      const message = encodeURIComponent(`Hola, quiero encargar ${state.qty} unidades de ${state.format} por un total de ${total.replace('.', ',')} € (calculado en la web).`);
+      whatsappBtn.href = `https://wa.me/34XXXXXXXXX?text=${message}`;
+    }
+
+    // Evento para cambiar formato (Llavero / Imán)
+    formatOptions.forEach(opt => {
+      opt.addEventListener('click', () => {
+        formatOptions.forEach(o => o.classList.remove('active'));
+        opt.classList.add('active');
+        state.format = opt.getAttribute('data-format');
+        updateCalculator();
+      });
+    });
+
+    // Evento para cambiar cantidad
     tierCards.forEach(card => {
       card.addEventListener('click', () => {
         tierCards.forEach(c => c.classList.remove('active'));
         card.classList.add('active');
         
-        const qty = parseInt(card.getAttribute('data-qty'));
-        const price = parseFloat(card.getAttribute('data-price'));
-        const total = (qty * price).toFixed(2);
-
-        totalPriceEl.textContent = total.replace('.', ',') + ' €';
-        sumQtyEl.textContent = qty + ' unidades';
-        sumUnitEl.textContent = price.toFixed(2).replace('.', ',') + ' €';
+        state.qty = parseInt(card.getAttribute('data-qty'));
+        state.price = parseFloat(card.getAttribute('data-price'));
+        updateCalculator();
       });
     });
   </script>
