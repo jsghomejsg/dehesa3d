@@ -70,13 +70,11 @@ body {
   height: 80px;
 }
 
-/* El logo con su ajuste de tamaño forzado */
+/* El logo ajustado para ordenador */
 .logo img {
-  height: 95px !important;
-  width: auto !important;
-  display: block !important;
-  transform: scale(2.2) !important; 
-  transform-origin: left center !important;
+  height: 65px;
+  width: auto;
+  display: block;
 }
 
 .nav-links {
@@ -518,7 +516,12 @@ body {
   }
   
   .nav-links {
-    display: none; /* Menú simple para móvil */
+    display: none; 
+  }
+
+  /* El logo se reduce en móvil para no romper la pantalla */
+  .logo img {
+    height: 45px;
   }
   
   .hero h1 {
@@ -540,6 +543,6 @@ body {
   }
   
   body {
-    padding-bottom: 80px; /* Espacio para la barra fija */
+    padding-bottom: 80px; 
   }
 }
