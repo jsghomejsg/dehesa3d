@@ -6,7 +6,7 @@
   <title>Llaveros e Imanes NFC Personalizados B2B | Dehesa 3D</title>
   <meta name="description" content="Fabricantes de soportes NFC personalizados en 3D para comercios, hostelería y marcas. Mejora tus reseñas y ventas sin comisiones.">
   <link rel="canonical" href="https://dehesa3d.es/">
-  <link rel="stylesheet" href="styles.css?v=4">
+  <link rel="stylesheet" href="styles.css?v=5">
   <link rel="icon" type="image/png" href="logo.png">
 </head>
 <body>
@@ -27,6 +27,7 @@
       <nav>
         <ul class="nav-links">
           <li><a href="#soluciones">Sectores</a></li>
+          <li><a href="#testimonios">Opiniones</a></li>
           <li><a href="#calculadora">Calculadora</a></li>
           <li><a href="materiales.html">Materiales</a></li>
         </ul>
@@ -79,7 +80,7 @@
       <div id="tab-comercios" class="tab-panel active">
         <div>
           <h3>Reseñas 5 estrellas en 3 segundos</h3>
-          <p>Para clínicas, peluquerías, talleres y negocios con mostrador. El cliente acerca el móvil al imán antes de pagar y se abre directamente la ventana de 5 estrellas en Google Maps.</p>
+          <p>Para clínicas, peluquerías, talleres y negocios con mostrador. El cliente acerca el imán antes de pagar y se abre directamente la ventana de 5 estrellas en Google Maps.</p>
           <ul class="check-list">
             <li>Cero fricción: el cliente no tiene que buscarte.</li>
             <li>Mejora tu posicionamiento local.</li>
@@ -141,6 +142,36 @@
         </div>
         <div>
           <img src="hero-nfc.jpg" alt="Imanes de mantenimiento NFC" loading="lazy">
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Testimonios Profesionales -->
+  <section id="testimonios" class="section" style="background-color: var(--bg-dark-2);">
+    <div class="container">
+      <div class="section-header">
+        <h2>Negocios que ya fidelizan con Dehesa 3D</h2>
+        <p>Descubre cómo pequeños comercios y marcas están digitalizando su relación con el cliente final.</p>
+      </div>
+
+      <div class="grid-3">
+        <div class="card" style="background-color: var(--bg-card-dark); border-color: var(--border-dark);">
+          <p style="color: var(--text-light); margin-bottom: 20px; font-style: italic;">"Desde que colocamos los imanes con NFC en elmostrador de nuestra clínica, las reseñas en Google se han triplicado sin esfuerzo. Los pacientes alucinan con lo rápido que funciona."</p>
+          <div style="font-weight: 700; color: #fff;">Dr. Alberto M.</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">Clínica Dental Pozoblanco</div>
+        </div>
+
+        <div class="card" style="background-color: var(--bg-card-dark); border-color: var(--border-dark);">
+          <p style="color: var(--text-light); margin-bottom: 20px; font-style: italic;">"Mandamos un llavero NFC en cada pedido de nuestra tienda online. Es una pasada ver cómo los clientes acceden a las reposiciones mensuales tocando el llavero con el móvil."</p>
+          <div style="font-weight: 700; color: #fff;">Sofía R.</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">E-commerce de Cosmética Natural</div>
+        </div>
+
+        <div class="card" style="background-color: var(--bg-card-dark); border-color: var(--border-dark);">
+          <p style="color: var(--text-light); margin-bottom: 20px; font-style: italic;">"Nuestros clientes de aire acondicionado tienen el imán de mantenimiento pegado en la máquina. Nos llaman directamente a nosotros para la revisión anual sin mirar en Google."</p>
+          <div style="font-weight: 700; color: #fff;">Javier G.</div>
+          <div style="font-size: 0.85rem; color: var(--text-muted);">Servicio Técnico de Climatización</div>
         </div>
       </div>
     </div>
@@ -242,8 +273,24 @@
     </div>
   </footer>
 
-  <!-- Script sencillo para la calculadora -->
+  <!-- Script sencillo para pestañas y calculadora -->
   <script>
+    // Pestañas de sectores
+    const tabBtns = document.querySelectorAll('.tab-btn');
+    const tabPanels = document.querySelectorAll('.tab-panel');
+
+    tabBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tabBtns.forEach(b => b.classList.remove('active'));
+        tabPanels.forEach(p => p.classList.remove('active'));
+        
+        btn.classList.add('active');
+        const target = document.getElementById(btn.getAttribute('data-tab'));
+        if(target) target.classList.add('active');
+      });
+    });
+
+    // Calculadora
     const tierCards = document.querySelectorAll('.tier-card');
     const totalPriceEl = document.getElementById('total-price');
     const sumQtyEl = document.getElementById('sum-qty');
