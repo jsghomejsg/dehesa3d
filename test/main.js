@@ -71,14 +71,16 @@ function animarMascota(claseAnimacion) {
     imgMascota.classList.add(claseAnimacion);
 }
 
-if (estadoRegistro === 'registrado') {
-        cajaMensaje.innerText = "He leído lo que has escrito, pero he decidido ignorarlo por completo. Usa los botones y déjame en paz.";
-        animarMascota('animar-enfado');
-        inputTexto.value = "";
+function mostrarFrase(categoria, claseAnimacion) {
+    if (estadoRegistro !== 'registrado') return; 
+    const lista = diccionarioFrases[categoria];
+    if (lista && lista.length > 0) {
+        const randomIndex = Math.floor(Math.random() * lista.length);
+        cajaMensaje.innerText = lista[randomIndex];
+        animarMascota(claseAnimacion);
     }
-});
+}
 
-// Botones corregidos
 document.getElementById('btn-inicio').addEventListener('click', () => mostrarFrase('inicio', 'animar-inicio'));
 document.getElementById('btn-motivacion').addEventListener('click', () => mostrarFrase('motivacion', 'animar-motivacion'));
 document.getElementById('btn-estado').addEventListener('click', () => mostrarFrase('estado', 'animar-estado'));
@@ -121,7 +123,8 @@ btnEnviar.addEventListener('click', async () => {
     }
 
     if (estadoRegistro === 'registrado') {
-        mostrarFrase('ignorantes', 'animar-ignorar');
+        cajaMensaje.innerText = "He leído lo que has escrito, pero he decidido ignorarlo por completo. Usa los botones y déjame en paz.";
+        animarMascota('animar-enfado');
         inputTexto.value = "";
     }
 });
