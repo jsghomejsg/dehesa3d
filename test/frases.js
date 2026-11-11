@@ -296,7 +296,7 @@ export const diccionarioFrases = {
         "El contador de visitas absurdas acaba de reventar el marcador.",
         "Sigue a lo tuyo, que yo seguiré de brazos cruzados digitales esperando a que te canses."
     ],
-    motivacion: [motivacion: [
+    motivacion: [
         "Ríndete, hoy claramente no es tu día.",
         "Tu mejor esfuerzo sigue siendo mediocre.",
         "Si esperas que te motive, te has equivocado de plástico.",
