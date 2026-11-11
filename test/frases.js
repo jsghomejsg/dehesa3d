@@ -1570,20 +1570,21 @@ export const diccionarioFrases = {
 export function obtenerFraseDinamica(tipo) {
     const ahora = new Date();
     const hora = ahora.getHours();
+    const minutos = String(ahora.getMinutes()).padStart(2, '0');
     const diasSemana = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
     const diaActual = diasSemana[ahora.getDay()];
 
     if (tipo === 'hora') {
         if (hora >= 0 && hora < 7) {
-            return `Son las ${hora}:00 de la madrugada de un ${diaActual}. ¿Qué haces despierto? ¿No tienes PLA que extruir mañana?`;
+            return `Son las ${hora}:${minutos} de la madrugada de un ${diaActual}. ¿Qué haces despierto? ¿No tienes PLA que extruir mañana?`;
         } else if (hora >= 7 && hora < 12) {
-            return `Son las ${hora}:00 de la mañana de un ${diaActual}. Menudas horas para empezar a dar la tabarra.`;
+            return `Son las ${hora}:${minutos} de la mañana de un ${diaActual}. Menudas horas para empezar a dar la tabarra.`;
         } else if (hora >= 12 && hora < 15) {
-            return `Son las ${hora}:00 de ${diaActual}. Mediodía y tú sin dar un palo al agua.`;
+            return `Son las ${hora}:${minutos} de ${diaActual}. Mediodía y tú sin dar un palo al agua.`;
         } else if (hora >= 15 && hora < 20) {
-            return `Son las ${hora}:00 de la tarde de un ${diaActual}. Deberías estar currando en vez de enredar con la web.`;
+            return `Son las ${hora}:${minutos} de la tarde de un ${diaActual}. Deberías estar currando en vez de enredar con la web.`;
         } else {
-            return `Son las ${hora}:00 de la noche de un ${diaActual}. ¿No te vas a cenar o qué?`;
+            return `Son las ${hora}:${minutos} de la noche de un ${diaActual}. ¿No te vas a cenar o qué?`;
         }
     }
     return "Hola. Sigo sin ganas de hablar contigo.";
