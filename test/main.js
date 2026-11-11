@@ -3,11 +3,12 @@ import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/fireba
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 
 // ========================================================
-// TUS CREDENCIALES REALES DE FIREBASE (YA CONFIGURADAS)
+// CONFIGURACIÓN DE FIREBASE (CON LA URL DE TU REGIÓN)
 // ========================================================
 const firebaseConfig = {
     apiKey: "AIzaSyAImoyX-LE-wN6iG07q7n3x0XrZoc4",
     authDomain: "mascota-borde.firebaseapp.com",
+    databaseURL: "https://mascota-borde-default-rtdb.europe-west1.firebasedatabase.app",
     projectId: "mascota-borde",
     storageBucket: "mascota-borde.appspot.com",
     messagingSenderId: "276796896046",
@@ -19,7 +20,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Frases por categoría (Aquí meteremos las 2000 más adelante)
+// Frases por categoría
 const frasesInicio = ["Oh, genial. Has vuelto a escanearme.", "¿No tienes nada mejor que hacer con tu móvil?"];
 const frasesMotivacion = ["Ríndete, hoy claramente no es tu día.", "Tu mejor esfuerzo sigue siendo mediocre."];
 const frasesEstado = ["Estaba mejor antes de que me escanearas.", "Sigo atrapado en este bloque. ¿Tú qué crees?"];
@@ -39,19 +40,24 @@ window.onload = async function() {
         return;
     }
 
-    // Comprobamos en Firebase si este muñeco ya tiene dueño
-    const dbRef = ref(db, 'mascotas/' + idFigura);
-    const snapshot = await get(dbRef);
+    try {
+        // Comprobamos en Firebase si este muñeco ya tiene dueño
+        const dbRef = ref(db, 'mascotas/' + idFigura);
+        const snapshot = await get(dbRef);
 
-    if (snapshot.exists()) {
-        // Ya tiene dueño: mostramos los botones de interacción
-        const datos = snapshot.val();
-        document.getElementById('interact-panel').classList.add('activo');
-        cajaMensaje.innerText = `Ugh... Hola otra vez, ${datos.nombre}. ` + frasesInicio[Math.floor(Math.random() * frasesInicio.length)];
-    } else {
-        // Es nuevo: mostramos el panel para registrar nombre y PIN
-        document.getElementById('auth-panel').classList.add('activo');
-        cajaMensaje.innerText = "Soy nuevo. Registra tu nombre y un PIN si quieres que hablemos.";
+        if (snapshot.exists()) {
+            // Ya tiene dueño: mostramos los botones de interacción
+            const datos = snapshot.val();
+            document.getElementById('interact-panel').classList.add('activo');
+            cajaMensaje.innerText = `Ugh... Hola otra vez, ${datos.nombre}. ` + frasesInicio[Math.floor(Math.random() * frasesInicio.length)];
+        } else {
+            // Es nuevo: mostramos el panel para registrar nombre y PIN
+            document.getElementById('auth-panel').classList.add('activo');
+            cajaMensaje.innerText = "Soy nuevo. Registra tu nombre y un PIN si quieres que hablemos.";
+        }
+    } catch (error) {
+        console.error("Error al conectar con la base de datos:", error);
+        cajaMensaje.innerText = "Error de conexión con el servidor.";
     }
 };
 
