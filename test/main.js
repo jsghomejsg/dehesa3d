@@ -69,8 +69,8 @@ document.getElementById('btn-enviar').addEventListener('click', () => {
     inputTexto.value = "";
 });
 
-// Easter Egg optimizado para móvil (sin zoom y detectando toques rápidos)
-contenedorMascota.addEventListener('click', (e) => {
+// Easter Egg ultra-sensible para móvil usando pointerdown (respuesta táctil instantánea)
+contenedorMascota.addEventListener('pointerdown', (e) => {
     e.preventDefault();
     clicksRapidos++;
     clearTimeout(temporizadorClicks);
@@ -82,6 +82,6 @@ contenedorMascota.addEventListener('click', (e) => {
     } else {
         temporizadorClicks = setTimeout(() => {
             clicksRapidos = 0;
-        }, 500);
+        }, 600);
     }
 });
