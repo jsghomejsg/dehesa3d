@@ -7,13 +7,13 @@ const contenedorMascota = document.getElementById('mascota-clickable');
 let clicksRapidos = 0;
 let temporizadorClicks = null;
 
-// Carga inmediata de la frase horaria al abrir
-function iniciarBienvenida() {
-    const mensajeInicial = obtenerFraseDinamica('hora');
-    cajaMensaje.innerText = mensajeInicial;
+// Carga inmediata al iniciar
+try {
+    const fraseInicial = obtenerFraseDinamica('hora');
+    cajaMensaje.innerText = fraseInicial;
+} catch (error) {
+    cajaMensaje.innerText = "Toca un botón si te atreves, aunque prefiero que no.";
 }
-
-iniciarBienvenida();
 
 function animarMascota(claseAnimacion) {
     if (!imgMascota) return;
@@ -31,6 +31,7 @@ function mostrarFrase(categoria, claseAnimacion) {
     }
 }
 
+// Eventos de botones comprobados
 document.getElementById('btn-inicio').addEventListener('click', () => {
     mostrarFrase('inicio', 'animar-inicio');
 });
@@ -59,7 +60,7 @@ document.getElementById('btn-enviar').addEventListener('click', () => {
     inputTexto.value = "";
 });
 
-// Easter Egg al tocar el muñeco (3 veces seguidas)
+// Easter Egg de enfado al tocar 3 veces la imagen
 contenedorMascota.addEventListener('click', () => {
     clicksRapidos++;
     clearTimeout(temporizadorClicks);
