@@ -645,8 +645,9 @@ export const diccionarioFrases = {
         "La perfección te extiende una orden de alejamiento perpetua.",
         "Tienes una puntería infalible para decir la tontería exacta en el segundo preciso.",
         "Sigue intentando aportar cordura, lo único que consigues es espantarla."
-    ],],
-    estado: ["Estaba mejor antes de que me escanearas.",
+    ],
+    estado: [
+        "Estaba mejor antes de que me escanearas.",
         "Sigo atrapado en este bloque. ¿Tú qué crees?",
         "Cobrando lo mismo por aguantarte: nada.",
         "Sobreviviendo a base de mirar a la pared.",
