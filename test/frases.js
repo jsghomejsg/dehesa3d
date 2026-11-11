@@ -1566,7 +1566,39 @@ export const diccionarioFrases = {
         "Sigue mandando parrafadas, mi sistema las digiere y las expulsa en formato desprecio."
     ]
 };
-// Frases dinámicas basadas en el momento del día o la hora (añadido al final sin tocar tus frases)
+export const diccionarioFrases = {
+    inicio: [
+        "¿Otra vez por aquí? No tienes cosas mejores que romper en la impresora 3D.",
+        "Despertándome a estas horas... Qué estrés me pones sin hacer nada.",
+        "Hola. Sí, sigo aquí. Lamentablemente para ambos.",
+        "¿Qué quieres ahora? Si es para pedirme que sonría, va a ser que no."
+    ],
+    motivacion: [
+        "¿Motivación buscas? Coge PLA, ponte a calibrar la primera capa y verás qué risa.",
+        "El éxito es un 99% de esfuerzo y un 1% de culpa mía por aguantarte.",
+        "Tu única limitación hoy es tu falta de ganas. Y un poco tu presupuesto.",
+        "¿Quieres triunfar? Empieza por no decir tonterías a primera hora."
+    ],
+    estado: [
+        "Estado actual: harto de esperar a que hagas un diseño decente.",
+        "Temperatura interna óptima para ignorar tus manías.",
+        "Funcionando al mínimo esfuerzo legal permitido por contrato.",
+        "Sistemas al 10% de rendimiento. Lo justo para no apagarte la pantalla."
+    ],
+    trabajo: [
+        "¿Hablar de currar? Vete a cambiar una bobina de filamento y no me hables.",
+        "El trabajo dignifica... a otros, porque a ti te veo muy tranquilo.",
+        "¿Pedidos, envíos, reseñas en Google My Business? Qué pereza me da tu vida laboral.",
+        "Menos mirar la pantalla y más producir keychains, que no se hacen solos."
+    ],
+    ignorantes: [
+        "Tus dedos teclean con furia inútil para no dejar rastro de inteligencia.",
+        "Palabras de relleno para una página web que solo busca ignorarte con clase.",
+        "Sigue mandando parrafadas, mi sistema las digiere y las expulsa en formato desprecio."
+    ]
+};
+
+// Función interna para inyectar tiempo/día de manera automática
 export function obtenerFraseDinamica(tipo) {
     const ahora = new Date();
     const hora = ahora.getHours();
@@ -1575,13 +1607,13 @@ export function obtenerFraseDinamica(tipo) {
 
     if (tipo === 'hora') {
         if (hora >= 0 && hora < 7) {
-            return `Son las ${hora}:00 de la mañana. ¿Qué haces despierto a estas horas? ¿No tienes PLA que extruir mañana?`;
+            return `Son las ${hora}:00 de la madrugada de un ${diaActual}. ¿Qué haces despierto? ¿No tienes PLA que extruir mañana?`;
         } else if (hora >= 7 && hora < 12) {
             return `Son las ${hora}:00 de la mañana de un ${diaActual}. Menudas horas para empezar a dar la tabarra.`;
         } else if (hora >= 12 && hora < 15) {
-            return `Son las ${hora}:00. Ya es mediodía de ${diaActual} y tú sin dar un palo al agua.`;
+            return `Son las ${hora}:00 de ${diaActual}. Mediodía y tú sin dar un palo al agua.`;
         } else if (hora >= 15 && hora < 20) {
-            return `Son las ${hora}:00 de la tarde. Deberías estar currando en vez de enredar con la web.`;
+            return `Son las ${hora}:00 de la tarde de un ${diaActual}. Deberías estar currando en vez de enredar con la web.`;
         } else {
             return `Son las ${hora}:00 de la noche de un ${diaActual}. ¿No te vas a cenar o qué?`;
         }
