@@ -1598,7 +1598,6 @@ export const diccionarioFrases = {
     ]
 };
 
-// Función interna para inyectar tiempo/día de manera automática
 export function obtenerFraseDinamica(tipo) {
     const ahora = new Date();
     const hora = ahora.getHours();
@@ -1618,4 +1617,5 @@ export function obtenerFraseDinamica(tipo) {
             return `Son las ${hora}:00 de la noche de un ${diaActual}. ¿No te vas a cenar o qué?`;
         }
     }
+    return "Hola. Sigo sin ganas de hablar contigo.";
 }
