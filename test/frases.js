@@ -1564,5 +1564,5 @@ export const diccionarioFrases = {
         "Tus dedos teclean con furia inútil para no dejar rastro de inteligencia.",
         "Palabras de relleno para una página web que solo busca ignorarte con clase.",
         "Sigue mandando parrafadas, mi sistema las digiere y las expulsa en formato desprecio."
-    ]]
+    ]
 };
