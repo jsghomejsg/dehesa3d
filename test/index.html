@@ -34,27 +34,21 @@
             align-items: center;
         }
 
-        /* Vitrina flotante para el muñeco con transparencia real */
-        .mascota-wrapper {
-            position: relative;
-            width: 220px;
-            height: 220px;
+        /* Contenedor limpio sin círculo, dejando que el muñeco flote libremente */
+        .mascota-container {
             display: flex;
             justify-content: center;
             align-items: center;
             margin-bottom: 25px;
-            background: radial-gradient(circle, #1f2937 0%, #111827 80%);
-            border-radius: 50%;
-            box-shadow: inset 0 4px 12px rgba(0,0,0,0.5), 0 10px 20px rgba(0,0,0,0.3);
-            border: 2px solid rgba(255, 255, 255, 0.05);
-            overflow: hidden;
+            padding: 10px;
         }
 
         #mascota-img {
-            width: 170px;
+            width: 180px;
             height: auto;
             display: block;
-            /* Como ya no tiene fondo, la transparencia fluye perfecta sobre el degradado oscuro */
+            /* Sombra realista integrada con la transparencia del PNG */
+            filter: drop-shadow(0 12px 20px rgba(0,0,0,0.6));
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
         }
 
@@ -186,7 +180,8 @@
 <body>
 
     <div class="app-container">
-        <div class="mascota-wrapper">
+        <!-- Contenedor limpio sin círculo -->
+        <div class="mascota-container">
             <img id="mascota-img" src="mascota.png" alt="Mascota Art Toy">
         </div>
         
