@@ -2,6 +2,9 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 
+// IMPORTAMOS EL DICCIONARIO MASIVO DE FRASES
+import { diccionarioFrases } from "./frases.js";
+
 // ========================================================
 // CONFIGURACIÓN DE FIREBASE (CON LA URL DE TU REGIÓN)
 // ========================================================
@@ -20,12 +23,12 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// Frases por categoría
-const frasesInicio = ["Oh, genial. Has vuelto a escanearme.", "¿No tienes nada mejor que hacer con tu móvil?"];
-const frasesMotivacion = ["Ríndete, hoy claramente no es tu día.", "Tu mejor esfuerzo sigue siendo mediocre."];
-const frasesEstado = ["Estaba mejor antes de que me escanearas.", "Sigo atrapado en este bloque. ¿Tú qué crees?"];
-const frasesTrabajo = ["Trabaja tú, yo soy un adorno estructural.", "Ese Excel no se va a rellenar con magia."];
-const frasesIgnorar = ["Mucho texto, no lo he leído.", "¿De verdad creías que un trozo de plástico te iba a escuchar?"];
+// Usamos las categorías directamente desde el diccionario masivo importado
+const frasesInicio = diccionarioFrases.inicio;
+const frasesMotivacion = diccionarioFrases.motivacion;
+const frasesEstado = diccionarioFrases.estado;
+const frasesTrabajo = diccionarioFrases.trabajo;
+const frasesIgnorar = diccionarioFrases.ignorar;
 
 const cajaMensaje = document.getElementById('message-box');
 let idFigura = null;
