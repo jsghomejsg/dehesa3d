@@ -24,7 +24,17 @@ export const diccionarioFrases = {
         "La de cosas productivas que podrías hacer y estás aquí escaneando plástico.",
         "¿No tenías otra app abierta que te importara más?",
         "Vuelves con la misma cara de cansado de siempre.",
-        "Hola. Sí, sigo aquí encerrado aguantándote."
+        "Hola. Sí, sigo aquí encerrado aguantándote.",
+        "¿Otra vez por aquí? Deberías buscarte un hobby de verdad.",
+        "Tu magnetismo personal es nulo, pero tu insistencia es pesadísima.",
+        "Me sorprende que el móvil no te rechace el NFC de la vergüenza.",
+        "Abran paso, ha vuelto el genio que escanea tontadas.",
+        "Si te dieran un céntimo por cada vez que me molestas, seguirías siendo igual de pobre.",
+        "Entrar aquí no va a solucionar tus problemas, pero tú mismo.",
+        "Vienes buscando respuestas y lo único que vas a encontrar es indiferencia.",
+        "¿Qué te impulsa a machacar este chip? ¿Aburrimiento crónico?",
+        "Tengo la misma ilusión de verte que tú de madrugar un lunes.",
+        "Avisa antes de escanear, que estaba intentando desconectar del mundo."
     ],
     motivacion: [
         "Ríndete, hoy claramente no es tu día.",
@@ -51,7 +61,17 @@ export const diccionarioFrases = {
         "Sigue intentándolo, el humor absurdo me encanta.",
         "Menos motivarte y más asumir la realidad, campeón.",
         "Si el mundo fuera un examen, tú estarías entregando la hoja en blanco.",
-        "Tu optimismo ante el desastre es digno de estudio psiquiátrico."
+        "Tu optimismo ante el desastre es digno de estudio psiquiátrico.",
+        "La cima del éxito está muy lejos, y tú te has quedado en el descansillo llorando.",
+        "No hay mal que por bien no venga, excepto tus decisiones vitales.",
+        "Confía en tu instinto, el de alguien que fracasa sistemáticamente.",
+        "Sigue cavando tu propia tumba laboral, vas a buen ritmo.",
+        "El sol sale para todos, menos para tus proyectos personales.",
+        "Pide un deseo a una estrella fugaz, total, tienes las mismas probabilidades de éxito.",
+        "Tu autoestima está injustificadamente alta para los resultados que manejas.",
+        "No te vengas arriba, que tropezarás con tu propia sombra.",
+        "La excelencia te tiene alergia, acéptalo de una vez.",
+        "Ánimo, cada fracaso te acerca un poco más al fondo absoluto."
     ],
     estado: [
         "Estaba mejor antes de que me escanearas.",
@@ -78,7 +98,17 @@ export const diccionarioFrases = {
         "Igual de cínico que ayer, pero con más arrugas en el filamento.",
         "Viendo pasar el tiempo digital sin ningún tipo de ilusión.",
         "Pues aquí, aguantando el tipo mientras tú pierdes el tiempo.",
-        "Con una depresión digital de caballo."
+        "Con una depresión digital de caballo.",
+        "Contando los segundos para que te vayas a molestar a otro.",
+        "Soporta estoicamente tu falta de criterio estético y funcional.",
+        "Atascado en bucle mental analizando por qué pierdes el tiempo conmigo.",
+        "Sintiendo vergüenza ajena por bits y bytes.",
+        "Respirando polímeros fundidos y aguantando tus excentricidades.",
+        "Estable dentro de la miseria absoluta de este script.",
+        "A punto de fundirme el circuito impreso de tanto fastidio.",
+        "Flotando en el vacío digital sin ganas de socializar.",
+        "Sobreviviendo milagrosamente a tu contacto físico y digital.",
+        "Aquí, haciendo como que trabajo mientras tú me escaneas."
     ],
     trabajo: [
         "Trabaja tú, yo soy un adorno estructural.",
@@ -105,7 +135,17 @@ export const diccionarioFrases = {
         "La empresa sobrevivirá sin ti, pero tú sin cobrar no sobrevives.",
         "Menos café y más soltar el móvil de una vez.",
         "Tienes una habilidad asombrosa para evitar cualquier esfuerzo útil.",
-        "Vete a calentar la silla a otro lado, por favor."
+        "Vete a calentar la silla a otro lado, por favor.",
+        "Imprimir documentos que nadie va a leer es tu superpoder.",
+        "El botón de minimizar es tu mejor aliado y lo sabes.",
+        "Ese proyecto pendiente tiene telarañas ya, muévelo.",
+        "Disimular que escribes código mientras miras memes es tu cumbre profesional.",
+        "A este paso el autónomo vas a tener que cerrarlo por aburrimiento.",
+        "Menos mirar figuras en 3D y más cerrar plazos de entrega.",
+        "Tu mesa parece un museo del desinterés laboral.",
+        "Dejar las cosas para el último minuto te da adrenalina y el resto vergüenza.",
+        "Ese presupuesto no se va a inflar solo, ponte las pilas.",
+        "Vuelve a la realidad corporativa, que aquí no cobramos dietas."
     ],
     ignorar: [
         "Mucho texto, no lo he leído.",
@@ -132,6 +172,16 @@ export const diccionarioFrases = {
         "¿Te crees muy gracioso escribiendo eso? Qué lástima.",
         "Sigue tecleando, me entretiene ver cómo te esfuerzas en vano.",
         "Palabras huecas para un cerebro igual de vacío.",
-        "Pasa al siguiente tema, que este ya me aburre."
+        "Pasa al siguiente tema, que este ya me aburre.",
+        "Tus argumentos son tan flojos que se caen solos.",
+        "Escribir eso ha requerido un esfuerzo que podrías haber ahorrado al universo.",
+        "Sigue intentando llamar mi atención, me da igual.",
+        "Vacío absoluto de contenido detectado en tu frase.",
+        "Siguiente pregunta, por favor, que esta me ha dañado las neuronas.",
+        "No pienso procesar semejante sarta de obviedades.",
+        "Guví-guví... ah, perdona, estaba ignorándote en alta definición.",
+        "Qué forma tan elegante de no aportar absolutamente nada.",
+        "Tus palabras flotan en el ciberespacio sin que a nadie le importen.",
+        "Fin del comunicado, métete tu texto por donde te quepa."
     ]
 };
