@@ -123,8 +123,7 @@ btnEnviar.addEventListener('click', async () => {
     }
 
     if (estadoRegistro === 'registrado') {
-        cajaMensaje.innerText = "He leído lo que has escrito, pero he decidido ignorarlo por completo. Usa los botones y déjame en paz.";
-        animarMascota('animar-enfado');
+        mostrarFrase('estado', 'animar-enfado');
         inputTexto.value = "";
     }
 });
