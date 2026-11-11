@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mascota Borde - Art Toy</title>
     <style>
-        /* Estilos generales limpios para la prueba */
+        /* Fondo blanco puro para que la foto funda perfectamente */
         body {
-            background-color: #121212;
-            color: #e0e0e0;
+            background-color: #ffffff;
+            color: #222222;
             font-family: monospace;
             display: flex;
             flex-direction: column;
@@ -36,8 +36,8 @@
         }
 
         .caja-frase {
-            background: #1e1e1e;
-            border: 1px solid #333;
+            background: #f4f4f4;
+            border: 1px solid #ddd;
             padding: 15px;
             border-radius: 8px;
             min-height: 60px;
@@ -46,6 +46,7 @@
             display: flex;
             align-items: center;
             justify-content: center;
+            color: #333;
         }
 
         .botones {
@@ -55,17 +56,22 @@
         }
 
         button, input {
-            padding: 10px;
+            padding: 12px;
             font-family: monospace;
-            background: #2a2a2a;
-            color: #fff;
-            border: 1px solid #444;
+            background: #eaeaea;
+            color: #222;
+            border: 1px solid #ccc;
             border-radius: 4px;
             cursor: pointer;
+            font-weight: bold;
         }
 
         button:hover {
-            background: #3a3a3a;
+            background: #d4d4d4;
+        }
+
+        input {
+            background: #fff;
         }
 
         /* Clases de animación */
@@ -111,7 +117,7 @@
         <img id="mascota-img" src="mascota.png" alt="Mascota Art Toy">
         
         <!-- Caja donde aparecen las frases -->
-        <div id="caja-mensaje" class="caja-frase">Conectando...</div>
+        <div id="caja-mensaje" class="caja-frase">...</div>
 
         <!-- Botones de interacción -->
         <div class="botones">
