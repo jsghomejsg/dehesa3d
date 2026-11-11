@@ -81,14 +81,10 @@ function mostrarFrase(categoria, claseAnimacion) {
     }
 }
 
-document.getElementById('btn-inicio').addEventListener('click', () => mostrarFrase('inicio', 'animar-inicio'));
-document.getElementById('btn-motivacion').addEventListener('click', () => mostrarFrase('motivacion', 'animar-motivacion'));
-document.getElementById('btn-estado').addEventListener('click', () => {
-    if (estadoRegistro !== 'registrado') return;
-    cajaMensaje.innerText = obtenerFraseDinamica('hora');
-    animarMascota('animar-estado');
-});
-document.getElementById('btn-trabajo').addEventListener('click', () => mostrarFrase('trabajo', 'animar-trabajo'));
+('btn-inicio').addEventListener('click', () => mostrarFrase('inicio', 'animar-inicio'));
+('btn-motivacion').addEventListener('click', () => mostrarFrase('motivacion', 'animar-motivacion'));
+document.getElementById('btn-estado').addEventListener('click', () => mostrarFrase('estado', 'animar-estado'));
+('btn-trabajo').addEventListener('click', () => mostrarFrase('trabajo', 'animar-trabajo'));
 
 btnEnviar.addEventListener('click', async () => {
     const texto = inputTexto.value.trim();
