@@ -1,4 +1,4 @@
-import { diccionarioFrases } from './frases.js';
+import { diccionarioFrases, obtenerFraseDinamica } from './frases.js';
 
 const cajaMensaje = document.getElementById('caja-mensaje');
 const imgMascota = document.getElementById('mascota-img');
@@ -37,6 +37,11 @@ document.getElementById('btn-trabajo').addEventListener('click', () => {
     mostrarFrase('trabajo', 'animar-trabajo');
 });
 
+document.getElementById('btn-tiempo').addEventListener('click', () => {
+    cajaMensaje.innerText = obtenerFraseDinamica('hora');
+    animarMascota('animar-estado');
+});
+
 document.getElementById('btn-enviar').addEventListener('click', () => {
     const inputTexto = document.getElementById('user-text');
     if (inputTexto.value.trim() === "") {
@@ -44,6 +49,6 @@ document.getElementById('btn-enviar').addEventListener('click', () => {
         animarMascota('animar-ignorar');
         return;
     }
-    mostrarFrase('ignorar', 'animar-ignorar');
+    mostrarFrase('ignorantes', 'animar-ignorar');
     inputTexto.value = "";
 });
