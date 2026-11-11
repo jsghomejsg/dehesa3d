@@ -3,13 +3,12 @@ import { diccionarioFrases } from './frases.js';
 const cajaMensaje = document.getElementById('caja-mensaje');
 const imgMascota = document.getElementById('mascota-img');
 
-// Mensaje inicial
 cajaMensaje.innerText = "Toca un botón si te atreves, aunque prefiero que no.";
 
 function animarMascota(claseAnimacion) {
     if (!imgMascota) return;
     imgMascota.className = "";
-    void imgMascota.offsetWidth; // Reinicia la animación
+    void imgMascota.offsetWidth; 
     imgMascota.classList.add(claseAnimacion);
 }
 
@@ -22,7 +21,6 @@ function mostrarFrase(categoria, claseAnimacion) {
     }
 }
 
-// Conexión de botones
 document.getElementById('btn-inicio').addEventListener('click', () => {
     mostrarFrase('inicio', 'animar-inicio');
 });
