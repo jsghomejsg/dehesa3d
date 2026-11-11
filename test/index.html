@@ -40,6 +40,7 @@
             align-items: center;
             margin-bottom: 25px;
             padding: 10px;
+            cursor: pointer;
         }
 
         #mascota-img {
@@ -144,6 +145,7 @@
         .animar-estado { animation: respiracion 1.2s ease-in-out; }
         .animar-trabajo { animation: mirarCurioso 0.7s ease; }
         .animar-ignorar { animation: desprecio 0.5s ease; }
+        .animar-enfado { animation: cortocircuito 0.3s ease infinite; filter: drop-shadow(0 12px 20px rgba(239, 68, 68, 0.8)); }
 
         @keyframes parpadeoVivo {
             0% { transform: translateY(0) scale(1, 1); }
@@ -172,23 +174,27 @@
             80% { transform: translateY(-4px) scale(0.98, 1.02); }
             100% { transform: translateY(0) scale(1); }
         }
+        @keyframes cortocircuito {
+            0% { transform: translateX(-3px) rotate(-2deg); }
+            50% { transform: translateX(3px) rotate(2deg); }
+            100% { transform: translateX(-3px) rotate(-2deg); }
+        }
     </style>
 </head>
 <body>
 
     <div class="app-container">
-        <div class="mascota-container">
+        <div class="mascota-container" id="mascota-clickable">
             <img id="mascota-img" src="mascota.png" alt="Mascota Art Toy">
         </div>
         
-        <div id="caja-mensaje" class="caja-frase">Toca un botón si te atreves, aunque prefiero que no.</div>
+        <div id="caja-mensaje" class="caja-frase">Cargando desprecio inicial...</div>
 
         <div class="botones">
             <button id="btn-inicio">Despiértate ya</button>
             <button id="btn-motivacion">Motívame si puedes</button>
             <button id="btn-estado">¿Cómo respiras?</button>
             <button id="btn-trabajo">Habla de currar</button>
-            <button id="btn-tiempo">¿Qué hora es?</button>
             <div class="input-group">
                 <input type="text" id="user-text" placeholder="Dile algo absurdo...">
                 <button id="btn-enviar">Enviar</button>
