@@ -34,7 +34,7 @@
             align-items: center;
         }
 
-        /* Contenedor limpio sin círculo, dejando que el muñeco flote libremente */
+        /* Contenedor limpio sin círculo, flotando libremente */
         .mascota-container {
             display: flex;
             justify-content: center;
@@ -50,6 +50,7 @@
             /* Sombra realista integrada con la transparencia del PNG */
             filter: drop-shadow(0 12px 20px rgba(0,0,0,0.6));
             transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transform-origin: bottom center;
         }
 
         /* Caja de frases moderna */
@@ -142,38 +143,39 @@
             box-shadow: 0 6px 16px rgba(16, 185, 129, 0.4);
         }
 
-        /* Animaciones fluidas */
-        .animar-inicio { animation: miradaReojo 0.4s ease infinite alternate; }
-        .animar-motivacion { animation: negarCabeza 0.4s ease 2; }
-        .animar-estado { animation: suspiro 0.8s ease; }
-        .animar-trabajo { animation: mirarLados 0.6s ease; }
-        .animar-ignorar { animation: encogerHombros 0.5s ease; }
+        /* Animaciones fluidas y orgánicas tipo Art Toy vivo */
+        .animar-inicio { animation: parpadeoVivo 0.6s ease infinite alternate; }
+        .animar-motivacion { animation: saltoAnimado 0.5s ease; }
+        .animar-estado { animation: respiracion 1.2s ease-in-out; }
+        .animar-trabajo { animation: mirarCurioso 0.7s ease; }
+        .animar-ignorar { animation: desprecio 0.5s ease; }
 
-        @keyframes miradaReojo {
-            0% { transform: translateX(0); }
-            100% { transform: translateX(6px); }
+        @keyframes parpadeoVivo {
+            0% { transform: translateY(0) scale(1, 1); }
+            100% { transform: translateY(-3px) scale(1.01, 0.99); }
         }
-        @keyframes negarCabeza {
-            0% { transform: rotate(0deg); }
-            25% { transform: rotate(-4deg); }
-            75% { transform: rotate(4deg); }
-            100% { transform: rotate(0deg); }
+        @keyframes saltoAnimado {
+            0% { transform: translateY(0) rotate(0deg); }
+            30% { transform: translateY(-12px) rotate(-3deg); }
+            60% { transform: translateY(4px) rotate(2deg); }
+            100% { transform: translateY(0) rotate(0deg); }
         }
-        @keyframes suspiro {
+        @keyframes respiracion {
             0% { transform: scale(1, 1); }
-            50% { transform: scale(0.95, 1.05); }
+            50% { transform: scale(0.97, 1.04); }
             100% { transform: scale(1, 1); }
         }
-        @keyframes mirarLados {
+        @keyframes mirarCurioso {
             0% { transform: translateX(0) rotate(0deg); }
-            30% { transform: translateX(-8px) rotate(-2deg); }
-            70% { transform: translateX(8px) rotate(2deg); }
+            25% { transform: translateX(-8px) rotate(-4deg); }
+            75% { transform: translateX(8px) rotate(4deg); }
             100% { transform: translateX(0) rotate(0deg); }
         }
-        @keyframes encogerHombros {
-            0% { transform: translateY(0); }
-            50% { transform: translateY(-6px) scale(0.97); }
-            100% { transform: translateY(0); }
+        @keyframes desprecio {
+            0% { transform: translateY(0) scale(1); }
+            40% { transform: translateY(6px) scale(1.03, 0.95); }
+            80% { transform: translateY(-4px) scale(0.98, 1.02); }
+            100% { transform: translateY(0) scale(1); }
         }
     </style>
 </head>
