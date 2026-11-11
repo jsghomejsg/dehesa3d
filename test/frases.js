@@ -1566,3 +1566,24 @@ export const diccionarioFrases = {
         "Sigue mandando parrafadas, mi sistema las digiere y las expulsa en formato desprecio."
     ]
 };
+// Frases dinámicas basadas en el momento del día o la hora (añadido al final sin tocar tus frases)
+export function obtenerFraseDinamica(tipo) {
+    const ahora = new Date();
+    const hora = ahora.getHours();
+    const diasSemana = ['domingo', 'lunes', 'martes', 'miércoles', 'jueves', 'viernes', 'sábado'];
+    const diaActual = diasSemana[ahora.getDay()];
+
+    if (tipo === 'hora') {
+        if (hora >= 0 && hora < 7) {
+            return `Son las ${hora}:00 de la mañana. ¿Qué haces despierto a estas horas? ¿No tienes PLA que extruir mañana?`;
+        } else if (hora >= 7 && hora < 12) {
+            return `Son las ${hora}:00 de la mañana de un ${diaActual}. Menudas horas para empezar a dar la tabarra.`;
+        } else if (hora >= 12 && hora < 15) {
+            return `Son las ${hora}:00. Ya es mediodía de ${diaActual} y tú sin dar un palo al agua.`;
+        } else if (hora >= 15 && hora < 20) {
+            return `Son las ${hora}:00 de la tarde. Deberías estar currando en vez de enredar con la web.`;
+        } else {
+            return `Son las ${hora}:00 de la noche de un ${diaActual}. ¿No te vas a cenar o qué?`;
+        }
+    }
+}
