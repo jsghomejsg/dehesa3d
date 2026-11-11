@@ -5,7 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mascota Borde - Art Toy</title>
     <style>
-        /* Fondo blanco puro para que la foto funda perfectamente */
         body {
             background-color: #ffffff;
             color: #222222;
@@ -22,56 +21,60 @@
 
         .container {
             text-align: center;
-            max-width: 400px;
+            max-width: 420px;
             width: 100%;
         }
 
-        /* Estilo base de la imagen de la mascota */
+        /* Muñeco grande y protagonista con fusión de fondo blanca */
         #mascota-img {
-            width: 180px;
+            width: 280px;
             height: auto;
             display: block;
-            margin: 0 auto 20px auto;
+            margin: 0 auto 25px auto;
+            mix-blend-mode: multiply; /* Elimina el fondo de la foto automáticamente */
             transition: transform 0.3s ease;
         }
 
         .caja-frase {
-            background: #f4f4f4;
-            border: 1px solid #ddd;
-            padding: 15px;
+            background: #f9f9f9;
+            border: 1px solid #dcdcdc;
+            padding: 18px;
             border-radius: 8px;
-            min-height: 60px;
+            min-height: 70px;
             margin-bottom: 20px;
-            font-size: 14px;
+            font-size: 15px;
             display: flex;
             align-items: center;
             justify-content: center;
-            color: #333;
+            color: #111;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
 
         .botones {
             display: flex;
             flex-direction: column;
-            gap: 10px;
+            gap: 12px;
         }
 
         button, input {
-            padding: 12px;
+            padding: 14px;
             font-family: monospace;
-            background: #eaeaea;
-            color: #222;
+            background: #f1f1f1;
+            color: #111;
             border: 1px solid #ccc;
-            border-radius: 4px;
+            border-radius: 6px;
             cursor: pointer;
             font-weight: bold;
+            font-size: 14px;
         }
 
         button:hover {
-            background: #d4d4d4;
+            background: #e2e2e2;
         }
 
         input {
             background: #fff;
+            text-align: left;
         }
 
         /* Clases de animación */
@@ -81,31 +84,31 @@
         .animar-trabajo { animation: mirarLados 0.6s ease; }
         .animar-ignorar { animation: encogerHombros 0.5s ease; }
 
-        /* Definición de los movimientos (Keyframes) */
+        /* Keyframes de animación */
         @keyframes miradaReojo {
             0% { transform: translateX(0); }
-            100% { transform: translateX(8px); }
+            100% { transform: translateX(10px); }
         }
         @keyframes negarCabeza {
             0% { transform: rotate(0deg); }
-            25% { transform: rotate(-4deg); }
-            75% { transform: rotate(4deg); }
+            25% { transform: rotate(-5deg); }
+            75% { transform: rotate(5deg); }
             100% { transform: rotate(0deg); }
         }
         @keyframes suspiro {
             0% { transform: scale(1, 1); }
-            50% { transform: scale(0.96, 1.04); }
+            50% { transform: scale(0.95, 1.05); }
             100% { transform: scale(1, 1); }
         }
         @keyframes mirarLados {
             0% { transform: translateX(0) rotate(0deg); }
-            30% { transform: translateX(-10px) rotate(-2deg); }
-            70% { transform: translateX(10px) rotate(2deg); }
+            30% { transform: translateX(-12px) rotate(-3deg); }
+            70% { transform: translateX(12px) rotate(3deg); }
             100% { transform: translateX(0) rotate(0deg); }
         }
         @keyframes encogerHombros {
             0% { transform: translateY(0); }
-            50% { transform: translateY(-6px) scale(0.98); }
+            50% { transform: translateY(-8px) scale(0.97); }
             100% { transform: translateY(0); }
         }
     </style>
@@ -113,19 +116,19 @@
 <body>
 
     <div class="container">
-        <!-- Imagen de la mascota subida -->
+        <!-- Imagen principal grande -->
         <img id="mascota-img" src="mascota.png" alt="Mascota Art Toy">
         
-        <!-- Caja donde aparecen las frases -->
+        <!-- Caja de frases -->
         <div id="caja-mensaje" class="caja-frase">...</div>
 
-        <!-- Botones de interacción -->
+        <!-- Botones -->
         <div class="botones">
             <button id="btn-inicio">Inicio / Despertar</button>
             <button id="btn-motivacion">Motivación</button>
             <button id="btn-estado">Estado</button>
             <button id="btn-trabajo">Trabajo</button>
-            <div style="display: flex; gap: 5px;">
+            <div style="display: flex; gap: 8px;">
                 <input type="text" id="user-text" placeholder="Escríbele algo..." style="flex: 1;">
                 <button id="btn-enviar">Ignorar</button>
             </div>
