@@ -1,76 +1,99 @@
-// Bases de datos de frases por categoría
-const frasesInicio = [
-    "Oh, genial. Has vuelto a escanearme.",
-    "¿No tienes nada mejor que hacer con tu móvil?",
-    "Me has despertado para esta tontería. Increíble."
-];
+// Importamos la conexión a la base de datos de Google
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-app.js";
+import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.11.0/firebase-database.js";
 
-const frasesMotivacion = [
-    "Ríndete, hoy claramente no es tu día.",
-    "Tu mejor esfuerzo sigue siendo mediocre.",
-    "Si esperas que te motive, te has equivocado de plástico."
-];
-
-const frasesEstado = [
-    "Estaba mejor antes de que me escanearas.",
-    "Sigo atrapado en este bloque. ¿Tú qué crees?",
-    "Cobrando lo mismo por aguantarte: nada."
-];
-
-const frasesTrabajo = [
-    "Trabaja tú, yo soy un adorno estructural.",
-    "Ese Excel no se va a rellenar con magia.",
-    "Finge que trabajas, a mí me funciona."
-];
-
-// Las respuestas cuando el usuario escribe algo (El truco del pasota)
-const frasesIgnorar = [
-    "Mucho texto, no lo he leído.",
-    "No me cuentes tu vida, no soy tu psicólogo.",
-    "Interesante... si me importara.",
-    "¿De verdad creías que un trozo de plástico te iba a escuchar?",
-    "Ajam. Sí. Lo que tú digas."
-];
-
-function obtenerIdFigura() {
-    const parametros = new URLSearchParams(window.location.search);
-    return parametros.get('id');
-}
-
-window.onload = function() {
-    const id = obtenerIdFigura();
-    
-    if (!id) {
-        document.getElementById('message-box').innerText = "Error: Escanéame con el chip NFC.";
-        return;
-    }
-
-    // Frase aleatoria de inicio
-    cambiarTexto(frasesInicio);
+// ========================================================
+// TUS CREDENCIALES REALES DE FIREBASE (YA CONFIGURADAS)
+// ========================================================
+const firebaseConfig = {
+    apiKey: "AIzaSyAImoyX-LE-wN6iG07q7n3x0XrZoc4",
+    authDomain: "mascota-borde.firebaseapp.com",
+    projectId: "mascota-borde",
+    storageBucket: "mascota-borde.appspot.com",
+    messagingSenderId: "276796896046",
+    appId: "1:276796896046:web:3a56b4d84s19843238c9a4",
+    measurementId: "G-TH173G62NT"
 };
 
-// Función para los 3 botones fijos
-function responder(categoria) {
-    if (categoria === 'motivacion') cambiarTexto(frasesMotivacion);
-    if (categoria === 'estado') cambiarTexto(frasesEstado);
-    if (categoria === 'trabajo') cambiarTexto(frasesTrabajo);
-}
+// Conectamos con la nube
+const app = initializeApp(firebaseConfig);
+const db = getDatabase(app);
 
-// Función para el botón de enviar texto (ignora lo escrito y vacía la caja)
-function ignorarTexto() {
-    const input = document.getElementById('user-text');
+// Frases por categoría (Aquí meteremos las 2000 más adelante)
+const frasesInicio = ["Oh, genial. Has vuelto a escanearme.", "¿No tienes nada mejor que hacer con tu móvil?"];
+const frasesMotivacion = ["Ríndete, hoy claramente no es tu día.", "Tu mejor esfuerzo sigue siendo mediocre."];
+const frasesEstado = ["Estaba mejor antes de que me escanearas.", "Sigo atrapado en este bloque. ¿Tú qué crees?"];
+const frasesTrabajo = ["Trabaja tú, yo soy un adorno estructural.", "Ese Excel no se va a rellenar con magia."];
+const frasesIgnorar = ["Mucho texto, no lo he leído.", "¿De verdad creías que un trozo de plástico te iba a escuchar?"];
+
+const cajaMensaje = document.getElementById('message-box');
+let idFigura = null;
+
+// Cuando la página carga en el móvil
+window.onload = async function() {
+    const parametros = new URLSearchParams(window.location.search);
+    idFigura = parametros.get('id');
     
-    if (input.value.trim() === "") {
-        document.getElementById('message-box').innerText = "¿Me mandas un texto vacío? Eres un genio.";
+    if (!idFigura) {
+        cajaMensaje.innerText = "Error: Escanéame con el chip NFC.";
         return;
     }
 
-    cambiarTexto(frasesIgnorar);
-    input.value = ""; // Borramos lo que ha escrito para darle más rabia
-}
+    // Comprobamos en Firebase si este muñeco ya tiene dueño
+    const dbRef = ref(db, 'mascotas/' + idFigura);
+    const snapshot = await get(dbRef);
 
-// Función de utilidad para sacar frase aleatoria de un array
+    if (snapshot.exists()) {
+        // Ya tiene dueño: mostramos los botones de interacción
+        const datos = snapshot.val();
+        document.getElementById('interact-panel').classList.add('activo');
+        cajaMensaje.innerText = `Ugh... Hola otra vez, ${datos.nombre}. ` + frasesInicio[Math.floor(Math.random() * frasesInicio.length)];
+    } else {
+        // Es nuevo: mostramos el panel para registrar nombre y PIN
+        document.getElementById('auth-panel').classList.add('activo');
+        cajaMensaje.innerText = "Soy nuevo. Registra tu nombre y un PIN si quieres que hablemos.";
+    }
+};
+
+// Botón para registrar un nuevo dueño
+document.getElementById('btn-registrar').addEventListener('click', async () => {
+    const nombre = document.getElementById('owner-name').value;
+    const pin = document.getElementById('owner-pin').value;
+    
+    if(!nombre || !pin) {
+        cajaMensaje.innerText = "Rellena los dos datos, que no soy adivino.";
+        return;
+    }
+    
+    // Guardamos los datos en la base de datos de Firebase
+    await set(ref(db, 'mascotas/' + idFigura), {
+        nombre: nombre,
+        pin: pin
+    });
+    
+    // Ocultamos el registro y mostramos los botones
+    document.getElementById('auth-panel').classList.remove('activo');
+    document.getElementById('interact-panel').classList.add('activo');
+    cajaMensaje.innerText = `Vale ${nombre}, ya soy tuyo. ¿Y ahora qué?`;
+});
+
+// Eventos para los botones de interacción
+document.getElementById('btn-motivar').addEventListener('click', () => cambiarTexto(frasesMotivacion));
+document.getElementById('btn-estado').addEventListener('click', () => cambiarTexto(frasesEstado));
+document.getElementById('btn-trabajo').addEventListener('click', () => cambiarTexto(frasesTrabajo));
+
+// Botón de enviar texto (El truco del pasota)
+document.getElementById('btn-enviar').addEventListener('click', () => {
+    const input = document.getElementById('user-text');
+    if (input.value.trim() === "") {
+        cajaMensaje.innerText = "¿Me mandas un texto vacío? Eres un genio.";
+        return;
+    }
+    cambiarTexto(frasesIgnorar);
+    input.value = ""; 
+});
+
 function cambiarTexto(arrayFrases) {
     const indice = Math.floor(Math.random() * arrayFrases.length);
-    document.getElementById('message-box').innerText = arrayFrases[indice];
+    cajaMensaje.innerText = arrayFrases[indice];
 }
