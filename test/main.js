@@ -7,19 +7,9 @@ const contenedorMascota = document.getElementById('mascota-clickable');
 let clicksRapidos = 0;
 let temporizadorClicks = null;
 
-async function iniciarBienvenida() {
-    let mensajeInicial = obtenerFraseDinamica('hora');
-    
-    if ('getBattery' in navigator) {
-        try {
-            const battery = await navigator.getBattery();
-            const nivelBateria = Math.round(battery.level * 100);
-            if (nivelBateria <= 20) {
-                mensajeInicial = `Tienes un ${nivelBateria}% de batería en el móvil y estás perdiendo el tiempo aquí. Genial tus prioridades.`;
-            }
-        } catch (e) {}
-    }
-
+// Carga inmediata de la frase horaria al abrir
+function iniciarBienvenida() {
+    const mensajeInicial = obtenerFraseDinamica('hora');
     cajaMensaje.innerText = mensajeInicial;
 }
 
@@ -69,7 +59,7 @@ document.getElementById('btn-enviar').addEventListener('click', () => {
     inputTexto.value = "";
 });
 
-// Easter Egg blindado para móvil usando el evento click directo con contador rápido
+// Easter Egg al tocar el muñeco (3 veces seguidas)
 contenedorMascota.addEventListener('click', () => {
     clicksRapidos++;
     clearTimeout(temporizadorClicks);
