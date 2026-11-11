@@ -7,11 +7,10 @@ const contenedorMascota = document.getElementById('mascota-clickable');
 let clicksRapidos = 0;
 let temporizadorClicks = null;
 
-// Carga inmediata al iniciar
+// Carga inmediata de la frase al arrancar
 try {
-    const fraseInicial = obtenerFraseDinamica('hora');
-    cajaMensaje.innerText = fraseInicial;
-} catch (error) {
+    cajaMensaje.innerText = obtenerFraseDinamica('hora');
+} catch (e) {
     cajaMensaje.innerText = "Toca un botón si te atreves, aunque prefiero que no.";
 }
 
@@ -31,7 +30,6 @@ function mostrarFrase(categoria, claseAnimacion) {
     }
 }
 
-// Eventos de botones comprobados
 document.getElementById('btn-inicio').addEventListener('click', () => {
     mostrarFrase('inicio', 'animar-inicio');
 });
