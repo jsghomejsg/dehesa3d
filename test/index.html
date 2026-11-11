@@ -6,128 +6,64 @@
     <title>Mascota Borde</title>
     <style>
         body {
-            background-color: #121212;
-            color: #ffffff;
+            background-color: #121212; color: #ffffff;
             font-family: 'Courier New', Courier, monospace;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            min-height: 100vh;
-            margin: 0;
-            text-align: center;
-            padding: 20px;
-            box-sizing: border-box;
+            display: flex; flex-direction: column; align-items: center;
+            justify-content: center; min-height: 100vh; margin: 0;
+            text-align: center; padding: 20px; box-sizing: border-box;
         }
-
         #avatar-container {
-            width: 250px;
-            height: 250px;
-            background-color: #222;
-            border-radius: 15px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin-bottom: 30px;
+            width: 250px; height: 250px; background-color: #222;
+            border-radius: 15px; display: flex; align-items: center;
+            justify-content: center; margin-bottom: 30px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
-
-        #avatar-placeholder {
-            font-size: 60px;
-            font-weight: bold;
-            color: #555;
-            letter-spacing: -3px;
-        }
-
-        #message-box {
-            font-size: 20px;
-            min-height: 80px;
-            max-width: 350px;
-            line-height: 1.4;
-            color: #e0e0e0;
-            margin-bottom: 30px;
-        }
-
-        /* Nueva zona interactiva */
-        #interact-panel {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-            width: 100%;
-            max-width: 350px;
-        }
-
-        .button-row {
-            display: flex;
-            gap: 10px;
-            justify-content: center;
-        }
-
-        .input-row {
-            display: flex;
-            gap: 10px;
-        }
-
-        input {
-            flex-grow: 1;
-            padding: 12px;
-            font-size: 14px;
-            border-radius: 6px;
-            border: 1px solid #444;
-            background: #2a2a2a;
-            color: white;
-            font-family: inherit;
-        }
-
-        input:focus {
-            outline: none;
-            border-color: #777;
-        }
-
-        button { 
-            background-color: #ffffff; 
-            color: #000000; 
-            padding: 12px;
-            font-size: 14px;
-            border: none;
-            border-radius: 6px;
-            cursor: pointer; 
-            font-weight: bold; 
-            font-family: inherit;
-        }
-
-        button:hover { background-color: #dddddd; }
+        #avatar-placeholder { font-size: 60px; font-weight: bold; color: #555; letter-spacing: -3px; }
+        #message-box { font-size: 20px; min-height: 80px; max-width: 350px; line-height: 1.4; color: #e0e0e0; margin-bottom: 30px; }
         
-        /* Botones secundarios más discretos */
-        .btn-secundario {
-            background-color: #333;
-            color: #fff;
-        }
+        /* Paneles */
+        .panel { display: none; flex-direction: column; gap: 15px; width: 100%; max-width: 350px; }
+        .panel.activo { display: flex; }
+        
+        #auth-panel { background: #1e1e1e; padding: 25px; border-radius: 12px; }
+        .button-row { display: flex; gap: 10px; justify-content: center; }
+        .input-row { display: flex; gap: 10px; }
+        
+        input { flex-grow: 1; padding: 12px; font-size: 14px; border-radius: 6px; border: 1px solid #444; background: #2a2a2a; color: white; font-family: inherit; }
+        input:focus { outline: none; border-color: #777; }
+        button { background-color: #ffffff; color: #000000; padding: 12px; font-size: 14px; border: none; border-radius: 6px; cursor: pointer; font-weight: bold; font-family: inherit; }
+        button:hover { background-color: #dddddd; }
+        .btn-secundario { background-color: #333; color: #fff; }
         .btn-secundario:hover { background-color: #444; }
-
     </style>
 </head>
 <body>
 
-    <div id="avatar-container">
-        <span id="avatar-placeholder">¬_¬</span>
+    <div id="avatar-container"><span id="avatar-placeholder">¬_¬</span></div>
+    <div id="message-box">Conectando...</div>
+
+    <!-- Panel 1: Registro (Solo sale si la mascota es nueva) -->
+    <div id="auth-panel" class="panel">
+        <h3 style="margin-top:0; font-size:18px;">Reclama tu mascota</h3>
+        <input type="text" id="owner-name" placeholder="Tu nombre">
+        <input type="password" id="owner-pin" placeholder="Crea un PIN (4 cifras)" maxlength="4" inputmode="numeric">
+        <button id="btn-registrar">Vincular</button>
     </div>
 
-    <div id="message-box">Cargando actitud...</div>
-
-    <!-- Panel de interacción del usuario -->
-    <div id="interact-panel">
+    <!-- Panel 2: Interacción (Solo sale si ya tiene dueño) -->
+    <div id="interact-panel" class="panel">
         <div class="button-row">
-            <button class="btn-secundario" onclick="responder('motivacion')">Motívame</button>
-            <button class="btn-secundario" onclick="responder('estado')">¿Qué tal?</button>
-            <button class="btn-secundario" onclick="responder('trabajo')">A trabajar</button>
+            <button class="btn-secundario" id="btn-motivar">Motívame</button>
+            <button class="btn-secundario" id="btn-estado">¿Qué tal?</button>
+            <button class="btn-secundario" id="btn-trabajo">A trabajar</button>
         </div>
         <div class="input-row">
             <input type="text" id="user-text" placeholder="Dime algo...">
-            <button onclick="ignorarTexto()">Enviar</button>
+            <button id="btn-enviar">Enviar</button>
         </div>
     </div>
 
-    <script src="main.js"></script>
+    <!-- OJO: type="module" es obligatorio para conectar con la nube moderna -->
+    <script type="module" src="main.js"></script>
 </body>
 </html>
