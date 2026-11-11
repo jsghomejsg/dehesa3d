@@ -1,17 +1,17 @@
 import { diccionarioFrases, obtenerFraseDinamica } from './frases.js';
-// Importamos Firebase directamente desde sus servidores (sin instalaciones raras)
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-// 1. PEGA AQUÍ LOS DATOS DE TU PROYECTO DE FIREBASE
+// Tus claves reales de Firebase integradas
 const firebaseConfig = {
-    apiKey: "TU_API_KEY",
-    authDomain: "TU_PROYECTO.firebaseapp.com",
-    databaseURL: "https://TU_PROYECTO-default-rtdb.europe-west1.firebasedatabase.app",
-    projectId: "TU_PROYECTO",
-    storageBucket: "TU_PROYECTO.appspot.com",
-    messagingSenderId: "TU_SENDER_ID",
-    appId: "TU_APP_ID"
+  apiKey: "AIzaSyBiKAnyUmoYxlE-wwGi6B7q7n3xOXrZoc4",
+  authDomain: "mascota-borde.firebaseapp.com",
+  databaseURL: "https://mascota-borde-default-rtdb.europe-west1.firebasedatabase.app",
+  projectId: "mascota-borde",
+  storageBucket: "mascota-borde.firebasestorage.app",
+  messagingSenderId: "276796896045",
+  appId: "1:276796896045:web:3a56b4d04a19843238d9a4",
+  measurementId: "G-TH173G62NT"
 };
 
 // Inicializamos la conexión a la nube
@@ -34,7 +34,7 @@ const idLlavero = parametrosURL.get('id');
 let estadoRegistro = 'comprobando';
 let nombreTemporal = "";
 
-// 2. COMPROBACIÓN EN LA NUBE AL ENTRAR
+// COMPROBACIÓN EN LA NUBE AL ENTRAR
 async function comprobarLlavero() {
     if (!idLlavero) {
         cajaMensaje.innerText = "Error: Este muñeco no tiene un ID asignado en su chip NFC. Qué desastre de fabricante.";
@@ -48,19 +48,17 @@ async function comprobarLlavero() {
         const snapshot = await get(llaveroRef);
 
         if (snapshot.exists()) {
-            // El llavero ya está registrado en Firebase
             const datos = snapshot.val();
             estadoRegistro = 'registrado';
             cajaMensaje.innerText = `Hola de nuevo, ${datos.nombre}. ${obtenerFraseDinamica('hora')}`;
         } else {
-            // El llavero es nuevo y virgen
             estadoRegistro = 'pidiendo_nombre';
             cajaMensaje.innerText = "Vaya, un chip NFC virgen. ¿Cómo te llamas antes de que me empiece a dar igual?";
             inputTexto.placeholder = "Escribe tu nombre aquí...";
         }
     } catch (error) {
         console.error(error);
-        cajaMensaje.innerText = "Error de conexión con Firebase. Alguien ha roto la base de datos.";
+        cajaMensaje.innerText = "Error de conexión con Firebase. ¿Has puesto los permisos de lectura/escritura en true?";
     }
 }
 
@@ -74,7 +72,7 @@ function animarMascota(claseAnimacion) {
 }
 
 function mostrarFrase(categoria, claseAnimacion) {
-    if (estadoRegistro !== 'registrado') return; // Bloquea los botones si no está registrado
+    if (estadoRegistro !== 'registrado') return; 
     const lista = diccionarioFrases[categoria];
     if (lista && lista.length > 0) {
         const randomIndex = Math.floor(Math.random() * lista.length);
@@ -83,7 +81,6 @@ function mostrarFrase(categoria, claseAnimacion) {
     }
 }
 
-// Eventos de los botones
 document.getElementById('btn-inicio').addEventListener('click', () => mostrarFrase('inicio', 'animar-inicio'));
 document.getElementById('btn-motivacion').addEventListener('click', () => mostrarFrase('motivacion', 'animar-motivacion'));
 document.getElementById('btn-estado').addEventListener('click', () => {
@@ -93,7 +90,6 @@ document.getElementById('btn-estado').addEventListener('click', () => {
 });
 document.getElementById('btn-trabajo').addEventListener('click', () => mostrarFrase('trabajo', 'animar-trabajo'));
 
-// 3. SECUENCIA DE REGISTRO CON EL BOTÓN ENVIAR
 btnEnviar.addEventListener('click', async () => {
     const texto = inputTexto.value.trim();
     if (texto === "") return;
@@ -104,7 +100,7 @@ btnEnviar.addEventListener('click', async () => {
         cajaMensaje.innerText = `Vale, ${nombreTemporal}. Ahora invéntate un PIN para que nadie reclame este muñeco en la nube.`;
         inputTexto.value = "";
         inputTexto.placeholder = "Escribe un PIN numérico...";
-        inputTexto.type = "password"; // Oculta el texto como si fuera una contraseña
+        inputTexto.type = "password"; 
         return;
     }
 
@@ -113,7 +109,6 @@ btnEnviar.addEventListener('click', async () => {
         cajaMensaje.innerText = "Grabando a fuego en la nube...";
         
         try {
-            // Guardamos nombre y PIN permanentemente en Firebase bajo el ID del llavero
             await set(ref(db, 'llaveros/' + idLlavero), {
                 nombre: nombreTemporal,
                 pin: pin
@@ -126,19 +121,17 @@ btnEnviar.addEventListener('click', async () => {
             cajaMensaje.innerText = `Perfecto, ${nombreTemporal}. Registrada en la base de datos oficial. Ya puedes tocar los botones.`;
             animarMascota('animar-estado');
         } catch (error) {
-            cajaMensaje.innerText = "Error al guardar en Firebase. Revisa los permisos.";
+            cajaMensaje.innerText = "Error al guardar en Firebase. Revisa las reglas de la base de datos.";
         }
         return;
     }
 
-    // Modo normal para insultar después de estar registrado
     if (estadoRegistro === 'registrado') {
         mostrarFrase('ignorantes', 'animar-ignorar');
         inputTexto.value = "";
     }
 });
 
-// Easter Egg (solo funciona si ya está registrado)
 contenedorMascota.addEventListener('click', () => {
     if (estadoRegistro !== 'registrado') return;
     clicksRapidos++;
