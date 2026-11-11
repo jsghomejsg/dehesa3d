@@ -1,1 +1,124 @@
 
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mascota Borde</title>
+    <style>
+        body {
+            background-color: #121212;
+            color: #ffffff;
+            font-family: 'Courier New', Courier, monospace;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            margin: 0;
+            text-align: center;
+            padding: 20px;
+            box-sizing: border-box;
+        }
+
+        /* Hueco preparado para la foto hiperrealista de tu figura */
+        #avatar-container {
+            width: 250px;
+            height: 250px;
+            background-color: #222;
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            /* Aquí irá el <img src="..."> cuando tengas las fotos */
+        }
+
+        /* Texto de estado (Zoquete en estado puro) */
+        #avatar-placeholder {
+            font-size: 60px;
+            font-weight: bold;
+            color: #555;
+            letter-spacing: -3px;
+        }
+
+        /* La caja donde soltará sus frases */
+        #message-box {
+            font-size: 20px;
+            min-height: 60px;
+            max-width: 350px;
+            line-height: 1.4;
+            color: #e0e0e0;
+        }
+
+        /* Panel de registro oculto por defecto */
+        #auth-panel {
+            display: none; /* Cambiará a 'flex' desde JS cuando lo necesitemos */
+            flex-direction: column;
+            background: #1e1e1e;
+            padding: 25px;
+            border-radius: 12px;
+            margin-top: 20px;
+            width: 100%;
+            max-width: 300px;
+        }
+
+        input {
+            padding: 12px;
+            margin-bottom: 15px;
+            font-size: 16px;
+            border-radius: 6px;
+            border: 1px solid #444;
+            background: #2a2a2a;
+            color: white;
+            text-align: center;
+            font-family: inherit;
+        }
+
+        input:focus {
+            outline: none;
+            border-color: #777;
+        }
+
+        button { 
+            background-color: #ffffff; 
+            color: #000000; 
+            padding: 12px;
+            font-size: 16px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer; 
+            font-weight: bold; 
+            font-family: inherit;
+            text-transform: uppercase;
+        }
+
+        button:hover {
+            background-color: #dddddd;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- El escenario principal -->
+    <div id="avatar-container">
+        <!-- Esto lo sustituiremos por la foto cuando la tengas -->
+        <span id="avatar-placeholder">¬_¬</span>
+    </div>
+
+    <!-- Donde habla -->
+    <div id="message-box">Cargando actitud...</div>
+
+    <!-- El panel para reclamar la mascota (se activa por código) -->
+    <div id="auth-panel">
+        <h3 style="margin-top: 0; font-size: 18px;">Nuevo propietario</h3>
+        <input type="text" id="owner-name" placeholder="Tu nombre">
+        <input type="password" id="owner-pin" placeholder="Crea un PIN (4 cifras)" inputmode="numeric" maxlength="4">
+        <button onclick="registrarMascota()">Reclamar</button>
+    </div>
+
+    <!-- Conexión con tu archivo de lógica -->
+    <script src="main.js"></script>
+</body>
+</html>
