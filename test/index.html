@@ -17,7 +17,9 @@
         }
         .container { 
             flex: 1; 
-            padding: 30px 20px; 
+            padding: 20px;
+            /* Añadimos espacio extra abajo para que el banner flotante no tape el botón */
+            padding-bottom: 90px; 
             display: flex; 
             flex-direction: column; 
             justify-content: center; 
@@ -76,20 +78,28 @@
         
         .error { color: #ff4444; font-size: 14px; margin-bottom: 15px; display: none; }
         
+        /* Banner anclado al fondo de la pantalla */
         .ad-banner { 
-            background: #1a1a1a; 
+            position: fixed; 
+            bottom: 0; 
+            left: 0;
+            width: 100%;
+            background: rgba(26, 26, 26, 0.95); /* Fondo oscuro semitransparente */
+            backdrop-filter: blur(5px);
             border-top: 1px solid #333; 
-            padding: 25px 15px; 
-            font-size: 16px; 
+            padding: 15px; 
+            font-size: 14px; 
             color: #aaaaaa; 
+            box-sizing: border-box;
+            z-index: 1000;
         }
         .ad-banner a.link-secundario { 
             color: #1DB954; 
             text-decoration: none; 
             font-weight: bold; 
             display: block; 
-            margin-top: 10px; 
-            font-size: 18px; 
+            margin-top: 5px; 
+            font-size: 15px; 
         }
     </style>
 </head>
@@ -119,13 +129,13 @@
         <a href="#" id="btn-play" class="btn-play">ABRIR AHORA</a>
     </div>
 
-    <!-- Escaparate comercial permanente -->
+    <!-- Escaparate comercial permanente flotante -->
     <div class="ad-banner">
         Tecnología impresa en 3D por <a href="https://www.dehesa3d.es" target="_blank" style="color: #ffffff; text-decoration: underline; font-weight: bold;">Dehesa3D</a>
         <a href="https://wa.me/34611801528" target="_blank" class="link-secundario">¿Quieres llaveros interactivos para tu tienda? Contacta aquí</a>
     </div>
 
-    <!-- Forzamos la actualización de caché con v=5 para matar errores -->
-    <script type="module" src="main.js?v=5"></script>
+    <!-- Forzamos la actualización de caché con v=7 -->
+    <script type="module" src="main.js?v=7"></script>
 </body>
 </html>
