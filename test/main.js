@@ -1,145 +1,113 @@
-import { diccionarioFrases, obtenerFraseDinamica } from './frases.js';
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
 
-// Tus claves reales de Firebase integradas
+// Tus claves de conexión
 const firebaseConfig = {
-  apiKey: "AIzaSyBiKAnyUmoYxlE-wwGi6B7q7n3xOXrZoc4",
-  authDomain: "mascota-borde.firebaseapp.com",
-  databaseURL: "https://mascota-borde-default-rtdb.europe-west1.firebasedatabase.app",
-  projectId: "mascota-borde",
-  storageBucket: "mascota-borde.firebasestorage.app",
-  messagingSenderId: "276796896045",
-  appId: "1:276796896045:web:3a56b4d04a19843238d9a4",
-  measurementId: "G-TH173G62NT"
+    apiKey: "AIzaSyBiKAnyUmoYxlE-wwGi6B7q7n3xOXrZoc4",
+    authDomain: "mascota-borde.firebaseapp.com",
+    databaseURL: "https://mascota-borde-default-rtdb.europe-west1.firebasedatabase.app",
+    projectId: "mascota-borde",
+    storageBucket: "mascota-borde.firebasestorage.app",
+    messagingSenderId: "276796896045",
+    appId: "1:276796896045:web:3a56b4d04a19843238d9a4",
+    measurementId: "G-TH173G62NT"
 };
 
-// Inicializamos la conexión a la nube
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const cajaMensaje = document.getElementById('caja-mensaje');
-const imgMascota = document.getElementById('mascota-img');
-const contenedorMascota = document.getElementById('mascota-clickable');
-const inputTexto = document.getElementById('user-text');
-const btnEnviar = document.getElementById('btn-enviar');
+// Referencias a las pantallas en HTML
+const pantallaCarga = document.getElementById('pantalla-carga');
+const pantallaVirgen = document.getElementById('pantalla-virgen');
+const pantallaGrabado = document.getElementById('pantalla-grabado');
 
-let clicksRapidos = 0;
-let temporizadorClicks = null;
+// Referencias a los botones e inputs
+const inputUrl = document.getElementById('input-url');
+const inputPin = document.getElementById('input-pin');
+const btnGuardar = document.getElementById('btn-guardar');
+const mensajeError = document.getElementById('mensaje-error');
+const btnPlay = document.getElementById('btn-play');
 
-// Obtenemos el ID del llavero desde la URL (ej: dehesa3d.es/test/?id=001)
+// Obtenemos el ID del llavero desde la URL (ej: dehesa3d.es/?id=001)
 const parametrosURL = new URLSearchParams(window.location.search);
 const idLlavero = parametrosURL.get('id');
 
-let estadoRegistro = 'comprobando';
-let nombreTemporal = "";
+let pinReal = "";
 
-// COMPROBACIÓN EN LA NUBE AL ENTRAR
+// Función principal que se ejecuta al escanear
 async function comprobarLlavero() {
     if (!idLlavero) {
-        cajaMensaje.innerText = "Error: Este muñeco no tiene un ID asignado en su chip NFC. Qué desastre de fabricante.";
+        pantallaCarga.innerHTML = "<h1>Error</h1><p>No se ha detectado ningún ID. Acerca tu móvil al chip NFC del llavero.</p>";
         return;
     }
 
-    cajaMensaje.innerText = "Consultando el cerebro central en la nube...";
-    
     try {
         const llaveroRef = ref(db, 'llaveros/' + idLlavero);
         const snapshot = await get(llaveroRef);
 
         if (snapshot.exists()) {
             const datos = snapshot.val();
-            estadoRegistro = 'registrado';
-            cajaMensaje.innerText = `Hola de nuevo, ${datos.nombre}. ${obtenerFraseDinamica('hora')}`;
+            
+            if (datos.estado === 'virgen') {
+                // Guardamos el PIN internamente para validarlo al darle al botón
+                pinReal = datos.pin; 
+                pantallaCarga.classList.add('hidden');
+                pantallaVirgen.classList.remove('hidden');
+            } else if (datos.estado === 'grabado') {
+                // Ya tiene canción o foto, preparamos el botón gigante
+                btnPlay.href = datos.url;
+                pantallaCarga.classList.add('hidden');
+                pantallaGrabado.classList.remove('hidden');
+            }
         } else {
-            estadoRegistro = 'pidiendo_nombre';
-            cajaMensaje.innerText = "Vaya, un chip NFC virgen. ¿Cómo te llamas antes de que me empiece a dar igual?";
-            inputTexto.placeholder = "Escribe tu nombre aquí...";
+            pantallaCarga.innerHTML = "<h1>Llavero no encontrado</h1><p>Este ID aún no ha sido dado de alta por el fabricante.</p>";
         }
     } catch (error) {
+        pantallaCarga.innerHTML = "<h1>Error de conexión</h1><p>Comprueba tu conexión a internet.</p>";
         console.error(error);
-        cajaMensaje.innerText = "Error de conexión con Firebase. ¿Has puesto los permisos de lectura/escritura en true?";
     }
 }
 
+// Arrancamos la comprobación
 comprobarLlavero();
 
-function animarMascota(claseAnimacion) {
-    if (!imgMascota) return;
-    imgMascota.className = "";
-    void imgMascota.offsetWidth; 
-    imgMascota.classList.add(claseAnimacion);
-}
+// Lógica al pulsar "GUARDAR RECUERDO"
+btnGuardar.addEventListener('click', async () => {
+    const url = inputUrl.value.trim();
+    const pinUsuario = inputPin.value.trim();
 
-function mostrarFrase(categoria, claseAnimacion) {
-    if (estadoRegistro !== 'registrado') return; 
-    const lista = diccionarioFrases[categoria];
-    if (lista && lista.length > 0) {
-        const randomIndex = Math.floor(Math.random() * lista.length);
-        cajaMensaje.innerText = lista[randomIndex];
-        animarMascota(claseAnimacion);
-    }
-}
-
-document.getElementById('btn-inicio').addEventListener('click', () => mostrarFrase('inicio', 'animar-inicio'));
-document.getElementById('btn-motivacion').addEventListener('click', () => mostrarFrase('motivacion', 'animar-motivacion'));
-document.getElementById('btn-estado').addEventListener('click', () => mostrarFrase('estado', 'animar-estado'));
-document.getElementById('btn-trabajo').addEventListener('click', () => mostrarFrase('trabajo', 'animar-trabajo'));
-
-btnEnviar.addEventListener('click', async () => {
-    const texto = inputTexto.value.trim();
-    if (texto === "") return;
-
-    if (estadoRegistro === 'pidiendo_nombre') {
-        nombreTemporal = texto;
-        estadoRegistro = 'pidiendo_pin';
-        cajaMensaje.innerText = `Vale, ${nombreTemporal}. Ahora invéntate un PIN para que nadie reclame este muñeco en la nube.`;
-        inputTexto.value = "";
-        inputTexto.placeholder = "Escribe un PIN numérico...";
-        inputTexto.type = "password"; 
+    if (!url || !pinUsuario) {
+        mostrarError("Por favor, rellena el enlace y tu PIN.");
         return;
     }
 
-    if (estadoRegistro === 'pidiendo_pin') {
-        const pin = texto;
-        cajaMensaje.innerText = "Grabando a fuego en la nube...";
-        
-        try {
-            await set(ref(db, 'llaveros/' + idLlavero), {
-                nombre: nombreTemporal,
-                pin: pin
-            });
-            
-            estadoRegistro = 'registrado';
-            inputTexto.value = "";
-            inputTexto.type = "text";
-            inputTexto.placeholder = "Dile algo absurdo...";
-            cajaMensaje.innerText = `Perfecto, ${nombreTemporal}. Registrada en la base de datos oficial. Ya puedes tocar los botones.`;
-            animarMascota('animar-estado');
-        } catch (error) {
-            cajaMensaje.innerText = "Error al guardar en Firebase. Revisa las reglas de la base de datos.";
-        }
+    if (pinUsuario !== pinReal) {
+        mostrarError("El PIN es incorrecto. Búscalo dentro del cartón grapado.");
         return;
     }
 
-    if (estadoRegistro === 'registrado') {
-        mostrarFrase('estado', 'animar-enfado');
-        inputTexto.value = "";
+    btnGuardar.innerText = "Guardando...";
+    btnGuardar.disabled = true;
+
+    try {
+        // Actualizamos Firebase enviando el pin de vuelta para cumplir tu nueva regla de seguridad
+        await update(ref(db, 'llaveros/' + idLlavero), {
+            estado: 'grabado',
+            url: url,
+            pin: pinUsuario 
+        });
+
+        // Todo correcto, recargamos la página para que salga la pantalla final roja
+        window.location.reload();
+    } catch (error) {
+        mostrarError("Error al guardar en la base de datos.");
+        btnGuardar.innerText = "GUARDAR RECUERDO";
+        btnGuardar.disabled = false;
+        console.error(error);
     }
 });
 
-contenedorMascota.addEventListener('click', () => {
-    if (estadoRegistro !== 'registrado') return;
-    clicksRapidos++;
-    clearTimeout(temporizadorClicks);
-
-    if (clicksRapidos >= 3) {
-        cajaMensaje.innerText = "¡¿QUIERES PARAR DE TOCARME LA CARA YA, PESADO?! ¡QUE NO SOY UNA PANTALLA TÁCTIL DE FAST FOOD!";
-        animarMascota('animar-enfado');
-        clicksRapidos = 0;
-    } else {
-        temporizadorClicks = setTimeout(() => {
-            clicksRapidos = 0;
-        }, 700);
-    }
-});
+function mostrarError(texto) {
+    mensajeError.innerText = texto;
+    mensajeError.style.display = "block";
+}
