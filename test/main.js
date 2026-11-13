@@ -22,7 +22,7 @@ const pantallaVirgen = document.getElementById('pantalla-virgen');
 const pantallaGrabado = document.getElementById('pantalla-grabado');
 
 // Referencias a los botones e inputs
-const inputUrl = document.getElementById('input-url');
+let inputUrl = document.getElementById('input-url');
 const inputPin = document.getElementById('input-pin');
 const btnGuardar = document.getElementById('btn-guardar');
 const mensajeError = document.getElementById('mensaje-error');
@@ -73,12 +73,17 @@ comprobarLlavero();
 
 // Lógica al pulsar "GUARDAR RECUERDO"
 btnGuardar.addEventListener('click', async () => {
-    const url = inputUrl.value.trim();
+    let url = inputUrl.value.trim();
     const pinUsuario = inputPin.value.trim();
 
     if (!url || !pinUsuario) {
         mostrarError("Por favor, rellena el enlace y tu PIN.");
         return;
+    }
+
+    // CORRECCIÓN: Si el usuario olvida el https://, se lo añadimos automáticamente
+    if (!url.startsWith('http://') && !url.startsWith('https://')) {
+        url = 'https://' + url;
     }
 
     // Limpiamos los dos valores de cualquier espacio oculto y los forzamos a texto para que la comparación sea perfecta
