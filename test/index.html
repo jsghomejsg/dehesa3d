@@ -79,16 +79,17 @@
         .ad-banner { 
             background: #1a1a1a; 
             border-top: 1px solid #333; 
-            padding: 15px; 
-            font-size: 13px; 
-            color: #888; 
+            padding: 25px 15px; 
+            font-size: 16px; 
+            color: #aaaaaa; 
         }
         .ad-banner a { 
             color: #1DB954; 
             text-decoration: none; 
             font-weight: bold; 
             display: block; 
-            margin-top: 5px; 
+            margin-top: 10px; 
+            font-size: 18px; 
         }
     </style>
 </head>
@@ -105,7 +106,7 @@
         <p>1. Pega el enlace de la canción (Youtube/Spotify) o la foto que quieres guardar.<br><br>2. Introduce el PIN de 4 números de tu cartón.</p>
         
         <input type="url" id="input-url" placeholder="Ej: https://youtube.com/watch?v=..." required>
-        <input type="number" id="input-pin" placeholder="PIN secreto (4 números)" required>
+        <input type="text" inputmode="numeric" pattern="[0-9]*" id="input-pin" placeholder="PIN secreto (4 números)" maxlength="4" required>
         <div id="mensaje-error" class="error"></div>
         
         <button id="btn-guardar">GUARDAR RECUERDO</button>
@@ -120,11 +121,11 @@
 
     <!-- Escaparate comercial permanente -->
     <div class="ad-banner">
-        Tecnología impresa en 3D por <b>Dehesa3D</b>
+        Tecnología impresa en 3D por <b style="color: #ffffff;">Dehesa3D</b>
         <a href="https://wa.me/34600000000" target="_blank">¿Quieres llaveros interactivos para tu tienda? Contacta aquí</a>
     </div>
 
-    <!-- Forzamos la actualización de caché con v=3 -->
-    <script type="module" src="main.js?v=3"></script>
+    <!-- Forzamos la actualización de caché con v=4 -->
+    <script type="module" src="main.js?v=4"></script>
 </body>
 </html>
