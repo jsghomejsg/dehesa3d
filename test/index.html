@@ -3,188 +3,128 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <title>Mascota Borde - Art Toy Oficial</title>
+    <title>Tu Recuerdo Especial</title>
     <style>
-        * {
-            box-sizing: border-box;
-            margin: 0;
-            padding: 0;
-            touch-action: manipulation;
+        body { 
+            background-color: #121212; 
+            color: #ffffff; 
+            font-family: system-ui, -apple-system, sans-serif; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+            text-align: center; 
         }
-
-        body {
-            background-color: #0b0f19;
-            color: #f3f4f6;
-            font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
-            display: flex;
-            justify-content: center;
-            align-items: flex-start;
-            min-height: 100vh;
-            padding: 16px 12px 30px 12px;
+        .container { 
+            flex: 1; 
+            padding: 30px 20px; 
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
         }
-
-        .app-container {
-            background-color: #0b0f19;
-            width: 100%;
-            max-width: 400px;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            gap: 16px;
+        .hidden { display: none !important; }
+        
+        h1 { font-size: 24px; margin-bottom: 10px; }
+        p { color: #aaaaaa; font-size: 15px; margin-bottom: 25px; line-height: 1.5; max-width: 400px;}
+        
+        input { 
+            width: 100%; 
+            max-width: 350px; 
+            padding: 15px; 
+            margin-bottom: 15px; 
+            border-radius: 8px; 
+            border: 1px solid #333; 
+            background: #222; 
+            color: white; 
+            font-size: 16px; 
+            box-sizing: border-box; 
         }
-
-        .mascota-container {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            padding: 10px;
-            cursor: pointer;
-            -webkit-tap-highlight-color: transparent;
+        input::placeholder { color: #666; }
+        
+        button { 
+            width: 100%; 
+            max-width: 350px; 
+            background: #1DB954; 
+            color: white; 
+            border: none; 
+            padding: 16px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            cursor: pointer; 
+            box-shadow: 0 4px 15px rgba(29, 185, 84, 0.2); 
+            margin-top: 10px;
         }
-
-        #mascota-img {
-            width: 170px;
-            height: auto;
-            display: block;
-            filter: drop-shadow(0 10px 15px rgba(0,0,0,0.6));
-            transition: transform 0.2s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            transform-origin: bottom center;
+        button:active { transform: scale(0.98); }
+        
+        .btn-play { 
+            background: #ff0000; 
+            color: white;
+            box-shadow: 0 4px 15px rgba(255, 0, 0, 0.3); 
+            text-decoration: none; 
+            display: inline-block; 
+            width: 100%; 
+            max-width: 350px; 
+            padding: 16px; 
+            font-size: 18px; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            box-sizing: border-box; 
         }
-
-        .caja-frase {
-            background: #131b2e;
-            border: 1px solid #1f2937;
-            padding: 16px;
-            border-radius: 16px;
-            width: 100%;
-            min-height: 80px;
-            font-size: 14.5px;
-            line-height: 1.45;
-            text-align: center;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: #e5e7eb;
-            box-shadow: inset 0 2px 4px rgba(0,0,0,0.3);
+        .btn-play:active { transform: scale(0.98); }
+        
+        .error { color: #ff4444; font-size: 14px; margin-bottom: 15px; display: none; }
+        
+        .ad-banner { 
+            background: #1a1a1a; 
+            border-top: 1px solid #333; 
+            padding: 15px; 
+            font-size: 13px; 
+            color: #888; 
         }
-
-        .botones {
-            width: 100%;
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
-
-        button {
-            width: 100%;
-            padding: 14px;
-            font-family: inherit;
-            background: linear-gradient(135deg, #3b82f6 0%, #1d4ed8 100%);
-            color: #ffffff;
-            border: none;
-            border-radius: 14px;
-            font-size: 14px;
-            font-weight: 600;
-            cursor: pointer;
-            box-shadow: 0 4px 12px rgba(59, 130, 246, 0.25);
-        }
-
-        button:active {
-            transform: scale(0.98);
-        }
-
-        .input-group {
-            display: flex;
-            gap: 10px;
-            width: 100%;
-        }
-
-        input {
-            flex: 1;
-            padding: 14px;
-            font-family: inherit;
-            background: #131b2e;
-            color: #ffffff;
-            border: 1px solid #1f2937;
-            border-radius: 14px;
-            font-size: 14px;
-            outline: none;
-        }
-
-        input::placeholder {
-            color: #6b7280;
-        }
-
-        .input-group button {
-            width: 100px;
-            padding: 14px 8px;
-            background: linear-gradient(135deg, #10b981 0%, #059669 100%);
-            box-shadow: 0 4px 12px rgba(16, 185, 129, 0.25);
-        }
-
-        .animar-inicio { animation: parpadeoVivo 0.6s ease infinite alternate; }
-        .animar-motivacion { animation: saltoAnimado 0.5s ease; }
-        .animar-estado { animation: respiracion 1.2s ease-in-out; }
-        .animar-trabajo { animation: mirarCurioso 0.7s ease; }
-        .animar-ignorar { animation: desprecio 0.5s ease; }
-        .animar-enfado { animation: cortocircuito 0.3s ease infinite; filter: drop-shadow(0 10px 15px rgba(239, 68, 68, 0.8)); }
-
-        @keyframes parpadeoVivo {
-            0% { transform: translateY(0) scale(1, 1); }
-            100% { transform: translateY(-3px) scale(1.01, 0.99); }
-        }
-        @keyframes saltoAnimado {
-            0% { transform: translateY(0) rotate(0deg); }
-            30% { transform: translateY(-10px) rotate(-3deg); }
-            60% { transform: translateY(3px) rotate(2deg); }
-            100% { transform: translateY(0) rotate(0deg); }
-        }
-        @keyframes respiracion {
-            0% { transform: scale(1, 1); }
-            50% { transform: scale(0.97, 1.04); }
-            100% { transform: scale(1, 1); }
-        }
-        @keyframes mirarCurioso {
-            0% { transform: translateX(0) rotate(0deg); }
-            25% { transform: translateX(-6px) rotate(-4deg); }
-            75% { transform: translateX(6px) rotate(4deg); }
-            100% { transform: translateX(0) rotate(0deg); }
-        }
-        @keyframes desprecio {
-            0% { transform: translateY(0) scale(1); }
-            40% { transform: translateY(5px) scale(1.03, 0.95); }
-            80% { transform: translateY(-3px) scale(0.98, 1.02); }
-            100% { transform: translateY(0) scale(1); }
-        }
-        @keyframes cortocircuito {
-            0% { transform: translateX(-3px) rotate(-2deg); }
-            50% { transform: translateX(3px) rotate(2deg); }
-            100% { transform: translateX(-3px) rotate(-2deg); }
+        .ad-banner a { 
+            color: #1DB954; 
+            text-decoration: none; 
+            font-weight: bold; 
+            display: block; 
+            margin-top: 5px; 
         }
     </style>
 </head>
 <body>
 
-    <div class="app-container">
-        <div class="mascota-container" id="mascota-clickable">
-            <img id="mascota-img" src="mascota.png" alt="Mascota Art Toy">
-        </div>
-        
-        <div id="caja-mensaje" class="caja-frase">Cargando...</div>
-
-        <div class="botones">
-            <button id="btn-inicio">Despiértate ya</button>
-            <button id="btn-motivacion">Motívame si puedes</button>
-            <button id="btn-estado">¿Cómo respiras?</button>
-            <button id="btn-trabajo">Habla de currar</button>
-            <div class="input-group">
-                <input type="text" id="user-text" placeholder="Dile algo absurdo...">
-                <button id="btn-enviar">Enviar</button>
-            </div>
-        </div>
+    <!-- Pantalla 1: Mientras Firebase responde -->
+    <div class="container" id="pantalla-carga">
+        <h1>Cargando...</h1>
     </div>
 
-    <!-- Truco anti-caché: ?v=2 para que el móvil descargue la versión nueva obligatoriamente -->
-    <script type="module" src="main.js?v=2"></script>
+    <!-- Pantalla 2: Llavero recién comprado -->
+    <div class="container hidden" id="pantalla-virgen">
+        <h1>Configura tu Llavero</h1>
+        <p>1. Pega el enlace de la canción (Youtube/Spotify) o la foto que quieres guardar.<br><br>2. Introduce el PIN de 4 números de tu cartón.</p>
+        
+        <input type="url" id="input-url" placeholder="Ej: https://youtube.com/watch?v=..." required>
+        <input type="number" id="input-pin" placeholder="PIN secreto (4 números)" required>
+        <div id="mensaje-error" class="error"></div>
+        
+        <button id="btn-guardar">GUARDAR RECUERDO</button>
+    </div>
+
+    <!-- Pantalla 3: Llavero ya regalado y escaneado -->
+    <div class="container hidden" id="pantalla-grabado">
+        <h1>🎵 Alguien tiene un recuerdo para ti</h1>
+        <p>Sube el volumen o prepárate para verlo.</p>
+        <a href="#" id="btn-play" class="btn-play">ABRIR AHORA</a>
+    </div>
+
+    <!-- Escaparate comercial permanente -->
+    <div class="ad-banner">
+        Tecnología impresa en 3D por <b>Dehesa3D</b>
+        <a href="https://wa.me/34600000000" target="_blank">¿Quieres llaveros interactivos para tu tienda? Contacta aquí</a>
+    </div>
+
+    <!-- Forzamos la actualización de caché con v=3 -->
+    <script type="module" src="main.js?v=3"></script>
 </body>
 </html>
