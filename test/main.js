@@ -81,8 +81,11 @@ btnGuardar.addEventListener('click', async () => {
         return;
     }
 
-    // SOLUCIÓN: Convertimos los dos PINs a texto puro (String) para que coincidan exactamente
-    if (String(pinUsuario) !== String(pinReal)) {
+    // Limpiamos los dos valores de cualquier espacio oculto y los forzamos a texto para que la comparación sea perfecta
+    const pinA = String(pinUsuario).trim();
+    const pinB = String(pinReal).trim();
+
+    if (pinA !== pinB) {
         mostrarError("El PIN es incorrecto. Búscalo dentro del cartón grapado.");
         return;
     }
@@ -91,11 +94,11 @@ btnGuardar.addEventListener('click', async () => {
     btnGuardar.disabled = true;
 
     try {
-        // Actualizamos Firebase enviando el pinReal para cumplir tus reglas de seguridad en la nube
+        // Actualizamos Firebase. Mandamos el pinReal limpio de vuelta para cumplir la regla de la base de datos
         await update(ref(db, 'llaveros/' + idLlavero), {
             estado: 'grabado',
             url: url,
-            pin: pinReal 
+            pin: pinB 
         });
 
         // Todo correcto, recargamos la página para que salga la pantalla final roja
