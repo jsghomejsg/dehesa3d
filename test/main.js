@@ -1,7 +1,8 @@
+// Importamos módulos de la versión 10, incluyendo ahora Firebase Auth
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-app.js";
-import { getDatabase, ref, get, update } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-database.js";
+import { getAuth, signInWithPopup, GoogleAuthProvider } from "https://www.gstatic.com/firebasejs/10.8.0/firebase-auth.js";
 
-// Tus claves de conexión
 const firebaseConfig = {
     apiKey: "AIzaSyBiKAnyUmoYxlE-wwGi6B7q7n3xOXrZoc4",
     authDomain: "mascota-borde.firebaseapp.com",
@@ -15,29 +16,28 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
+const auth = getAuth(app);
+const provider = new GoogleAuthProvider();
 
-// Referencias a las pantallas en HTML
+// Referencias HTML
 const pantallaCarga = document.getElementById('pantalla-carga');
-const pantallaVirgen = document.getElementById('pantalla-virgen');
+const pantallaLogin = document.getElementById('pantalla-login');
+const pantallaConfig = document.getElementById('pantalla-config');
 const pantallaGrabado = document.getElementById('pantalla-grabado');
 
-// Referencias a los botones e inputs
-let inputUrl = document.getElementById('input-url');
-const inputPin = document.getElementById('input-pin');
+const btnLogin = document.getElementById('btn-login');
 const btnGuardar = document.getElementById('btn-guardar');
-const mensajeError = document.getElementById('mensaje-error');
+const inputUrl = document.getElementById('input-url');
 const btnPlay = document.getElementById('btn-play');
 
-// Obtenemos el ID del llavero desde la URL (ej: dehesa3d.es/?id=001)
 const parametrosURL = new URLSearchParams(window.location.search);
 const idLlavero = parametrosURL.get('id');
 
-let pinReal = "";
+let usuarioActual = null;
 
-// Función principal que se ejecuta al escanear
-async function comprobarLlavero() {
+async function iniciarComprobacion() {
     if (!idLlavero) {
-        pantallaCarga.innerHTML = "<h1>Error</h1><p>No se ha detectado ningún ID. Acerca tu móvil al chip NFC del llavero.</p>";
+        pantallaCarga.innerHTML = "<h1>Error</h1><p>Acerca tu móvil al chip NFC del llavero.</p>";
         return;
     }
 
@@ -46,77 +46,74 @@ async function comprobarLlavero() {
         const snapshot = await get(llaveroRef);
 
         if (snapshot.exists()) {
+            // EL LLAVERO YA FUE CONFIGURADO POR ALGUIEN
             const datos = snapshot.val();
-            
-            if (datos.estado === 'virgen') {
-                // Guardamos el PIN internamente para validarlo al darle al botón
-                pinReal = datos.pin; 
-                pantallaCarga.classList.add('hidden');
-                pantallaVirgen.classList.remove('hidden');
-            } else if (datos.estado === 'grabado') {
-                // Ya tiene canción o foto, preparamos el botón gigante
+            if (datos.estado === 'grabado') {
                 btnPlay.href = datos.url;
                 pantallaCarga.classList.add('hidden');
                 pantallaGrabado.classList.remove('hidden');
             }
         } else {
-            pantallaCarga.innerHTML = "<h1>Llavero no encontrado</h1><p>Este ID aún no ha sido dado de alta por el fabricante.</p>";
+            // MAGIA: El llavero NO EXISTE en Firebase. Es virgen de fábrica.
+            pantallaCarga.classList.add('hidden');
+            pantallaLogin.classList.remove('hidden');
         }
     } catch (error) {
-        pantallaCarga.innerHTML = "<h1>Error de conexión</h1><p>Comprueba tu conexión a internet.</p>";
+        pantallaCarga.innerHTML = "<h1>Error de red</h1><p>Comprueba tu conexión a internet.</p>";
         console.error(error);
     }
 }
 
-// Arrancamos la comprobación
-comprobarLlavero();
+// Botón de iniciar sesión con Google
+btnLogin.addEventListener('click', async () => {
+    try {
+        const resultado = await signInWithPopup(auth, provider);
+        usuarioActual = resultado.user;
+        
+        // Sesión iniciada correctamente, pasamos a pedir la URL
+        pantallaLogin.classList.add('hidden');
+        pantallaConfig.classList.remove('hidden');
+    } catch (error) {
+        console.error("Error al iniciar sesión:", error);
+        alert("Hubo un problema al conectar con Google. Inténtalo de nuevo.");
+    }
+});
 
-// Lógica al pulsar "GUARDAR RECUERDO"
+// Botón para guardar en base de datos
 btnGuardar.addEventListener('click', async () => {
     let url = inputUrl.value.trim();
-    const pinUsuario = inputPin.value.trim();
 
-    if (!url || !pinUsuario) {
-        mostrarError("Por favor, rellena el enlace y tu PIN.");
+    if (!url) {
+        alert("Por favor, introduce un enlace.");
         return;
     }
 
-    // CORRECCIÓN: Si el usuario olvida el https://, se lo añadimos automáticamente
+    // Prevención de olvido de https://
     if (!url.startsWith('http://') && !url.startsWith('https://')) {
         url = 'https://' + url;
-    }
-
-    // Limpiamos los dos valores de cualquier espacio oculto y los forzamos a texto para que la comparación sea perfecta
-    const pinA = String(pinUsuario).trim();
-    const pinB = String(pinReal).trim();
-
-    if (pinA !== pinB) {
-        mostrarError("El PIN es incorrecto. Búscalo dentro del cartón grapado.");
-        return;
     }
 
     btnGuardar.innerText = "Guardando...";
     btnGuardar.disabled = true;
 
     try {
-        // Actualizamos Firebase. Mandamos el pinReal limpio de vuelta para cumplir la regla de la base de datos
-        await update(ref(db, 'llaveros/' + idLlavero), {
+        // CREACIÓN AUTOMÁTICA EN FIREBASE: Creamos la carpeta del ID y le asignamos dueño
+        await set(ref(db, 'llaveros/' + idLlavero), {
             estado: 'grabado',
             url: url,
-            pin: pinB 
+            propietario_uid: usuarioActual.uid,
+            propietario_email: usuarioActual.email
         });
 
-        // Todo correcto, recargamos la página para que salga la pantalla final roja
+        // Recargamos para que aparezca la pantalla roja de ABRIR AHORA
         window.location.reload();
     } catch (error) {
-        mostrarError("Error al guardar en la base de datos.");
+        alert("Error al guardar el recuerdo.");
         btnGuardar.innerText = "GUARDAR RECUERDO";
         btnGuardar.disabled = false;
         console.error(error);
     }
 });
 
-function mostrarError(texto) {
-    mensajeError.innerText = texto;
-    mensajeError.style.display = "block";
-}
+// Arrancamos todo
+iniciarComprobacion();
