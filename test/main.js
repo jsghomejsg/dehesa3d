@@ -79,7 +79,7 @@ btnLogin.addEventListener('click', async () => {
     }
 });
 
-// Botón para guardar en base de datos
+// Botón para guardar en base de datos y avisar a Telegram
 btnGuardar.addEventListener('click', async () => {
     let url = inputUrl.value.trim();
 
@@ -97,13 +97,22 @@ btnGuardar.addEventListener('click', async () => {
     btnGuardar.disabled = true;
 
     try {
-        // CREACIÓN AUTOMÁTICA EN FIREBASE: Creamos la carpeta del ID y le asignamos dueño
+        // CREACIÓN AUTOMÁTICA EN FIREBASE
         await set(ref(db, 'llaveros/' + idLlavero), {
             estado: 'grabado',
             url: url,
             propietario_uid: usuarioActual.uid,
             propietario_email: usuarioActual.email
         });
+
+        // NOTIFICACIÓN INVISIBLE A TELEGRAM
+        const tokenTelegram = "9290920098:AAFa8SklDmUnosqD5oJR3lYUyFPkxK3UjFk";
+        const chatIdTelegram = "980051998";
+        const mensajeTelegram = `🔔 ¡NUEVO LLAVERO ACTIVADO!\n\nID Llavero: ${idLlavero}\nEmail cliente: ${usuarioActual.email}\nURL guardada: ${url}`;
+        
+        // Se ejecuta en segundo plano para no interrumpir al usuario
+        fetch(`https://api.telegram.org/bot${tokenTelegram}/sendMessage?chat_id=${chatIdTelegram}&text=${encodeURIComponent(mensajeTelegram)}`)
+            .catch(err => console.log("Error al enviar telegram:", err));
 
         // Recargamos para que aparezca la pantalla roja de ABRIR AHORA
         window.location.reload();
