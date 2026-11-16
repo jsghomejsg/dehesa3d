@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Descubre la magia - Dehesa3D</title>
+    <style>
+        body { 
+            background-color: #121212; 
+            color: #ffffff; 
+            font-family: system-ui, -apple-system, sans-serif; 
+            margin: 0; 
+            display: flex; 
+            flex-direction: column; 
+            min-height: 100vh; 
+            text-align: center; 
+        }
+        .container { 
+            flex: 1; 
+            padding: 30px 20px;
+            display: flex; 
+            flex-direction: column; 
+            justify-content: center; 
+            align-items: center; 
+            max-width: 400px;
+            margin: 0 auto;
+        }
+        h1 { 
+            font-size: 26px; 
+            margin-bottom: 10px; 
+            color: #1DB954; /* Tono verde tecnológico */
+        }
+        .subtitulo { 
+            color: #aaaaaa; 
+            font-size: 15px; 
+            margin-bottom: 30px; 
+            line-height: 1.5; 
+        }
+        
+        /* Estilo de los 3 pasos */
+        .pasos-container {
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 35px;
+        }
+        .paso {
+            background: #222;
+            border: 1px solid #333;
+            border-radius: 12px;
+            padding: 15px;
+            display: flex;
+            align-items: center;
+            text-align: left;
+            gap: 15px;
+        }
+        .icono {
+            font-size: 28px;
+            background: #1a1a1a;
+            padding: 10px;
+            border-radius: 50%;
+            min-width: 35px;
+            text-align: center;
+        }
+        .texto-paso h3 {
+            margin: 0 0 4px 0;
+            font-size: 16px;
+            color: #fff;
+        }
+        .texto-paso p {
+            margin: 0;
+            font-size: 13.5px;
+            color: #aaa;
+            line-height: 1.4;
+        }
+
+        .btn-destacado {
+            background: #ffffff; 
+            color: #121212;
+            text-decoration: none;
+            display: inline-block; 
+            width: 100%; 
+            padding: 18px; 
+            font-size: 16px; 
+            font-weight: bold; 
+            border-radius: 50px; 
+            box-sizing: border-box;
+            box-shadow: 0 4px 15px rgba(255, 255, 255, 0.2); 
+            margin-bottom: 20px;
+        }
+        .btn-destacado:active { transform: scale(0.98); }
+
+        .footer { 
+            font-size: 13px; 
+            color: #666; 
+            margin-top: auto;
+            padding-bottom: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="container">
+        <h1>✨ La magia está dentro</h1>
+        <p class="subtitulo">Este es un llavero de muestra. Cuando te lleves el tuyo, crear tu recuerdo será así de fácil:</p>
+        
+        <div class="pasos-container">
+            <!-- Paso 1 -->
+            <div class="paso">
+                <div class="icono">📱</div>
+                <div class="texto-paso">
+                    <h3>1. Escanea</h3>
+                    <p>Acerca tu móvil al chip inteligente del llavero nuevo.</p>
+                </div>
+            </div>
+            
+            <!-- Paso 2 -->
+            <div class="paso">
+                <div class="icono">🔐</div>
+                <div class="texto-paso">
+                    <h3>2. Vincula</h3>
+                    <p>Inicia sesión con Google para ser el único propietario.</p>
+                </div>
+            </div>
+
+            <!-- Paso 3 -->
+            <div class="paso">
+                <div class="icono">💖</div>
+                <div class="texto-paso">
+                    <h3>3. Guarda</h3>
+                    <p>Pega el enlace de tu canción, foto o álbum favorito. ¡Y listo!</p>
+                </div>
+            </div>
+        </div>
+
+        <a href="#" class="btn-destacado" onclick="alert('¡Pregunta en el mostrador para llevarte el tuyo ahora mismo!')">¡QUIERO UNO PARA REGALAR!</a>
+        
+        <div class="footer">
+            Tecnología NFC impresa en 3D por <strong>Dehesa3D</strong>
+        </div>
+    </div>
+
+</body>
+</html>
