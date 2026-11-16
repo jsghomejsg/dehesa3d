@@ -50,7 +50,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
     document.body.innerHTML = `
-        <div style="max-width:400px; margin: 50px auto; text-align:center; color:white; padding: 20px;">
+        <div style="max-width:400px; margin: 50px auto; text-align:center; color:white; padding: 20px; font-family: system-ui, -apple-system, sans-serif;">
             <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 30px;">Vincular Recuerdo</h1>
             
             <button id="btn-login" style="background:white; color:black; padding:15px 20px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; width:100%; box-shadow: 0 4px 10px rgba(255,255,255,0.2);">
@@ -58,8 +58,15 @@ function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
             </button>
             
             <div id="panel-config" style="display:none; text-align:left; background:#222; padding:20px; border-radius:12px; margin-top: 20px;">
-                <p style="margin-top:0; font-size:14px;">Pega aquí el enlace que quieres guardar:</p>
-                <input type="url" id="input-url" placeholder="Ej: https://open.spotify.com/..." style="width:100%; padding:15px; margin-bottom:20px; border-radius:8px; border:none; box-sizing:border-box; font-size:14px;">
+                <p style="margin-top:0; font-size:15px; font-weight:bold; margin-bottom:15px;">Pega aquí el enlace de tu recuerdo:</p>
+                
+                <input type="url" id="input-url" placeholder="https://..." style="width:100%; padding:15px; margin-bottom:15px; border-radius:8px; border:none; box-sizing:border-box; font-size:14px; background:#333; color:white;">
+                
+                <div style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:20px; font-size:13px; color:#bbb; line-height:1.5;">
+                    <p style="margin-top:0; margin-bottom:10px;"><strong style="color:#1DB954;">📷 Fotos:</strong> Para guardar una foto o álbum, simplemente pega el enlace a esa foto o carpeta compartida (Google Photos, Drive, iCloud...).</p>
+                    <p style="margin:0;"><strong style="color:#1DB954;">🎵 Música:</strong> Aconsejamos usar enlaces de <strong>YouTube</strong>. Si usas Spotify y la persona que recibe el regalo no tiene Premium, es posible que no escuche la canción exacta.</p>
+                </div>
+
                 <button id="btn-guardar" style="background:#1DB954; color:white; padding:15px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; width:100%;">
                     Guardar Recuerdo
                 </button>
@@ -90,10 +97,16 @@ function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
     });
 
     btnGuardar.addEventListener('click', () => {
-        const url = inputUrl.value.trim();
+        let url = inputUrl.value.trim();
+        
         if (!url) {
             alert("Por favor, pega un enlace válido.");
             return;
+        }
+
+        // EL GUARDAESPALDAS: Añade https:// si el cliente se olvida
+        if (!url.startsWith('http://') && !url.startsWith('https://')) {
+            url = 'https://' + url;
         }
 
         set(ref(db, 'recuerdos/' + idRecuerdo), {
