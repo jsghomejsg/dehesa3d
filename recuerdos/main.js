@@ -51,13 +51,12 @@ document.addEventListener("DOMContentLoaded", () => {
 function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
     document.body.innerHTML = `
         <div style="max-width:400px; margin: 50px auto; text-align:center; color:white; padding: 20px;">
-            <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 10px;">Vincular Recuerdo</h1>
-            <p style="color:#aaa; font-size: 14px; margin-bottom: 30px;">ID: ${idRecuerdo}</p>
-
+            <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 30px;">Vincular Recuerdo</h1>
+            
             <button id="btn-login" style="background:white; color:black; padding:15px 20px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; width:100%; box-shadow: 0 4px 10px rgba(255,255,255,0.2);">
                 Iniciar sesión con Google
             </button>
-
+            
             <div id="panel-config" style="display:none; text-align:left; background:#222; padding:20px; border-radius:12px; margin-top: 20px;">
                 <p style="margin-top:0; font-size:14px;">Pega aquí el enlace que quieres guardar:</p>
                 <input type="url" id="input-url" placeholder="Ej: https://open.spotify.com/..." style="width:100%; padding:15px; margin-bottom:20px; border-radius:8px; border:none; box-sizing:border-box; font-size:14px;">
@@ -113,9 +112,9 @@ function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
 function notificarTelegram(idRecuerdo, email, tienda) {
     const token = TELEGRAM_TOKEN_PARTE_1 + TELEGRAM_TOKEN_PARTE_2;
     if (!token || !TELEGRAM_CHAT_ID) return;
-
+    
     const mensaje = `🟢 NUEVO RECUERDO VINCULADO\n\n🆔 ID: ${idRecuerdo}\n🏬 Tienda: ${tienda}\n👤 Usuario: ${email}`;
     const url = `https://api.telegram.org/bot${token}/sendMessage?chat_id=${TELEGRAM_CHAT_ID}&text=${encodeURIComponent(mensaje)}`;
-
+    
     fetch(url).catch(err => console.log(err));
 }
