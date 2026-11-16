@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 // 1. CONFIGURACIÓN FIREBASE
@@ -18,8 +18,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// 2. LÓGICA BLINDADA CONTRA BUCLES
-document.addEventListener("DOMContentLoaded", async () => {
+// 2. LÓGICA PRINCIPAL
+document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     const tienda = urlParams.get('tienda') || "CaprichoDeAna"; 
@@ -29,36 +29,26 @@ document.addEventListener("DOMContentLoaded", async () => {
         return;
     }
 
-    // PASO 1: PANTALLA DE CARGA OBLIGATORIA. Evita que el usuario vea botones antes de tiempo.
+    // Ocultar la pantalla mientras Firebase comprueba el estado inicial
     document.body.innerHTML = `
         <div style="max-width:400px; margin: 50px auto; text-align:center; color:white; font-family: system-ui, -apple-system, sans-serif;">
-            <h2 style="color:#1DB954; font-size: 22px;">Comprobando seguridad...</h2>
-            <p style="color:#bbb; font-size: 14px;">Un momento, por favor.</p>
+            <h2 style="color:#1DB954; font-size: 20px;">Cargando...</h2>
         </div>
     `;
 
-    try {
-        // PASO 2: Forzamos a que el navegador procese la respuesta de Google de forma síncrona
-        await getRedirectResult(auth);
-    } catch (error) {
-        console.error("Error al volver de Google:", error);
-    }
-
-    // PASO 3: Solo cuando ya sabemos 100% quién es el usuario, pintamos la web
+    // Comprobar la sesión SIN redirecciones
     onAuthStateChanged(auth, (user) => {
         const recuerdoRef = ref(db, 'recuerdos/' + id);
 
         get(recuerdoRef).then((snapshot) => {
             if (snapshot.exists() && snapshot.val().targetUrl) {
-                // Si el llavero ya tiene enlace, te lleva directo a las fotos/música
+                // Si el llavero ya está grabado, redirige directo
                 window.location.href = snapshot.val().targetUrl;
             } else {
-                // Si el llavero está virgen:
+                // Llavero virgen
                 if (user) {
-                    // Si el móvil reconoce la cuenta de Google, abre el cajón para pegar enlace
                     mostrarInterfazConfiguracion(id, tienda, user);
                 } else {
-                    // Solo si de verdad no hay sesión, muestra el botón de Google
                     mostrarInterfazGoogle(id, tienda);
                 }
             }
@@ -89,9 +79,26 @@ function mostrarInterfazGoogle(idRecuerdo, tienda) {
     `;
 
     document.getElementById('btn-google').addEventListener('click', () => {
-        document.getElementById('btn-google').innerText = "Conectando...";
+        const btn = document.getElementById('btn-google');
+        btn.innerText = "Abriendo Google...";
         const provider = new GoogleAuthProvider();
-        signInWithRedirect(auth, provider);
+        
+        // POPUP: Se abre una ventanita por encima de tu web, Safari no borra datos
+        signInWithPopup(auth, provider)
+            .then((result) => {
+                // Al volver a la web, ya tenemos al usuario
+                mostrarInterfazConfiguracion(idRecuerdo, tienda, result.user);
+            })
+            .catch((error) => {
+                console.error("Error Google Auth:", error);
+                btn.innerText = "🔵 Iniciar sesión con Google";
+                
+                if (error.code === 'auth/popup-blocked') {
+                    alert("⚠️ Tu móvil ha bloqueado la ventana emergente. Por favor, toca el icono de la brújula para abrirlo en Safari normal, o desactiva el bloqueo de ventanas emergentes.");
+                } else {
+                    alert("Error al conectar con Google. Inténtalo de nuevo.");
+                }
+            });
     });
 }
 
