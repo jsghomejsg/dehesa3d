@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// 2. CONFIGURACIÓN DE TELEGRAM (Protegida)
+// 2. CONFIGURACIÓN DE TELEGRAM (Protegida - Vacía por ahora)
 const TELEGRAM_TOKEN_PARTE_1 = ""; 
 const TELEGRAM_TOKEN_PARTE_2 = ""; 
 const TELEGRAM_CHAT_ID = "";       
@@ -92,14 +92,13 @@ function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
     });
 
     btnLogin.addEventListener('click', () => {
-        // Ponemos el botón en modo "cargando"
-        btnLogin.innerText = "Conectando con Google...";
-        
+        btnLogin.innerText = "Abriendo Google...";
         const provider = new GoogleAuthProvider();
+        
         signInWithPopup(auth, provider).catch(err => {
             btnLogin.innerText = "Iniciar sesión con Google";
-            // Si el móvil lo bloquea, ahora nos dirá exactamente por qué
-            alert("Atención: " + err.message + " (" + err.code + ")");
+            // Si el móvil bloquea la ventana, saltará este aviso exacto
+            alert("Safari ha bloqueado la ventana. Por favor, pulsa 'Permitir' si te pregunta, o revisa la configuración de tu navegador.");
         });
     });
 
