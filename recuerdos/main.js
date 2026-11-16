@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithRedirect, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 // 1. CONFIGURACIÓN FIREBASE (DEHESA3D)
@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// 2. CONFIGURACIÓN DE TELEGRAM (Protegida - Vacía por ahora)
+// 2. CONFIGURACIÓN DE TELEGRAM (Protegida)
 const TELEGRAM_TOKEN_PARTE_1 = ""; 
 const TELEGRAM_TOKEN_PARTE_2 = ""; 
 const TELEGRAM_CHAT_ID = "";       
@@ -92,9 +92,15 @@ function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
     });
 
     btnLogin.addEventListener('click', () => {
+        // Ponemos el botón en modo "cargando"
+        btnLogin.innerText = "Conectando con Google...";
+        
         const provider = new GoogleAuthProvider();
-        // Cambiado a Redirección para evitar el bloqueo de ventanas emergentes en móviles
-        signInWithRedirect(auth, provider);
+        signInWithPopup(auth, provider).catch(err => {
+            btnLogin.innerText = "Iniciar sesión con Google";
+            // Si el móvil lo bloquea, ahora nos dirá exactamente por qué
+            alert("Atención: " + err.message + " (" + err.code + ")");
+        });
     });
 
     btnGuardar.addEventListener('click', () => {
