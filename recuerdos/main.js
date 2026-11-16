@@ -1,8 +1,8 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
-// 1. CONFIGURACIÓN FIREBASE (DEHESA3D)
+// 1. CONFIGURACIÓN FIREBASE
 const firebaseConfig = {
   apiKey: "AIzaSyBGlbifV7uCylDtDUL2ecl2RaH4pTF9r_8",
   authDomain: "dehesa3d.firebaseapp.com",
@@ -18,8 +18,8 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// 2. LÓGICA PRINCIPAL
-document.addEventListener("DOMContentLoaded", () => {
+// 2. LÓGICA BLINDADA CONTRA BUCLES
+document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     const tienda = urlParams.get('tienda') || "CaprichoDeAna"; 
@@ -29,19 +29,42 @@ document.addEventListener("DOMContentLoaded", () => {
         return;
     }
 
-    const recuerdoRef = ref(db, 'recuerdos/' + id);
+    // PASO 1: PANTALLA DE CARGA OBLIGATORIA. Evita que el usuario vea botones antes de tiempo.
+    document.body.innerHTML = `
+        <div style="max-width:400px; margin: 50px auto; text-align:center; color:white; font-family: system-ui, -apple-system, sans-serif;">
+            <h2 style="color:#1DB954; font-size: 22px;">Comprobando seguridad...</h2>
+            <p style="color:#bbb; font-size: 14px;">Un momento, por favor.</p>
+        </div>
+    `;
 
-    get(recuerdoRef).then((snapshot) => {
-        if (snapshot.exists() && snapshot.val().targetUrl) {
-            // Si ya está configurado, te lleva directo al recuerdo (música/fotos)
-            window.location.href = snapshot.val().targetUrl;
-        } else {
-            // Si está virgen, muestra la interfaz de vinculación
-            mostrarInterfazGoogle(id, tienda);
-        }
-    }).catch((error) => {
-        console.error("Error DB:", error);
-        alert("Error de conexión. Revisa tu internet.");
+    try {
+        // PASO 2: Forzamos a que el navegador procese la respuesta de Google de forma síncrona
+        await getRedirectResult(auth);
+    } catch (error) {
+        console.error("Error al volver de Google:", error);
+    }
+
+    // PASO 3: Solo cuando ya sabemos 100% quién es el usuario, pintamos la web
+    onAuthStateChanged(auth, (user) => {
+        const recuerdoRef = ref(db, 'recuerdos/' + id);
+
+        get(recuerdoRef).then((snapshot) => {
+            if (snapshot.exists() && snapshot.val().targetUrl) {
+                // Si el llavero ya tiene enlace, te lleva directo a las fotos/música
+                window.location.href = snapshot.val().targetUrl;
+            } else {
+                // Si el llavero está virgen:
+                if (user) {
+                    // Si el móvil reconoce la cuenta de Google, abre el cajón para pegar enlace
+                    mostrarInterfazConfiguracion(id, tienda, user);
+                } else {
+                    // Solo si de verdad no hay sesión, muestra el botón de Google
+                    mostrarInterfazGoogle(id, tienda);
+                }
+            }
+        }).catch(err => {
+            document.body.innerHTML = "<h2 style='color:white;text-align:center;'>Error de conexión. Revisa internet.</h2>";
+        });
     });
 });
 
@@ -50,18 +73,35 @@ function mostrarInterfazGoogle(idRecuerdo, tienda) {
         <div style="max-width:400px; margin: 30px auto; text-align:center; color:white; padding: 20px; font-family: system-ui, -apple-system, sans-serif;">
             <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 25px;">Activa tu Llavero</h1>
             
-            <!-- PANEL DE AUTENTICACIÓN GOOGLE -->
-            <div id="panel-auth" style="background:#222; padding:25px; border-radius:12px; text-align:center;">
-                <p style="margin-top:0; font-size:14px; color:#bbb; margin-bottom:20px;">Inicia sesión con tu cuenta de Google para vincular este llavero a ti para siempre:</p>
+            <div style="background:#222; padding:25px; border-radius:12px; text-align:center;">
+                <p style="margin-top:0; font-size:14px; color:#bbb; margin-bottom:20px;">Inicia sesión con tu cuenta de Google para vincular este llavero de forma segura:</p>
                 
                 <button id="btn-google" style="background:white; color:black; padding:15px 20px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; width:100%; box-shadow: 0 4px 10px rgba(255,255,255,0.2);">
                     🔵 Iniciar sesión con Google
                 </button>
             </div>
+            
+            <div style="margin-top: 40px; padding: 15px; background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); border-radius: 10px; font-size: 12px; color: #888; line-height: 1.4;">
+                <p style="margin: 0 0 8px 0;">✨ Tecnología NFC realizada por <a href="https://dehesa3d.es" target="_blank" style="color: #1DB954; text-decoration: none; font-weight: bold;">Dehesa3D.es</a></p>
+                <p style="margin: 0;">¿Tienes un negocio o tienda? Crea tus propios productos interactivos con nosotros.</p>
+            </div>
+        </div>
+    `;
 
-            <!-- PANEL DE CONFIGURACIÓN DEL ENLACE (Oculto hasta iniciar sesión) -->
-            <div id="panel-config" style="display:none; background:#222; padding:20px; border-radius:12px; text-align:left;">
-                <p id="info-usuario" style="margin-top:0; font-size:12px; color:#1DB954; margin-bottom:15px;"></p>
+    document.getElementById('btn-google').addEventListener('click', () => {
+        document.getElementById('btn-google').innerText = "Conectando...";
+        const provider = new GoogleAuthProvider();
+        signInWithRedirect(auth, provider);
+    });
+}
+
+function mostrarInterfazConfiguracion(idRecuerdo, tienda, usuario) {
+    document.body.innerHTML = `
+        <div style="max-width:400px; margin: 30px auto; text-align:center; color:white; padding: 20px; font-family: system-ui, -apple-system, sans-serif;">
+            <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 25px;">Activa tu Llavero</h1>
+            
+            <div style="background:#222; padding:20px; border-radius:12px; text-align:left;">
+                <p style="margin-top:0; font-size:12px; color:#1DB954; margin-bottom:15px;">👤 Conectado como: ${usuario.email}</p>
                 <p style="margin-top:0; font-size:15px; font-weight:bold; margin-bottom:15px;">Pega aquí tu enlace:</p>
                 
                 <input type="url" id="input-url" placeholder="https://..." style="width:100%; padding:15px; margin-bottom:15px; border-radius:8px; border:none; box-sizing:border-box; font-size:14px; background:#333; color:white;">
@@ -75,54 +115,15 @@ function mostrarInterfazGoogle(idRecuerdo, tienda) {
                     Guardar Recuerdo
                 </button>
             </div>
-
-            <!-- BANNER DE DEHESA3D -->
+            
             <div style="margin-top: 40px; padding: 15px; background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); border-radius: 10px; font-size: 12px; color: #888; line-height: 1.4;">
                 <p style="margin: 0 0 8px 0;">✨ Tecnología NFC realizada por <a href="https://dehesa3d.es" target="_blank" style="color: #1DB954; text-decoration: none; font-weight: bold;">Dehesa3D.es</a></p>
-                <p style="margin: 0;">¿Tienes un negocio o tienda? Crea tus propios productos interactivos con nosotros.</p>
             </div>
         </div>
     `;
 
-    const panelAuth = document.getElementById('panel-auth');
-    const panelConfig = document.getElementById('panel-config');
-    const btnGoogle = document.getElementById('btn-google');
-    const btnGuardar = document.getElementById('btn-guardar');
-    const inputUrl = document.getElementById('input-url');
-    const infoUsuario = document.getElementById('info-usuario');
-
-    // Comprobar si ya hay sesión activa
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            panelAuth.style.display = 'none';
-            panelConfig.style.display = 'block';
-            infoUsuario.innerText = `👤 Conectado con Google: ${user.email}`;
-        }
-    });
-
-    // Acción del botón Google usando POPUP para evitar que Safari borre la sesión
-    btnGoogle.addEventListener('click', () => {
-        btnGoogle.innerText = "Conectando...";
-        const provider = new GoogleAuthProvider();
-        
-        signInWithPopup(auth, provider)
-            .then((result) => {
-                const user = result.user;
-                panelAuth.style.display = 'none';
-                panelConfig.style.display = 'block';
-                infoUsuario.innerText = `👤 Conectado con Google: ${user.email}`;
-            })
-            .catch((error) => {
-                console.error("Error Google Auth:", error);
-                btnGoogle.innerText = "🔵 Iniciar sesión con Google";
-                alert("No se pudo iniciar sesión. Por favor, inténtalo de nuevo.");
-            });
-    });
-
-    // Acción de guardar el enlace en Firebase
-    btnGuardar.addEventListener('click', () => {
-        let url = inputUrl.value.trim();
-        const usuarioActual = auth.currentUser;
+    document.getElementById('btn-guardar').addEventListener('click', () => {
+        let url = document.getElementById('input-url').value.trim();
         
         if (!url) {
             alert("Por favor, pega un enlace válido.");
@@ -135,12 +136,12 @@ function mostrarInterfazGoogle(idRecuerdo, tienda) {
 
         set(ref(db, 'recuerdos/' + idRecuerdo), {
             targetUrl: url,
-            propietarioUid: usuarioActual ? usuarioActual.uid : "anonimo",
-            email: usuarioActual ? usuarioActual.email : "desconocido",
+            propietarioUid: usuario.uid,
+            email: usuario.email,
             tiendaOrigen: tienda,
             fechaActivacion: new Date().toISOString()
         }).then(() => {
             window.location.href = url;
-        }).catch(err => alert("Error al guardar. Refresca la página e inténtalo de nuevo."));
+        }).catch(err => alert("Error al guardar. Refresca e inténtalo de nuevo."));
     });
 }
