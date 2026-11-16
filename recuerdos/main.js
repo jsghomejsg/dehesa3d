@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithRedirect, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 // 1. CONFIGURACIÓN FIREBASE (DEHESA3D)
@@ -93,7 +93,8 @@ function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
 
     btnLogin.addEventListener('click', () => {
         const provider = new GoogleAuthProvider();
-        signInWithPopup(auth, provider).catch(err => alert("Cerraste la ventana o hubo un error al iniciar sesión."));
+        // Cambiado a Redirección para evitar el bloqueo de ventanas emergentes en móviles
+        signInWithRedirect(auth, provider);
     });
 
     btnGuardar.addEventListener('click', () => {
@@ -104,7 +105,6 @@ function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
             return;
         }
 
-        // EL GUARDAESPALDAS: Añade https:// si el cliente se olvida
         if (!url.startsWith('http://') && !url.startsWith('https://')) {
             url = 'https://' + url;
         }
