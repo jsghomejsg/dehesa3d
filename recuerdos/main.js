@@ -53,7 +53,7 @@ function mostrarInterfazGoogle(idRecuerdo, tienda) {
         <div style="max-width:400px; margin: 30px auto; text-align:center; color:white; padding: 20px; font-family: system-ui, -apple-system, sans-serif;">
             <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 25px;">Activa tu Llavero</h1>
             
-            <!-- BOTÓN DE GOOGLE -->
+            <!-- ÚNICAMENTE BOTÓN DE GOOGLE -->
             <div id="panel-auth" style="background:#222; padding:25px; border-radius:12px; text-align:center;">
                 <p style="margin-top:0; font-size:14px; color:#bbb; margin-bottom:20px;">Inicia sesión con tu cuenta de Google para vincular este llavero de forma segura:</p>
                 
@@ -94,7 +94,6 @@ function mostrarInterfazGoogle(idRecuerdo, tienda) {
     const inputUrl = document.getElementById('input-url');
     const infoUsuario = document.getElementById('info-usuario');
 
-    // Detectar si el usuario ya inició sesión con Google
     onAuthStateChanged(auth, (user) => {
         if (user) {
             panelAuth.style.display = 'none';
@@ -103,7 +102,6 @@ function mostrarInterfazGoogle(idRecuerdo, tienda) {
         }
     });
 
-    // Lanzar autenticación por redirección con Google (compatible con móviles)
     btnGoogle.addEventListener('click', () => {
         btnGoogle.innerText = "Conectando con Google...";
         const provider = new GoogleAuthProvider();
