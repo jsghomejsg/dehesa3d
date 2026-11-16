@@ -16,7 +16,7 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// 2. LÓGICA DIRECTA Y SIN FALLOS
+// 2. LÓGICA DIRECTA (MÁGICA E INSTANTÁNEA)
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
@@ -31,10 +31,10 @@ document.addEventListener("DOMContentLoaded", () => {
 
     get(recuerdoRef).then((snapshot) => {
         if (snapshot.exists() && snapshot.val().targetUrl) {
-            // Si el llavero ya está asignado, se abre directamente. Imposible hackearlo.
+            // REDIRECCIÓN CERO FRICCIÓN: Si ya tiene enlace, salto inmediato.
             window.location.href = snapshot.val().targetUrl;
         } else {
-            // Si está virgen, muestra la pantalla de activación sin pedir cuentas.
+            // Si está virgen, muestra la interfaz de activación directa
             mostrarInterfazDirecta(id, tienda);
         }
     }).catch((error) => {
@@ -46,28 +46,34 @@ document.addEventListener("DOMContentLoaded", () => {
 function mostrarInterfazDirecta(idRecuerdo, tienda) {
     document.body.innerHTML = `
         <div style="max-width:400px; margin: 30px auto; text-align:center; color:white; padding: 20px; font-family: system-ui, -apple-system, sans-serif;">
-            <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 10px;">¡Activa tu Llavero!</h1>
-            <p style="font-size: 14px; color: #aaa; margin-bottom: 25px;">Pega tu enlace para vincularlo. Una vez guardado, quedará bloqueado por seguridad.</p>
             
-            <div style="background:#222; padding:20px; border-radius:12px; text-align:left;">
+            <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 10px;">¡Estrena tu Llavero Inteligente!</h1>
+            <p style="font-size: 14.5px; color: #ccc; margin-bottom: 25px; line-height: 1.5;">
+                Para activarlo, copia el enlace de tu canción favorita o de tu álbum de fotos y pégalo en la casilla. Una vez guardado, el llavero quedará bloqueado por seguridad. A partir de ahora, con solo acercar el móvil, tu recuerdo se abrirá al instante.
+            </p>
+            
+            <div style="background:#222; padding:20px; border-radius:12px; text-align:left; box-shadow: 0 4px 15px rgba(0,0,0,0.3);">
                 <p style="margin-top:0; font-size:15px; font-weight:bold; margin-bottom:15px;">Pega aquí tu enlace:</p>
                 
                 <input type="url" id="input-url" placeholder="https://..." style="width:100%; padding:15px; margin-bottom:15px; border-radius:8px; border:none; box-sizing:border-box; font-size:14px; background:#333; color:white;">
                 
-                <div style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:20px; font-size:13px; color:#bbb; line-height:1.5;">
+                <div style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:20px; font-size:13.5px; color:#bbb; line-height:1.5; border-left: 4px solid #1DB954;">
                     <p style="margin-top:0; margin-bottom:10px;"><strong style="color:#1DB954;">📷 Fotos:</strong> Enlace a tu álbum (Google Photos, Drive, iCloud...).</p>
-                    <p style="margin-top:0; margin-bottom:10px;"><strong style="color:#1DB954;">🎵 Música:</strong> Recomendamos usar enlaces de <strong>YouTube</strong>.</p>
-                    <p style="margin:0; font-size:12px; color:#ff6b6b; font-weight:bold;">⚠️ ATENCIÓN: Si usas un enlace de Spotify, quien escanee el llavero debe tener cuenta Premium, o Spotify no le dejará escuchar esa canción exacta.</p>
+                    <p style="margin-top:0; margin-bottom:12px;"><strong style="color:#1DB954;">🎵 Música:</strong> Recomendamos usar enlaces de <strong>YouTube</strong>.</p>
+                    <p style="margin:0; font-size:13px; color:#ff5555; font-weight:bold; line-height:1.4;">⚠️ ATENCIÓN: Si usas un enlace de Spotify, quien escanee el llavero necesitará tener cuenta Premium, o Spotify no le dejará reproducir la canción exacta.</p>
                 </div>
 
-                <button id="btn-guardar" style="background:#1DB954; color:white; padding:15px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; width:100%;">
+                <button id="btn-guardar" style="background:#1DB954; color:white; padding:16px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; width:100%; transition: background 0.3s;">
                     Bloquear y Guardar
                 </button>
             </div>
             
-            <div style="margin-top: 40px; padding: 15px; background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); border-radius: 10px; font-size: 12px; color: #888; line-height: 1.4;">
-                <p style="margin: 0 0 8px 0;">✨ Tecnología NFC realizada por <a href="https://dehesa3d.es" target="_blank" style="color: #1DB954; text-decoration: none; font-weight: bold;">Dehesa3D.es</a></p>
+            <!-- BANNER DE DEHESA3D -->
+            <div style="margin-top: 40px; padding: 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; text-align: center;">
+                <p style="margin: 0 0 10px 0; font-size: 14px;">✨ Tecnología NFC diseñada por <a href="https://dehesa3d.es" target="_blank" style="color: #1DB954; text-decoration: none; font-weight: bold;">Dehesa3D.es</a></p>
+                <p style="margin: 0; font-size: 13px; color: #888; line-height: 1.5;">¿Tienes un negocio, una boda o un evento próximo? Sorprende a tus clientes o invitados con regalos físicos interactivos. Contacta con nosotros y crea un recuerdo imborrable para tu marca.</p>
             </div>
+
         </div>
     `;
 
@@ -88,6 +94,7 @@ function mostrarInterfazDirecta(idRecuerdo, tienda) {
         btn.style.background = "#555";
         btn.disabled = true;
 
+        // Guardado y bloqueo instantáneo
         set(ref(db, 'recuerdos/' + idRecuerdo), {
             targetUrl: url,
             tiendaOrigen: tienda,
