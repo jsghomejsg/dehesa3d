@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithPopup, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 // 1. CONFIGURACIÓN FIREBASE (DEHESA3D)
@@ -18,7 +18,7 @@ const app = initializeApp(firebaseConfig);
 const auth = getAuth(app);
 const db = getDatabase(app);
 
-// 2. CONFIGURACIÓN DE TELEGRAM (Protegida - Vacía por ahora)
+// 2. CONFIGURACIÓN DE TELEGRAM (Protegida)
 const TELEGRAM_TOKEN_PARTE_1 = ""; 
 const TELEGRAM_TOKEN_PARTE_2 = ""; 
 const TELEGRAM_CHAT_ID = "";       
@@ -35,6 +35,13 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const recuerdoRef = ref(db, 'recuerdos/' + id);
+
+    // Procesar el resultado de la redirección de Google en móviles
+    getRedirectResult(auth).then((result) => {
+        // Autenticación completada con éxito
+    }).catch((error) => {
+        console.error("Error en redirect:", error);
+    });
 
     get(recuerdoRef).then((snapshot) => {
         if (snapshot.exists() && snapshot.val().targetUrl) {
@@ -92,14 +99,10 @@ function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
     });
 
     btnLogin.addEventListener('click', () => {
-        btnLogin.innerText = "Abriendo Google...";
+        btnLogin.innerText = "Redirigiendo a Google...";
         const provider = new GoogleAuthProvider();
-        
-        signInWithPopup(auth, provider).catch(err => {
-            btnLogin.innerText = "Iniciar sesión con Google";
-            // Si el móvil bloquea la ventana, saltará este aviso exacto
-            alert("Safari ha bloqueado la ventana. Por favor, pulsa 'Permitir' si te pregunta, o revisa la configuración de tu navegador.");
-        });
+        // Usamos redirección limpia nativa compatible con restricciones móviles
+        signInWithRedirect(auth, provider);
     });
 
     btnGuardar.addEventListener('click', () => {
