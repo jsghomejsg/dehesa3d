@@ -56,7 +56,8 @@ function mostrarInterfazDirecta(idRecuerdo, tienda) {
                 
                 <div style="background:#1a1a1a; padding:15px; border-radius:8px; margin-bottom:20px; font-size:13px; color:#bbb; line-height:1.5;">
                     <p style="margin-top:0; margin-bottom:10px;"><strong style="color:#1DB954;">📷 Fotos:</strong> Enlace a tu álbum (Google Photos, Drive, iCloud...).</p>
-                    <p style="margin:0;"><strong style="color:#1DB954;">🎵 Música:</strong> Recomendamos enlaces de <strong>YouTube</strong>.</p>
+                    <p style="margin-top:0; margin-bottom:10px;"><strong style="color:#1DB954;">🎵 Música:</strong> Recomendamos usar enlaces de <strong>YouTube</strong>.</p>
+                    <p style="margin:0; font-size:12px; color:#ff6b6b; font-weight:bold;">⚠️ ATENCIÓN: Si usas un enlace de Spotify, quien escanee el llavero debe tener cuenta Premium, o Spotify no le dejará escuchar esa canción exacta.</p>
                 </div>
 
                 <button id="btn-guardar" style="background:#1DB954; color:white; padding:15px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; width:100%;">
@@ -87,7 +88,6 @@ function mostrarInterfazDirecta(idRecuerdo, tienda) {
         btn.style.background = "#555";
         btn.disabled = true;
 
-        // Guardado directo en Firebase (lo bloquea al instante)
         set(ref(db, 'recuerdos/' + idRecuerdo), {
             targetUrl: url,
             tiendaOrigen: tienda,
