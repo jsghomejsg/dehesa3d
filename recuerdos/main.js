@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithPopup, browserPopupRedirectResolver, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 // 1. CONFIGURACIÓN FIREBASE (DEHESA3D)
@@ -35,12 +35,6 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     const recuerdoRef = ref(db, 'recuerdos/' + id);
-
-    getRedirectResult(auth).then((result) => {
-        // Autenticación completada con éxito
-    }).catch((error) => {
-        console.error("Error en redirect:", error);
-    });
 
     get(recuerdoRef).then((snapshot) => {
         if (snapshot.exists() && snapshot.val().targetUrl) {
@@ -104,9 +98,14 @@ function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
     });
 
     btnLogin.addEventListener('click', () => {
-        btnLogin.innerText = "Redirigiendo a Google...";
+        btnLogin.innerText = "Autenticando...";
         const provider = new GoogleAuthProvider();
-        signInWithRedirect(auth, provider);
+        
+        // Forzamos el uso del resolvedor optimizado para evitar bloqueos en navegadores móviles estrictos
+        signInWithPopup(auth, provider, browserPopupRedirectResolver).catch((error) => {
+            btnLogin.innerText = "Iniciar sesión con Google";
+            alert("No se pudo completar el acceso: " + error.message);
+        });
     });
 
     btnGuardar.addEventListener('click', () => {
