@@ -36,7 +36,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const recuerdoRef = ref(db, 'recuerdos/' + id);
 
-    // Procesar el resultado de la redirección de Google en móviles
     getRedirectResult(auth).then((result) => {
         // Autenticación completada con éxito
     }).catch((error) => {
@@ -57,8 +56,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
 function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
     document.body.innerHTML = `
-        <div style="max-width:400px; margin: 50px auto; text-align:center; color:white; padding: 20px; font-family: system-ui, -apple-system, sans-serif;">
-            <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 30px;">Vincular Recuerdo</h1>
+        <div style="max-width:400px; margin: 30px auto; text-align:center; color:white; padding: 20px; font-family: system-ui, -apple-system, sans-serif;">
+            <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 25px;">Vincular Recuerdo</h1>
             
             <button id="btn-login" style="background:white; color:black; padding:15px 20px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; width:100%; box-shadow: 0 4px 10px rgba(255,255,255,0.2);">
                 Iniciar sesión con Google
@@ -77,6 +76,12 @@ function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
                 <button id="btn-guardar" style="background:#1DB954; color:white; padding:15px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; width:100%;">
                     Guardar Recuerdo
                 </button>
+            </div>
+
+            <!-- BANNER DE PUBLICIDAD / AUTORÍA DE DEHESA3D -->
+            <div style="margin-top: 40px; padding: 15px; background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); border-radius: 10px; font-size: 12px; color: #888; line-height: 1.4;">
+                <p style="margin: 0 0 8px 0;">✨ Tecnología NFC realizada por <a href="https://dehesa3d.es" target="_blank" style="color: #1DB954; text-decoration: none; font-weight: bold;">Dehesa3D.es</a></p>
+                <p style="margin: 0;">¿Tienes un negocio o tienda? Crea tus propios productos interactivos con nosotros.</p>
             </div>
         </div>
     `;
@@ -101,7 +106,6 @@ function mostrarInterfazConfiguracion(idRecuerdo, tienda) {
     btnLogin.addEventListener('click', () => {
         btnLogin.innerText = "Redirigiendo a Google...";
         const provider = new GoogleAuthProvider();
-        // Usamos redirección limpia nativa compatible con restricciones móviles
         signInWithRedirect(auth, provider);
     });
 
