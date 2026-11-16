@@ -19,7 +19,7 @@ const auth = getAuth(app);
 const db = getDatabase(app);
 
 // 2. LÓGICA PRINCIPAL DEL RECUERDO
-document.addEventListener("DOMContentLoaded", () => {
+document.addEventListener("DOMContentLoaded", async () => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     const tienda = urlParams.get('tienda') || "CaprichoDeAna"; 
@@ -31,16 +31,24 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const recuerdoRef = ref(db, 'recuerdos/' + id);
 
-    // Capturar el resultado de Google al volver de la redirección
-    getRedirectResult(auth).catch((error) => {
-        console.error("Error en redirect de Google:", error);
-    });
+    // Procesar primero el resultado de Google de forma síncrona
+    try {
+        await getRedirectResult(auth);
+    } catch (error) {
+        console.error("Error en redirect:", error);
+    }
 
     get(recuerdoRef).then((snapshot) => {
         if (snapshot.exists() && snapshot.val().targetUrl) {
             window.location.href = snapshot.val().targetUrl;
         } else {
-            mostrarInterfazGoogle(id, tienda);
+            // Comprobar si ya hay usuario activo antes de pintar la interfaz
+            const usuarioActual = auth.currentUser;
+            if (usuarioActual) {
+                mostrarInterfazConfiguracion(id, tienda, usuarioActual);
+            } else {
+                mostrarInterfazGoogle(id, tienda);
+            }
         }
     }).catch((error) => {
         console.error("Error DB:", error);
@@ -53,7 +61,6 @@ function mostrarInterfazGoogle(idRecuerdo, tienda) {
         <div style="max-width:400px; margin: 30px auto; text-align:center; color:white; padding: 20px; font-family: system-ui, -apple-system, sans-serif;">
             <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 25px;">Activa tu Llavero</h1>
             
-            <!-- ÚNICAMENTE BOTÓN DE GOOGLE -->
             <div id="panel-auth" style="background:#222; padding:25px; border-radius:12px; text-align:center;">
                 <p style="margin-top:0; font-size:14px; color:#bbb; margin-bottom:20px;">Inicia sesión con tu cuenta de Google para vincular este llavero de forma segura:</p>
                 
@@ -62,9 +69,28 @@ function mostrarInterfazGoogle(idRecuerdo, tienda) {
                 </button>
             </div>
 
-            <!-- PANEL DE CONFIGURACIÓN DEL ENLACE (Oculto hasta iniciar sesión) -->
-            <div id="panel-config" style="display:none; background:#222; padding:20px; border-radius:12px; text-align:left;">
-                <p id="info-usuario" style="margin-top:0; font-size:12px; color:#1DB954; margin-bottom:15px;"></p>
+            <!-- BANNER DE DEHESA3D -->
+            <div style="margin-top: 40px; padding: 15px; background: rgba(255,255,255,0.05); border: 1px dashed rgba(255,255,255,0.2); border-radius: 10px; font-size: 12px; color: #888; line-height: 1.4;">
+                <p style="margin: 0 0 8px 0;">✨ Tecnología NFC realizada por <a href="https://dehesa3d.es" target="_blank" style="color: #1DB954; text-decoration: none; font-weight: bold;">Dehesa3D.es</a></p>
+                <p style="margin: 0;">¿Tienes un negocio o tienda? Crea tus propios productos interactivos con nosotros.</p>
+            </div>
+        </div>
+    `;
+
+    document.getElementById('btn-google').addEventListener('click', () => {
+        document.getElementById('btn-google').innerText = "Conectando con Google...";
+        const provider = new GoogleAuthProvider();
+        signInWithRedirect(auth, provider);
+    });
+}
+
+function mostrarInterfazConfiguracion(idRecuerdo, tienda, usuario) {
+    document.body.innerHTML = `
+        <div style="max-width:400px; margin: 30px auto; text-align:center; color:white; padding: 20px; font-family: system-ui, -apple-system, sans-serif;">
+            <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 25px;">Activa tu Llavero</h1>
+            
+            <div id="panel-config" style="background:#222; padding:20px; border-radius:12px; text-align:left;">
+                <p id="info-usuario" style="margin-top:0; font-size:12px; color:#1DB954; margin-bottom:15px;">👤 Conectado: ${usuario.email}</p>
                 <p style="margin-top:0; font-size:15px; font-weight:bold; margin-bottom:15px;">Pega aquí el enlace de tu recuerdo:</p>
                 
                 <input type="url" id="input-url" placeholder="https://..." style="width:100%; padding:15px; margin-bottom:15px; border-radius:8px; border:none; box-sizing:border-box; font-size:14px; background:#333; color:white;">
@@ -87,30 +113,8 @@ function mostrarInterfazGoogle(idRecuerdo, tienda) {
         </div>
     `;
 
-    const panelAuth = document.getElementById('panel-auth');
-    const panelConfig = document.getElementById('panel-config');
-    const btnGoogle = document.getElementById('btn-google');
-    const btnGuardar = document.getElementById('btn-guardar');
-    const inputUrl = document.getElementById('input-url');
-    const infoUsuario = document.getElementById('info-usuario');
-
-    onAuthStateChanged(auth, (user) => {
-        if (user) {
-            panelAuth.style.display = 'none';
-            panelConfig.style.display = 'block';
-            infoUsuario.innerText = `👤 Conectado con Google: ${user.email}`;
-        }
-    });
-
-    btnGoogle.addEventListener('click', () => {
-        btnGoogle.innerText = "Conectando con Google...";
-        const provider = new GoogleAuthProvider();
-        signInWithRedirect(auth, provider);
-    });
-
-    btnGuardar.addEventListener('click', () => {
-        let url = inputUrl.value.trim();
-        const usuarioActual = auth.currentUser;
+    document.getElementById('btn-guardar').addEventListener('click', () => {
+        let url = document.getElementById('input-url').value.trim();
         
         if (!url) {
             alert("Por favor, pega un enlace válido.");
@@ -123,8 +127,8 @@ function mostrarInterfazGoogle(idRecuerdo, tienda) {
 
         set(ref(db, 'recuerdos/' + idRecuerdo), {
             targetUrl: url,
-            propietarioUid: usuarioActual ? usuarioActual.uid : "anonimo",
-            email: usuarioActual ? usuarioActual.email : "desconocido",
+            propietarioUid: usuario.uid,
+            email: usuario.email,
             tiendaOrigen: tienda,
             fechaActivacion: new Date().toISOString()
         }).then(() => {
