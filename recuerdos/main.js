@@ -1,5 +1,5 @@
 import { initializeApp } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-app.js";
-import { getAuth, createUserWithEmailAndPassword, signInWithEmailAndPassword, onAuthStateChanged, signOut } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
+import { getAuth, GoogleAuthProvider, signInWithRedirect, getRedirectResult, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-auth.js";
 import { getDatabase, ref, get, set } from "https://www.gstatic.com/firebasejs/10.8.1/firebase-database.js";
 
 // 1. CONFIGURACIÓN FIREBASE (DEHESA3D)
@@ -31,11 +31,16 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const recuerdoRef = ref(db, 'recuerdos/' + id);
 
+    // Capturar el resultado de Google al volver de la redirección
+    getRedirectResult(auth).catch((error) => {
+        console.error("Error en redirect de Google:", error);
+    });
+
     get(recuerdoRef).then((snapshot) => {
         if (snapshot.exists() && snapshot.val().targetUrl) {
             window.location.href = snapshot.val().targetUrl;
         } else {
-            mostrarInterfazRegistroYConfig(id, tienda);
+            mostrarInterfazGoogle(id, tienda);
         }
     }).catch((error) => {
         console.error("Error DB:", error);
@@ -43,24 +48,21 @@ document.addEventListener("DOMContentLoaded", () => {
     });
 });
 
-function mostrarInterfazRegistroYConfig(idRecuerdo, tienda) {
+function mostrarInterfazGoogle(idRecuerdo, tienda) {
     document.body.innerHTML = `
         <div style="max-width:400px; margin: 30px auto; text-align:center; color:white; padding: 20px; font-family: system-ui, -apple-system, sans-serif;">
             <h1 style="color:#1DB954; font-size: 24px; margin-bottom: 25px;">Activa tu Llavero</h1>
             
-            <!-- PANEL DE REGISTRO / ACCESO -->
-            <div id="panel-auth" style="background:#222; padding:20px; border-radius:12px; text-align:left;">
-                <p style="margin-top:0; font-size:14px; color:#bbb; margin-bottom:15px;">🔐 Regístrate con tu email para asociar este llavero a tu cuenta:</p>
+            <!-- BOTÓN DE GOOGLE -->
+            <div id="panel-auth" style="background:#222; padding:25px; border-radius:12px; text-align:center;">
+                <p style="margin-top:0; font-size:14px; color:#bbb; margin-bottom:20px;">Inicia sesión con tu cuenta de Google para vincular este llavero de forma segura:</p>
                 
-                <input type="email" id="input-email" placeholder="Tu correo electrónico" style="width:100%; padding:15px; margin-bottom:12px; border-radius:8px; border:none; box-sizing:border-box; font-size:14px; background:#333; color:white;">
-                <input type="password" id="input-pass" placeholder="Contraseña (mínimo 6 caracteres)" style="width:100%; padding:15px; margin-bottom:15px; border-radius:8px; border:none; box-sizing:border-box; font-size:14px; background:#333; color:white;">
-                
-                <button id="btn-auth" style="background:#1DB954; color:white; padding:15px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; width:100%;">
-                    Continuar y Vincular
+                <button id="btn-google" style="background:white; color:black; padding:15px 20px; border:none; border-radius:30px; font-size:16px; font-weight:bold; cursor:pointer; width:100%; box-shadow: 0 4px 10px rgba(255,255,255,0.2);">
+                    🔵 Iniciar sesión con Google
                 </button>
             </div>
 
-            <!-- PANEL DE CONFIGURACIÓN DEL ENLACE (Oculto hasta registrarse) -->
+            <!-- PANEL DE CONFIGURACIÓN DEL ENLACE (Oculto hasta iniciar sesión) -->
             <div id="panel-config" style="display:none; background:#222; padding:20px; border-radius:12px; text-align:left;">
                 <p id="info-usuario" style="margin-top:0; font-size:12px; color:#1DB954; margin-bottom:15px;"></p>
                 <p style="margin-top:0; font-size:15px; font-weight:bold; margin-bottom:15px;">Pega aquí el enlace de tu recuerdo:</p>
@@ -87,51 +89,25 @@ function mostrarInterfazRegistroYConfig(idRecuerdo, tienda) {
 
     const panelAuth = document.getElementById('panel-auth');
     const panelConfig = document.getElementById('panel-config');
-    const inputEmail = document.getElementById('input-email');
-    const inputPass = document.getElementById('input-pass');
-    const btnAuth = document.getElementById('btn-auth');
+    const btnGoogle = document.getElementById('btn-google');
     const btnGuardar = document.getElementById('btn-guardar');
     const inputUrl = document.getElementById('input-url');
     const infoUsuario = document.getElementById('info-usuario');
 
-    // Comprobar si ya está logueado en esta sesión de navegador
+    // Detectar si el usuario ya inició sesión con Google
     onAuthStateChanged(auth, (user) => {
         if (user) {
             panelAuth.style.display = 'none';
             panelConfig.style.display = 'block';
-            infoUsuario.innerText = `👤 Conectado como: ${user.email}`;
+            infoUsuario.innerText = `👤 Conectado con Google: ${user.email}`;
         }
     });
 
-    // Botón unificado de Registro / Login automático
-    btnAuth.addEventListener('click', () => {
-        const email = inputEmail.value.trim();
-        const pass = inputPass.value.trim();
-
-        if (!email || pass.length < 6) {
-            alert("Por favor, introduce un correo válido y una contraseña de al menos 6 caracteres.");
-            return;
-        }
-
-        btnAuth.innerText = "Procesando...";
-
-        // Intentar registrar al usuario; si ya existe, iniciar sesión
-        createUserWithEmailAndPassword(auth, email, pass)
-            .then((userCredential) => {
-                // Registro exitoso
-            })
-            .catch((error) => {
-                if (error.code === 'auth/email-already-in-use') {
-                    // Si ya existe, loguearlo directamente
-                    return signInWithEmailAndPassword(auth, email, pass);
-                } else {
-                    throw error;
-                }
-            })
-            .catch((err) => {
-                btnAuth.innerText = "Continuar y Vincular";
-                alert("Error: " + err.message);
-            });
+    // Lanzar autenticación por redirección con Google (compatible con móviles)
+    btnGoogle.addEventListener('click', () => {
+        btnGoogle.innerText = "Conectando con Google...";
+        const provider = new GoogleAuthProvider();
+        signInWithRedirect(auth, provider);
     });
 
     btnGuardar.addEventListener('click', () => {
