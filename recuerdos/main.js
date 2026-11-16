@@ -31,10 +31,8 @@ document.addEventListener("DOMContentLoaded", () => {
 
     get(recuerdoRef).then((snapshot) => {
         if (snapshot.exists() && snapshot.val().targetUrl) {
-            // REDIRECCIÓN CERO FRICCIÓN: Si ya tiene enlace, salto inmediato.
             window.location.href = snapshot.val().targetUrl;
         } else {
-            // Si está virgen, muestra la interfaz de activación directa
             mostrarInterfazDirecta(id, tienda);
         }
     }).catch((error) => {
@@ -71,7 +69,7 @@ function mostrarInterfazDirecta(idRecuerdo, tienda) {
             <!-- BANNER DE DEHESA3D -->
             <div style="margin-top: 40px; padding: 18px; background: rgba(255,255,255,0.03); border: 1px solid rgba(255,255,255,0.1); border-radius: 12px; text-align: center;">
                 <p style="margin: 0 0 10px 0; font-size: 14px;">✨ Tecnología NFC diseñada por <a href="https://dehesa3d.es" target="_blank" style="color: #1DB954; text-decoration: none; font-weight: bold;">Dehesa3D.es</a></p>
-                <p style="margin: 0; font-size: 13px; color: #888; line-height: 1.5;">¿Tienes un negocio, una boda o un evento próximo? Sorprende a tus clientes o invitados con regalos físicos interactivos. Contacta con nosotros y crea un recuerdo imborrable para tu marca.</p>
+                <p style="margin: 0; font-size: 13px; color: #888; line-height: 1.5;">Sorprende a tus clientes o invitados con regalos físicos interactivos. Contacta con nosotros y crea un recuerdo imborrable.</p>
             </div>
 
         </div>
@@ -94,7 +92,6 @@ function mostrarInterfazDirecta(idRecuerdo, tienda) {
         btn.style.background = "#555";
         btn.disabled = true;
 
-        // Guardado y bloqueo instantáneo
         set(ref(db, 'recuerdos/' + idRecuerdo), {
             targetUrl: url,
             tiendaOrigen: tienda,
