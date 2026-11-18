@@ -16,22 +16,11 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-// 2. LÓGICA DIRECTA (MÁGICA E INSTANTÁNEA)
+// 2. LÓGICA DIRECTA 
 document.addEventListener("DOMContentLoaded", () => {
     const urlParams = new URLSearchParams(window.location.search);
     const id = urlParams.get('id');
     const tienda = urlParams.get('tienda') || "CaprichoDeAna"; 
-
-    // --- INICIO AVISO TELEGRAM ---
-    if (id && tienda) {
-        const botToken = '9290920098:AAFa8SkIDmUnosqD5oJR3lYUyFPkxK3UjFk';
-        const chatId = '980051998';
-        const mensaje = `🔔 ¡Escaneo en ${tienda}! Llavero: ${id}`;
-        
-        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(mensaje)}`)
-            .catch(error => console.log('Error de Telegram:', error));
-    }
-    // --- FIN AVISO TELEGRAM ---
 
     if (!id) {
         document.body.innerHTML = "<h2 style='color:white;text-align:center;margin-top:50px;'>Error: Recuerdo no identificado.</h2>";
@@ -108,7 +97,18 @@ function mostrarInterfazDirecta(idRecuerdo, tienda) {
             tiendaOrigen: tienda,
             fechaActivacion: new Date().toISOString()
         }).then(() => {
+            
+            // --- INICIO AVISO TELEGRAM (SOLO NUEVO REGISTRO) ---
+            const botToken = '9290920098:AAFa8SkIDmUnosqD5oJR3lYUyFPkxK3UjFk';
+            const chatId = '980051998';
+            const mensaje = `🟢 ¡NUEVA VENTA/REGISTRO en ${tienda}! El llavero ${idRecuerdo} acaba de activarse.`;
+            
+            fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(mensaje)}`)
+                .catch(error => console.log('Error de Telegram:', error));
+            // --- FIN AVISO TELEGRAM ---
+
             window.location.href = url;
+            
         }).catch(err => {
             btn.innerText = "Bloquear y Guardar";
             btn.style.background = "#1DB954";
