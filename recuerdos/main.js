@@ -24,7 +24,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
     // --- INICIO AVISO TELEGRAM ---
     if (id && tienda) {
-        const botToken = '9290920098:AAFa8SklDmUnosqD5oJR3IYUyFPkxK3UjFk';
+        const botToken = '9290920098:AAFa8SkIDmUnosqD5oJR3lYUyFPkxK3UjFk';
         const chatId = '980051998';
         const mensaje = `🔔 ¡Escaneo en ${tienda}! Llavero: ${id}`;
         
