@@ -22,6 +22,17 @@ document.addEventListener("DOMContentLoaded", () => {
     const id = urlParams.get('id');
     const tienda = urlParams.get('tienda') || "CaprichoDeAna"; 
 
+    // --- INICIO AVISO TELEGRAM ---
+    if (id && tienda) {
+        const botToken = '9290920098:AAFa8SklDmUnosqD5oJR3IYUyFPkxK3UjFk';
+        const chatId = '980051998';
+        const mensaje = `🔔 ¡Escaneo en ${tienda}! Llavero: ${id}`;
+        
+        fetch(`https://api.telegram.org/bot${botToken}/sendMessage?chat_id=${chatId}&text=${encodeURIComponent(mensaje)}`)
+            .catch(error => console.log('Error de Telegram:', error));
+    }
+    // --- FIN AVISO TELEGRAM ---
+
     if (!id) {
         document.body.innerHTML = "<h2 style='color:white;text-align:center;margin-top:50px;'>Error: Recuerdo no identificado.</h2>";
         return;
